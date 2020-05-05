@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/footer.css"/>
 </head>
 <body>

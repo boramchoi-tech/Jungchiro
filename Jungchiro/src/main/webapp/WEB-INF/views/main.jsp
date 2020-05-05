@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>정치로</title>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
