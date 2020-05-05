@@ -5,21 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-	*{
-		paddin: 0;
-		margin: 0;
-	}
-	
-	#footer {
-		background-color: skyblue;
-		height: 200px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="/poli/resources/css/footer.css"/>
 </head>
 <body>
 	<div id="footer">
-		<h1>footer</h1>
+		
+		<div id="footer_inner">
+		
+			<div id="footer_about">
+				About Us<br><br>
+			</div>
+			
+			<div id="footer_contact">
+				Contact Us<br><br>
+			</div>
+			
+			<div id="footer_help">
+				Help<br>
+				챗봇 QR코드<br>
+				후원
+			</div>
+			
+			<div id="footer_copyright">
+				copyright (c) 2020 qclass final 2조 | All Rights Reserved.
+			</div>
+			
+		</div>
 	</div>
 </body>
 </html>

@@ -1,0 +1,29 @@
+*{
+	paddin: 0;
+	margin: 0;
+}
+	
+#footer {
+	background-color: #2c2c2c;
+	height: 300px;
+}
+	
+#footer_inner {
+	width: 80%;
+	margin: 0 auto;
+	color: #ffffff;
+	/* border: 1px solid red; */
+}
+	
+#footer_about, #footer_contact, #footer_help {
+	margin-top: 30px;
+	width: 30%;
+	/* border: 1px dotted blue; */
+	display: inline-block;
+	height: 200px;
+}
+
+#footer_copyright {
+	height: 80%;
+	margin: 0 auto;
+}
