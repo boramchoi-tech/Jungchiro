@@ -5,27 +5,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-	*{
-		paddin: 0;
-		margin: 0;
-	}
-	
-	#header {
-		height: 200px;
-	}
-	
-	#header_logo {
-		width: 80%;
-		margin:0 auto;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
 </head>
 <body>
+
 	<div id="header">
 		<div id="header_logo">
-			<img src="/poli/resources/images/logo.png" style="height:50px;">
+			<a href="/poli/main.do"><img src="/poli/resources/images/logo.png" style="height: 80px;"></a>		
 		</div>
+	
+		<div id="header_menu">
+			뉴스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			지도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			자유게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			채팅
+		</div>
+		
+		<div id="header_role">
+			로그인
+			 / 
+			관리자 페이지
+			 / 
+			마이 페이지
+		</div>
+		
+		<div id="header_search">
+			검색창
+		</div>
+		
 	</div>
 </body>
 </html>

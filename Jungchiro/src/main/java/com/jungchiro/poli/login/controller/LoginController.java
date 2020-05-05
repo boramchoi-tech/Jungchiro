@@ -29,7 +29,6 @@ public class LoginController {
 		if (loginDto != null) {
 			System.out.println("로그인 성공");
 			session.setAttribute("loginSession", loginDto);
-			System.out.println("테스트");
 			
 			return "main";
 		} else {
