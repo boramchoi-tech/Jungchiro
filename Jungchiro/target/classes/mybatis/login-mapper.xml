@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="loginDto">
+
+<resultMap type="loginDto" id="loginMap">
+	<result property="member_seq" column="MEMBER_SEQ"/>
+	<result property="member_id" column="MEMBER_ID"/>
+	<result property="member_pw" column="MEMBER_PW"/>
+	<result property="member_name" column="MEMBER_NAME"/>
+	<result property="member_email" column="MEMBER_EMAIL"/>
+	<result property="member_sns" column="MEMBER_SNS"/>
+	<result property="member_enable" column="MEMBER_ENABLE"/>
+	<result property="member_role" column="MEMBER_ROLE"/>
+</resultMap>
+
+<select id="login" resultMap="loginMap">
+	SELECT MEMBER_ID, MEMBER_NAME, MEMBER_SNS FROM MEMBER
+	WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
+</select>
+
+</mapper>
