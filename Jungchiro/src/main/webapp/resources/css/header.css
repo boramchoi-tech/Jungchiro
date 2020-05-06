@@ -6,6 +6,11 @@
 	margin: 0;
 }
 
+a, a:link, a:hover, a:visited, a:active {
+	text-decoration: none;
+	color: #ffffff;
+}
+
 .nanum{ 
 	font-family: 'NanumSquare';
 }
@@ -53,4 +58,82 @@
 	border: 1px dotted black;
 	height: 40px;
 	float: right;
+}
+
+.pop-layer .pop-container {
+  padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+  color: #666;
+  line-height: 25px;
+}
+
+.pop-layer .btn-r {
+  width: 100%;
+  margin: 10px 0 20px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.pop-layer {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 410px;
+  height: auto;
+  background-color: #fff;
+  border: 10px solid #007eff;
+  z-index: 10;
+}
+
+.login-layer {
+  display: none;
+  position: fixed;
+  _position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.login-layer .login-Bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+
+.login-layer .pop-layer {
+  display: block;
+}
+
+a.btn-layerClose, a.btn-regist {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #007eff;
+  background-color: #007eff;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+}
+
+.popup {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#loginButton {
+	background-color: #007eff;
+	border: none;
+    padding: 15px 0;
+    text-align: center;
+    color: #ffffff;
 }
