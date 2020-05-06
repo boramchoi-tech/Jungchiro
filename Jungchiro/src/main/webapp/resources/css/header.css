@@ -88,7 +88,7 @@ a, a:link, a:hover, a:visited, a:active {
   z-index: 10;
 }
 
-.login-layer {
+.login-layer, .regist-layer{
   display: none;
   position: fixed;
   _position: absolute;
@@ -99,7 +99,7 @@ a, a:link, a:hover, a:visited, a:active {
   z-index: 100;
 }
 
-.login-layer .login-Bg {
+.login-layer .login-Bg, .regist-layer .regist-Bg{
   position: absolute;
   top: 0;
   left: 0;
@@ -110,7 +110,7 @@ a, a:link, a:hover, a:visited, a:active {
   filter: alpha(opacity=50);
 }
 
-.login-layer .pop-layer {
+.login-layer .pop-layer, .regist-layer .pop-layer{
   display: block;
 }
 
@@ -136,4 +136,8 @@ a.btn-layerClose, a.btn-regist {
     padding: 15px 0;
     text-align: center;
     color: #ffffff;
+}
+
+#loginChk {
+	text-align: center;
 }
