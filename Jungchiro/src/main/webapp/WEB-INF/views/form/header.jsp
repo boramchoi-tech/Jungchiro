@@ -10,7 +10,7 @@
 <body>
 
 	<div id="role" class="nanum">
-		<a href="#layer2" class="btn-example">로그인</a>
+		<a href="#login" class="login-btn">로그인</a>
 		 / 
 		관리자 페이지
 		 / 
@@ -36,13 +36,102 @@
 		채팅
 	</div>
 	
+	<div class="login-layer">
+		<div class="login-Bg"></div>
+		
+		<div id="login" class="pop-layer">
+			<div class="pop-container">
+				<div class="pop-conts">
+					<table border="1">
+						<tr>
+							<td>아이디</td>
+							<td><input type="text" id="member_id" name="member_id"></td>
+						</tr>
+						<tr>
+							<td>비밀번호</td>
+							<td><input type="password" id="member_pw" name="member_pw"></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="button" value="&nbsp;로그인&nbsp;" onclick="login();">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="center" id="loginChk"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+		$('.login-btn').click(function(){
+		    var $href = $(this).attr('href');
+		    console.log($href);
+		    layer_popup($href);
+		});
+		
+		function layer_popup(href) {
+			var $href = $(href);
+			var isBg = $href.prev().hasClass('login-Bg');
+			
+			isBg ? $('.login-layer').fadeIn() : $href.fadeIn();
+			
+		    var $elWidth = ~~($href.outerWidth()), $elHeight = ~~($href.outerHeight()), docWidth = $(document).width(), docHeight = $(document).height();
+		    
+		    // 화면 가운데에 로그인 창 띄우기
+		    if ($elHeight < docHeight || $elWidth < docWidth) {
+		    	$href.css({
+		    		marginTop: -$elHeight/2, 
+		    		marginLeft: -$elWidth/2
+		    	});
+		    } else {
+		    	$el.css({top: 0, left: 0});
+		    }
+		    
+		    // 닫기 버튼 클릭 시
+		    $href.find('a.close-btn').click(function() {
+		    	isBg ? $('.login-layer').fadeOut() : $href.fadeOut();
+		    	return false;
+		    });
+		    
+		    // 회원가입
+		    
+		}
+		
+	</script>
+	
+	<!-- 
 	<div class="dim-layer">
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">
         <div class="pop-container">
             <div class="pop-conts">
+            <table>
+		<tr>
+			<th>ID</th>
+			<td><input type="text" id="member_id"></td>
+		</tr>
+		<tr>
+			<th>PW</th>
+			<td><input type="password" id="member_pw"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" value="로그인" onclick="login();">
+				<input type="button" value="regist" onclick="regist();">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" id="loginchk"></td>
+		</tr>
+	</table> -->
+	
                 <!--content //-->
-     <form action="login.do" method="post" id="formbg">
+     <!-- <form action="login.do" method="post" id="formbg">
 		<input type="hidden" name="command" value="login">
 		<table style="width: 100%;">
 			<col width="100"/>
@@ -61,22 +150,65 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</form> -->
 
-                <div class="btn-r">
+<!--                 <div class="btn-r">
                     <a href="#" class="btn-layerClose">Close</a>
                 </div>
-                <!--// content-->
+                // content
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+</div> -->
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 <script type="text/javascript">
 $('.btn-example').click(function(){
     var $href = $(this).attr('href');
     layer_popup($href);
 });
+
+$(function(){
+
+function login() {
+	var member_id = $("#member_id").val().trim();
+	var member_pw = $("#member_pw").val().trim();
+	console.log(member_id + "/" + member_pw);
+	
+	if (member_id == null || member_id == "" || member_pw == null || member_pw == "") {
+		alert ("ID와 PW를 다시 확인해 주세요")
+		$("#member_id").focus();
+	} else {
+		var loginVal = {
+				"member_id" : member_id,
+				"member_pw" : member_pw
+		}
+		
+		$.ajax({
+			type: 'POST',
+			url: 'login.do',
+			data: JSON.stringify(loginVal),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function(msg) {
+				
+				if (msg.check == true) {
+					location.href='main.do';
+				} else {
+					$('#loginchk').show();
+					$('#loginchk').html('ID 또는 PW가 잘못되었습니다').css('color','red');
+				}
+				
+			}, error: function(msg) {
+				alert('통신 실패');
+			}
+		})
+		
+	}
+	
+}
+
+}); */
+
 function layer_popup(el){
 
     var $el = $(el);        //레이어의 id를 $el 변수에 저장
@@ -118,6 +250,6 @@ function layer_popup(el){
     });
 
 }
-</script>
+</script> -->
 </body>
 </html>

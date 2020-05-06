@@ -166,6 +166,21 @@
 		    <artifactId>spring-orm</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- json으로 바꾸는거 도와줌 -->
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-core-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+		<dependency>
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-mapper-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency>
 		   
 	</dependencies>
 	

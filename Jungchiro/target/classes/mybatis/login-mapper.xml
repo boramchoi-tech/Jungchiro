@@ -15,7 +15,7 @@
 
 <select id="login" resultMap="loginMap">
 	SELECT MEMBER_ID, MEMBER_NAME, MEMBER_SNS FROM MEMBER
-	WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
+	WHERE MEMBER_ID = #{memberid} AND MEMBER_PW = #{memberpw}
 </select>
 
 </mapper>
