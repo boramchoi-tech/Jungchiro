@@ -14,15 +14,16 @@ public class LoginDaoImpl implements LoginDao {
 
 	@Override
 	public LoginDto selectMember(LoginDto dto) {
-		
-		LoginDto loginDto = new LoginDto();
+
+		LoginDto login = new LoginDto();
+
 		try {
-			loginDto = sqlSession.selectOne(NAMESPACE + "login", dto);
+			login = sqlSession.selectOne(NAMESPACE + "login", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return loginDto;
+		return login;
 	}
 
 	@Override

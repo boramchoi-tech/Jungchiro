@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jungchiro.poli.login.model.biz.LoginBiz;
@@ -21,10 +23,11 @@ public class LoginController {
 		return "main";
 	}
 
-	//@RequestMapping("/login.do")
-	public String loginCheck(HttpSession session, Model model, String member_id, String member_pw) {
-		LoginDto loginDto = new LoginDto(member_id, member_pw);
-		loginDto = biz.selectMember(loginDto);
+	@RequestMapping("/login.do")
+	public String loginCheck(HttpSession session, Model model, LoginDto dto) {
+		/*
+		LoginDto loginDto = biz.selectMember(dto);
+		System.out.println(loginDto);
 		
 		if (loginDto != null) {
 			System.out.println("로그인 성공");
@@ -35,6 +38,7 @@ public class LoginController {
 			System.out.println("실패");
 			
 			return "main";
-		}
+		}*/
+		return "main";
 	}
 }

@@ -14,7 +14,6 @@ public class LoginBizImpl implements LoginBiz {
 
 	@Override
 	public LoginDto selectMember(LoginDto dto) {
-		System.out.println("biz//" + dto);
 		return dao.selectMember(dto);
 	}
 
