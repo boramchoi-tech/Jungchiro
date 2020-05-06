@@ -17,7 +17,7 @@ public class LoginDto {
 		this.member_id = member_id;
 		this.member_pw = member_pw;
 	}
-
+	
 	public LoginDto(int member_seq, String member_id, String member_pw, String member_name, String member_email,
 			String member_sns, String member_enable, String member_role) {
 		this.member_seq = member_seq;

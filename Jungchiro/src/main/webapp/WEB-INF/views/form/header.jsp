@@ -7,6 +7,51 @@
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
 </head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+
+	function login() {
+		var member_id = $("#member_id").val().trim();
+		var member_pw = $("#member_pw").val().trim();
+		
+		if (member_id == null || member_id == "" || member_pw == null || member_pw == "") {
+			alert ("ID와 PW를 다시 확인해 주세요")
+			$("#member_id").focus();
+			
+		} else {
+			
+			var loginVal = {
+					"member_id":member_id,
+					"member_pw":member_pw
+			}
+			
+			$.ajax({
+				type: "post",
+				url: "/poli/login.do",
+				data: JSON.stringify(loginVal),
+				contentType: "application/json",
+				dataType: "json",
+				success: function(msg) {
+					
+					if (msg.loginCheck == true) {
+						alert('로그인 성공');
+						
+					} else {
+						$('#loginChk').show();
+						$('#loginChk').html('ID 또는 PW가 잘못되었습니다').css('color','red');
+					}
+					
+				}, error: function(msg) {
+					alert('통신 실패');
+				}
+				
+			});
+			
+		}
+		
+	}
+	
+</script>
 <body>
 
 	<div id="role" class="nanum">
@@ -66,7 +111,10 @@
 		
 	</div>
 	
+
+<!-- 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	
 	<script type="text/javascript">
 		$('.login-btn').click(function(){
 		    var $href = $(this).attr('href');
@@ -80,16 +128,19 @@
 			
 			isBg ? $('.login-layer').fadeIn() : $href.fadeIn();
 			
-		    var $elWidth = ~~($href.outerWidth()), $elHeight = ~~($href.outerHeight()), docWidth = $(document).width(), docHeight = $(document).height();
+		    var $elWidth = ~~($href.outerWidth()),
+		    	$elHeight = ~~($href.outerHeight()),
+		    	docWidth = $(document).width(),
+		    	docHeight = $(document).height();
 		    
 		    // 화면 가운데에 로그인 창 띄우기
 		    if ($elHeight < docHeight || $elWidth < docWidth) {
 		    	$href.css({
-		    		marginTop: -$elHeight/2, 
+		    		marginTop: -$elHeight/2,
 		    		marginLeft: -$elWidth/2
 		    	});
 		    } else {
-		    	$el.css({top: 0, left: 0});
+		    	$href.css({top: 0, left: 0});
 		    }
 		    
 		    // 닫기 버튼 클릭 시
@@ -100,11 +151,17 @@
 		    
 		    // 회원가입
 		    
+		    // 로그인 폼이 아닌 곳을 눌렀을 경우 로그인 폼이 꺼짐
+		    $('.login-layer .login-Bg').click(function() {
+		    	$('.login-layer').fadeOut();
+		    	return false;
+		    });
+		    
 		}
 		
 	</script>
 	
-	<!-- 
+	
 	<div class="dim-layer">
     <div class="dimBg"></div>
     <div id="layer2" class="pop-layer">
@@ -128,10 +185,10 @@
 		<tr>
 			<td colspan="2" align="center" id="loginchk"></td>
 		</tr>
-	</table> -->
+	</table>
 	
-                <!--content //-->
-     <!-- <form action="login.do" method="post" id="formbg">
+                content //
+     <form action="login.do" method="post" id="formbg">
 		<input type="hidden" name="command" value="login">
 		<table style="width: 100%;">
 			<col width="100"/>
@@ -150,17 +207,17 @@
 				</td>
 			</tr>
 		</table>
-	</form> -->
+	</form>
 
-<!--                 <div class="btn-r">
+                <div class="btn-r">
                     <a href="#" class="btn-layerClose">Close</a>
                 </div>
                 // content
             </div>
         </div>
     </div>
-</div> -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 <script type="text/javascript">
 $('.btn-example').click(function(){
     var $href = $(this).attr('href');

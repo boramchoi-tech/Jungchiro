@@ -28,7 +28,7 @@ public class LoginController {
 		return "main";
 	}
 
-	@RequestMapping(value="/login.do", method=RequestMethod.POST)
+	@RequestMapping(value="/login.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Map<String, Boolean> loginCheck(HttpSession session, @RequestBody LoginDto dto) {
 		LoginDto loginDto = biz.selectMember(dto);
@@ -43,21 +43,5 @@ public class LoginController {
 		map.put("loginCheck", loginCheck);
 		
 		return map;
-		
-		//model.addAttribute(biz.selectMember(dto));
-		/*
-		LoginDto loginDto = biz.selectMember(dto);
-		System.out.println(loginDto);
-		
-		if (loginDto != null) {
-			System.out.println("로그인 성공");
-			session.setAttribute("loginSession", loginDto);
-			
-			return "main";
-		} else {
-			System.out.println("실패");
-			
-			return "main";
-		}*/
 	}
 }
