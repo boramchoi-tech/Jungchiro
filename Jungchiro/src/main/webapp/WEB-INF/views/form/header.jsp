@@ -59,9 +59,9 @@
 					
 					<!-- SNS 로그인 합치면 바꿀 곳 -->
 					<div class="btn-r">
-						<a href="#" class="btn-regist">NAVER</a>
-						<a href="#" class="btn-regist">KAKAO</a>
-						<a href="#" class="btn-regist">GOOGLE</a>
+						<a href="#" class="btn-naver">NAVER</a>
+						<a href="#" class="btn-kakao">KAKAO</a>
+						<a href="#" class="btn-google">GOOGLE</a>
 					</div>
 					
 					<div class="btn-r">

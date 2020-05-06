@@ -125,6 +125,39 @@ a.btn-layerClose, a.btn-regist {
   line-height: 25px;
 }
 
+a.btn-naver {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #19ce60;
+  background-color: #19ce60;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 25px;
+}
+
+a.btn-kakao {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #fae100;
+  background-color: #fae100;
+  font-size: 13px;
+  color: #3b1e1e;
+  line-height: 25px;
+}
+
+a.btn-google {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #ea4335;
+  background-color: #ea4335;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 25px;
+}
+
 .popup {
 	margin: 0 auto;
 	text-align: center;
