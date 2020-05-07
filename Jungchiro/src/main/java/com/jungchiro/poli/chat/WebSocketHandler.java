@@ -3,7 +3,6 @@ package com.jungchiro.poli.chat;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -11,6 +10,15 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 public class WebSocketHandler extends TextWebSocketHandler {
 	
+    // 접속한 유저들의 목록을 담기 위한 Map 선언
+    // ConcurrentHashMap은 Hashtable과 유사하지만 멀티스래드 환경에서 더 안전하다
+    /*
+        ConcurrentHashMap에 대한 설명(반드시 읽고 숙지)
+
+  https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentHashMap.html
+  http://blog.leekyoungil.com/?p=159
+  http://limkydev.tistory.com/64
+    */
     private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
     @Override
@@ -63,6 +71,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     private void log(String logmsg) {
         System.out.println(new Date() + " : " + logmsg);
     }
+
 
 
 }
