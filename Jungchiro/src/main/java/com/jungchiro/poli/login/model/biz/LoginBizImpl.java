@@ -19,7 +19,6 @@ public class LoginBizImpl implements LoginBiz {
 
 	@Override
 	public LoginDto insertMember(LoginDto dto) {
-		System.out.println("biz//" + dto);
 		return dao.insertMember(dto);
 	}
 
