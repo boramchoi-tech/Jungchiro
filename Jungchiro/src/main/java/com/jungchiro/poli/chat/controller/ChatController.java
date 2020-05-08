@@ -23,6 +23,7 @@ public class ChatController {
 	
 	@RequestMapping("/chatlist.do")
 	public String main() {
+		
 		return "chat/chatlist";
 	}
 	

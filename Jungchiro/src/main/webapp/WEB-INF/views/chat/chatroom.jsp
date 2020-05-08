@@ -107,9 +107,9 @@
     			
     			<c:otherwise>
     				<c:forEach items="${chatMessage }" var="chatMessage">
-    					보낸 시각 : ${chatMessage.message_time }
+    					보낸 시각 : ${chatMessage.message_time }<br>
     					${chatMessage.member_seq }님의 말 : ${chatMessage.message_content }
-    					<br>
+    					<br><br>
     				</c:forEach>
     			</c:otherwise>
     		</c:choose>

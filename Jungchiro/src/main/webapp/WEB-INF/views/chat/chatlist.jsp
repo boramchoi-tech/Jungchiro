@@ -10,7 +10,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
 	
-		<a>채팅방 만들기</a>
+		채팅방 만들기
 		
 		<div class="create-room">
 			<form action="/poli/createroom.do" method="post">
@@ -26,9 +26,17 @@
 				<input type="submit" value="만들기">
 			</form>
 			
-			<a href="/poli/enterroom.do?chat_seq=1">채팅방 입장</a>
+			<a href="/poli/enterroom.do?chat_seq=${loginDto.member_seq }" class="enterroom">${loginDto.member_seq }번 채팅방 입장</a>
 		</div>
-	
+
 	<%@ include file="/WEB-INF/views/form/footer.jsp" %>
+
+<script type="text/javascript">
+	$('.enterroom').click(function() {
+		var $href = $(this).attr('href');
+		window.open($href, "팝업이름", "팝업 옵션");
+	});
+</script>
+
 </body>
 </html>
