@@ -25,6 +25,8 @@
 				<br>
 				<input type="submit" value="만들기">
 			</form>
+			
+			<a href="/poli/enterroom.do?chat_seq=1">채팅방 입장</a>
 		</div>
 	
 	<%@ include file="/WEB-INF/views/form/footer.jsp" %>

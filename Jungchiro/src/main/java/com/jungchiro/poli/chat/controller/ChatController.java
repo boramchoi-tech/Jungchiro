@@ -35,12 +35,18 @@ public class ChatController {
 			
 		} else {
 			System.out.println("채팅방 번호 : " + chat_seq);
-			
-			List<MessageDto> chatMessage = messageBiz.selectAll(chat_seq);
 			model.addAttribute("chat_seq", chat_seq);
-			model.addAttribute("chatMessage", chatMessage);
+
 		}
 
+		return "chat/chatroom";
+	}
+	
+	@RequestMapping("/enterroom.do")
+	public String enterRoom(Model model, int chat_seq) {
+		List<MessageDto> chatMessage = messageBiz.selectAll(chat_seq);
+		model.addAttribute("chat_seq", chat_seq);
+		model.addAttribute("chatMessage", chatMessage);
 		return "chat/chatroom";
 	}
 

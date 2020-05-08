@@ -5,12 +5,14 @@
 	<typeAliases>
 		<typeAlias type="com.jungchiro.poli.login.model.dto.LoginDto" alias="loginDto"/>
 		<typeAlias type="com.jungchiro.poli.chat.model.dto.ChatDto" alias="chatDto"/>
+		<typeAlias type="com.jungchiro.poli.chat.model.dto.MessageDto" alias="messageDto"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/mybatis/login-mapper.xml"/>
 		<mapper resource="/mybatis/regist-mapper.xml"/>
 		<mapper resource="/mybatis/chat-mapper.xml"/>
+		<mapper resource="/mybatis/message-mapper.xml"/>
 	</mappers>
 
 </configuration>

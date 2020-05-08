@@ -31,10 +31,16 @@
         appendMessage("연결되었습니다.");
     }
     
+	 // 이는 서버로부터 메세지가 도착했을 때 호출 
     function onMessage(evt) {
         var data = evt.data;
+        if (data.substring(0, 4) == "msg:") {
+            appendMessage(data.substring(4));
+        }
     }
     
+    // WebSocket 인터페이스의 연결상태가 readyState 에서 CLOSED 로 바뀌었을 때 호출 이벤트 리스너.
+    // 이 이벤트 리스너는 "close"라는 이름의 CloseEvent를 받는다.
     function onClose(evt) {
         appendMessage("연결을 끊었습니다.");
     }
@@ -93,8 +99,7 @@
     <input type="button" id="exitBtn" value="나가기">
     
     <h1>대화 영역</h1>
-    <div id="chatArea">
-    	<div id="chatMessageArea">
+    
     		<c:choose>
     			<c:when test="${empty chatMessage }">
     				채팅방을 생성하였습니다.
@@ -104,11 +109,12 @@
     				<c:forEach items="${chatMessage }" var="chatMessage">
     					보낸 시각 : ${chatMessage.message_time }
     					${chatMessage.member_seq }님의 말 : ${chatMessage.message_content }
+    					<br>
     				</c:forEach>
     			</c:otherwise>
     		</c:choose>
-    	</div>
-    </div>
+    		
+    <div id="chatArea"><div id="chatMessageArea"></div></div>
     <br/>
     <input type="text" id="message">
     <input type="button" id="sendBtn" value="전송">

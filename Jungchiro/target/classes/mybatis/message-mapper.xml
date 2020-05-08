@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="message">
+	<resultMap type="messageDto" id="messageMap">
+		<result property="message_seq" column="MESSAGE_SEQ"/>
+		<result property="chat_seq" column="CHAT_SEQ"/>
+		<result property="member_seq" column="MEMBER_SEQ"/>
+		<result property="message_content" column="MESSAGE_CONTENT"/>
+		<result property="message_time" column="MESSAGE_TIME"/>
+		<result property="message_report" column="MESSAGE_REPORT"/>
+	</resultMap>
 	
+	<select id="selectAll" parameterType="map" resultType="messageDto">
+		SELECT * FROM MESSAGE
+		WHERE CHAT_SEQ = #{chat_seq}
+	</select>
 	
 </mapper>
