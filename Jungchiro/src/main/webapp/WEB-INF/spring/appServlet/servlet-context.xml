@@ -29,7 +29,7 @@
 	<beans:bean id="chatHandler" class="com.jungchiro.poli.chat.WebSocketHandler"/>
     
 	<websocket:handlers>
-		<websocket:mapping handler="chatHandler" path="/chatws"/>
+		<websocket:mapping handler="chatHandler" path="/chatws.do"/>
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>

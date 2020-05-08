@@ -22,8 +22,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
 
     @Override
-    public void afterConnectionEstablished(
-            WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
         // session에서 id를 가져와서 로그에 남긴다(없어도 되는 과정)
         log(session.getId() + " 연결 됨");
@@ -34,8 +33,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionClosed(
-            WebSocketSession session, CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         log(session.getId() + " 연결 종료됨");
 
         // map에서 세션에서 연결 종료된 유저를 없애는 이유는
@@ -44,8 +42,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     }
     
     @Override
-    protected void handleTextMessage(
-            WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         log(session.getId() + "로부터 메시지 수신: " + message.getPayload());
 
         // 클라이언트로부터 메세지를 받으면 동작하는 handleTextMessage 함수!
@@ -63,8 +60,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    public void handleTransportError(
-            WebSocketSession session, Throwable exception) throws Exception {
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         log(session.getId() + " 익셉션 발생: " + exception.getMessage());
     }
 
