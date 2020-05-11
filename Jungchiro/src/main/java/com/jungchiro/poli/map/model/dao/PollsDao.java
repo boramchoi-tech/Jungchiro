@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.stereotype.Repository;
 
 import com.jungchiro.poli.map.model.dto.PollsDto;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 
 
 @Repository
@@ -17,6 +15,7 @@ public class PollsDao {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+
 	
 	//내 주변 5km이내 투표소 리스트
 	public List<PollsDto> findByLocationNear(double lat, double lng){

@@ -12,5 +12,6 @@
 		<constructor-arg ref="mongo"/>
 		<constructor-arg name="databaseName" value="news"/>
 	</bean>
+	
 
 </beans>
