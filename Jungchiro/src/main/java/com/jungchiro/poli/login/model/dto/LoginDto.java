@@ -13,9 +13,20 @@ public class LoginDto {
 	
 	public LoginDto() {}
 	
+	public LoginDto(String member_email) {
+		this.member_email = member_email;
+	}
+	
 	public LoginDto(String member_id, String member_pw) {
 		this.member_id = member_id;
 		this.member_pw = member_pw;
+	}
+	
+	public LoginDto(String member_id, String member_pw, String member_name, String member_email) {
+		this.member_id = member_id;
+		this.member_pw = member_pw;
+		this.member_name = member_name;
+		this.member_email = member_email;
 	}
 	
 	public LoginDto(int member_seq, String member_id, String member_pw, String member_name, String member_email,

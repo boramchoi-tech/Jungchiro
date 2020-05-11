@@ -6,6 +6,10 @@
 	margin: 0;
 }
 
+a, a:link, a:hover, a:visited, a:active {
+	text-decoration: none;
+}
+
 .nanum{ 
 	font-family: 'NanumSquare';
 }
@@ -53,4 +57,147 @@
 	border: 1px dotted black;
 	height: 40px;
 	float: right;
+}
+
+.pop-layer .pop-container {
+  padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+  color: #666;
+  line-height: 25px;
+}
+
+.pop-layer .btn-r {
+  width: 100%;
+  margin: 10px 0 20px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.pop-layer {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 410px;
+  height: auto;
+  background-color: #fff;
+  border: 10px solid #007eff;
+  z-index: 10;
+}
+
+.login-layer, .regist-layer{
+  display: none;
+  position: fixed;
+  _position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.login-layer .login-Bg, .regist-layer .regist-Bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+
+.login-layer .pop-layer, .regist-layer .pop-layer{
+  display: block;
+}
+
+a.btn-layerClose, a.btn-regist {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #007eff;
+  background-color: #007eff;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+}
+
+a.btn-naver {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #19ce60;
+  background-color: #19ce60;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 25px;
+}
+
+a.btn-kakao {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #fae100;
+  background-color: #fae100;
+  font-size: 13px;
+  color: #3b1e1e;
+  line-height: 25px;
+}
+
+a.btn-google {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #ea4335;
+  background-color: #ea4335;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 25px;
+}
+
+.popup {
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'NanumSquare';
+	font-size: 0.9em;
+}
+
+#loginButton {
+	background-color: #007eff;
+	border: none;
+    padding: 15px 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+#loginChk {
+	text-align: center;
+}
+
+.pop-conts #registForm th {
+	font-weight: normal;
+}
+
+.pop-conts #registForm td {
+	vertical-align: top;
+	text-align: left;
+}
+
+#registForm input {
+	height: 25px;
+	border: 0px;
+	background-color: #eeeeee;
+}
+
+.btn0 {
+  display: inline-block;
+  height: 27px;
+  padding: 0 14px 0;
+  border: 1px solid #007eff;
+  background-color: #007eff;
+  font-size: 13px;
+  color: #fff;
+  line-height: 27px;
 }
