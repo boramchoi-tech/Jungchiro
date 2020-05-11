@@ -8,7 +8,6 @@
 
 a, a:link, a:hover, a:visited, a:active {
 	text-decoration: none;
-	color: #ffffff;
 }
 
 .nanum{ 
@@ -161,6 +160,8 @@ a.btn-google {
 .popup {
 	margin: 0 auto;
 	text-align: center;
+	font-family: 'NanumSquare';
+	font-size: 0.9em;
 }
 
 #loginButton {
@@ -173,4 +174,30 @@ a.btn-google {
 
 #loginChk {
 	text-align: center;
+}
+
+.pop-conts #registForm th {
+	font-weight: normal;
+}
+
+.pop-conts #registForm td {
+	vertical-align: top;
+	text-align: left;
+}
+
+#registForm input {
+	height: 25px;
+	border: 0px;
+	background-color: #eeeeee;
+}
+
+.btn0 {
+  display: inline-block;
+  height: 27px;
+  padding: 0 14px 0;
+  border: 1px solid #007eff;
+  background-color: #007eff;
+  font-size: 13px;
+  color: #fff;
+  line-height: 27px;
 }
