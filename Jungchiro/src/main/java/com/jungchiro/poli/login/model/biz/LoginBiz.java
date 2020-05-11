@@ -6,5 +6,5 @@ public interface LoginBiz {
 	
 	public LoginDto selectMember(LoginDto dto);
 	public LoginDto insertMember(LoginDto dto);
-
+	
 }
