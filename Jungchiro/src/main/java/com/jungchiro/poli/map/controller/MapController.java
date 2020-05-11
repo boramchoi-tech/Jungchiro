@@ -19,7 +19,8 @@ public class MapController {
 	public String map() {
 		return "map/map";
 	}
-	/*
+	
+	
 	@RequestMapping("/poll.do")
 	public String poll() {
 		
@@ -31,5 +32,5 @@ public class MapController {
 		
 		return "";
 	}
-	*/
+	
 }

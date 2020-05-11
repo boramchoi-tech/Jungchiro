@@ -15,11 +15,10 @@ import com.mongodb.client.MongoClients;
 @Repository
 public class PollsDao {
 
-	//private MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
-	//private MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "final");
 	
-	/*
 	public List<PollsDto> findByLocationNear(){
 		double lat = 126.8622572;
 		double longt = 37.50989181;
@@ -30,5 +29,5 @@ public class PollsDao {
 	         
 		return list;
 	}
-	*/
+	
 }
