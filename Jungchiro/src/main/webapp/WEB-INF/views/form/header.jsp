@@ -146,7 +146,11 @@
 			</div>
 		</div>
 		
+		
 	</div>
+	
+	<!-- 여백 -->
+	<div style="height: 50px;"></div>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>

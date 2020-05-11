@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jungchiro.poli.chat.model.biz.ChatCreateBiz;
+import com.jungchiro.poli.chat.model.biz.ChatListBiz;
 import com.jungchiro.poli.chat.model.biz.MessageBiz;
 import com.jungchiro.poli.chat.model.dto.ChatDto;
 import com.jungchiro.poli.chat.model.dto.MessageDto;
@@ -22,10 +23,15 @@ public class ChatController {
 	private ChatCreateBiz biz;
 	
 	@Autowired
+	private ChatListBiz chatBiz;
+	
+	@Autowired
 	private MessageBiz messageBiz;
 	
 	@RequestMapping("/chatlist.do")
-	public String main() {
+	public String chatlist(ChatDto dto) {
+		ChatDto chatlist = chatBiz.selectChatList(dto.getMember_seq());
+
 		return "chat/chatlist";
 	}
 	
