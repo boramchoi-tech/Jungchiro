@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="sessionLogin" value="${sessionScope.loginDto }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +12,19 @@
 <body>
 
 	<div id="role" class="nanum">
-		<a href="#login" class="login-btn">로그인</a>
-		 / 
-		관리자 페이지
-		 / 
-		마이 페이지
+		<c:if test="${!empty loginDto }">
+			${loginDto.member_name }님 안녕하세요
+			마이 페이지
+			<a href="/poli/logout.do" class="login-btn">로그아웃</a>
+		</c:if>
+		
+		<c:if test="${empty loginDto }">
+			<a href="#login" class="login-btn">로그인</a>
+		</c:if>
+
+		<c:if test="${loginDto.member_role eq 'Y' }">
+			관리자 페이지
+		</c:if>
 		&nbsp;&nbsp;
 	</div>
 
@@ -33,7 +43,7 @@
 		지도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		자유게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/poli/chatlist.do">채팅</a>
+		<a href="/poli/chatlist.do?seq=${loginDto.member_seq}">채팅</a>
 	</div>
 	
 	<div class="login-layer">
@@ -136,7 +146,11 @@
 			</div>
 		</div>
 		
+		
 	</div>
+	
+	<!-- 여백 -->
+	<div style="height: 50px;"></div>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
@@ -231,7 +245,7 @@
 			    ajax.success(function(msg){
 			    	if (msg.loginCheck == true) {
 						$('.login-layer').fadeOut();		//로그인 성공
-						
+						location.reload();
 					} else {
 						$('#loginChk').show();
 						$('#loginChk').html('아이디 또는 패스워드를 확인해 주세요').css('color','red');

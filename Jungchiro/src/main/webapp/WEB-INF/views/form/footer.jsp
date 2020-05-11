@@ -8,6 +8,9 @@
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/footer.css"/>
 </head>
 <body>
+	<!-- 여백 -->
+	<div style="height: 50px;"></div>
+	
 	<div id="footer">
 		
 		<div id="footer_inner">

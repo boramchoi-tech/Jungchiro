@@ -11,9 +11,10 @@
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
 	
 		채팅방 만들기
-		
+
 		<div class="create-room">
 			<form action="/poli/createroom.do" method="post">
+				<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
 				채팅방 이름: <input type="text" name="chat_name"><br>
 				카테고리: 
 				<select name="chat_category">
@@ -25,8 +26,41 @@
 				<br>
 				<input type="submit" value="만들기">
 			</form>
+		</div>
+		
+		<div class="chat-list">
+
+			<table border="1">
+				<c:choose>
+				
+					<c:when test="${empty chatlist }">
+						<tr>
+						<td colspan="4">---참여 중인 채팅방이 존재하지 않습니다---</td>
+						</tr>
+					</c:when>
+					
+					<c:otherwise>
+					
+						<c:forEach items="${chatlist }" var="chatlist">
+							<tr>
+								<td>
+									<!-- 1: 의안 / 2: 시사 / 3: 이슈 / 4: 기타 -->
+									${chatlist.chat_category }
+								</td>
+								<td>
+									<a href="/poli/enterroom.do?chat_seq=${chatlist.seq }" class="enterroom">
+										${chatlist.chat_name }
+									</a>
+								</td>
+							</tr>
+							
+						</c:forEach>
+						
+					</c:otherwise>
+					
+				</c:choose>
+			</table>
 			
-			<a href="/poli/enterroom.do?chat_seq=${loginDto.member_seq }" class="enterroom">${loginDto.member_seq }번 채팅방 입장</a>
 		</div>
 
 	<%@ include file="/WEB-INF/views/form/footer.jsp" %>

@@ -16,5 +16,10 @@ public class ChatCreateBizImpl implements ChatCreateBiz {
 	public int createRoom(ChatDto dto) {
 		return dao.createRoom(dto);
 	}
+	
+	@Override
+	public int createChatList(int member_seq, int chat_seq) {
+		return dao.createChatList(member_seq, chat_seq);
+	}
 
 }
