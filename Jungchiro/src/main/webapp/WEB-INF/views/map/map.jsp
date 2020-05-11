@@ -13,6 +13,9 @@
 	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
 	crossorigin=""></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js "></script>
+<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
+<script type="text/javascript" src="/poli/resources/js/barchart.js"></script>
+<link rel="stylesheet" type="text/css" href="/poli/resources/css/barchart.css"/>
 <style>
 #map {
 	height: 600px;
@@ -34,7 +37,9 @@ img{
 	width: 60px;
 	height: 60px;
 }
+
 .leaflet-popup-content { width:600px !important; }
+.poll .leaflet-popup-content-wrapper{width:340px;}
 #v-pre .v-pre-tbl{width:100%;table-layout:auto;line-height:1.25 ; border-radius: 10px;}
 #v-pre thead{background-color:rgba(0,0,0,.7);color:#fff;}
 #v-pre tbody{max-height:220px;overflow-y:auto;background-color:#fff}
@@ -45,9 +50,9 @@ img{
 <body>
 <div id="map"></div>
 	<script type="text/javascript">
-
-		var map = L.map("map", {zoomControl: false, scrollWheelZoom: false}).setView(
-				[ 37.526299749225679, 127.058673592883977 ], 11);
+		//{zoomControl: false, scrollWheelZoom: false} 
+		var map = L.map("map").setView(
+				[ 37.526299749225679, 127.058673592883977 ], 12);
 
 		
 				L.tileLayer(
@@ -114,9 +119,60 @@ img{
 				
 				// 클릭했을 때 확대 및 팝업창 열기
 				function zoomToFeature(e) {
-				   // map.fitBounds(e.target.getBounds());//확대
+				   //map.fitBounds(e.target.getBounds());//확대
+				   
+				   //투표소 아이콘 커스텀
+					var voteIcon = L.icon({
+						iconUrl: '/poli/resources/images/vote.png',
+						iconSize:     [18, 18], // size of the icon
+						iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+						popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+					})
+				   	//ajax로 근방 5km 투표소 보여주기
+		 			var ajax = new ComAjax();
+		 			ajax.url("/poli/poll.do");
+		 			
+		 			var latlng = {
+		 					"lat" : e.latlng.lat,
+		 					"lng" : e.latlng.lng
+		 			}
+		 			//현재위치 ajax 파라미터로 보내기
+		 			ajax.param(latlng);
+					
+		 			ajax.success(function(data,msg){
+		 				//투표소 마커 찍기
+		 				$.each(data, function(index,val){
+		 					var lat = data[index].location.coordinates[1];
+		 					var lng = data[index].location.coordinates[0];
+		 					var marker = L.marker([lat, lng], {icon: voteIcon}).addTo(map);
+		 					
+		 					var popupContent = "<b>"+data[index].pollname + "</b><br/>"
+		 					                  +data[index].name + "<br/>"
+		 					                  +data[index].addr;
+		 					var customOptions = {
+		 				    	'className': "poll"
+		 				    };
+		 					
+		 					marker.bindPopup(popupContent, customOptions);
+		 					//hover할 때 팝업창 열리게
+		 			        marker.on('mouseover', function (e) {
+		 			            this.openPopup();
+		 			        });
+		 			        marker.on('mouseout', function (e) {
+		 			            this.closePopup();
+		 			        });
+
+	
+		 				})
+		 				
+	 					
+		 			})
+		 			
+		 			ajax.call();
+		 			
 				    var layer = e.target;
 				    var popup = L.popup();
+				    //구별 국회의원 정보 가져오기
 				    var title, party, name, kor_name, image, gender, age, VoterTurnOut;
 				    var clist = new Array;
 				    $.getJSON("/poli/resources/json/congress.json", function(json) {
@@ -172,12 +228,7 @@ img{
 						  ')
 				        .openOn(map);
 				    	
-				    });
-				    
-		 	
-				    
-				    
-				    
+				    });	    
 				}
 				
 				function onEachFeature(feature, layer) {
@@ -211,8 +262,21 @@ img{
 
 		info.addTo(map);
 		
+		var graph = L.control({position : 'bottomleft'});
+		//투표율 그래프 생성
+		graph.onAdd = function (map) {
+		    this._div = L.DomUtil.create('div', 'container'); 
+		    this.update();
+		    return this._div;
+		};
+		graph.update = function (props) {
+		    this._div.innerHTML = '<div class="myprogress"><div class="pro-bar"></div></div><b>21대 총선 투표율</b>';
+		};
+
+		graph.addTo(map);
+		
 		//현재 위치 표시(geolocation)
-		map.locate({setView: true, maxZoom: 11});
+		map.locate({setView: true, maxZoom: 13});
 		
 		//현재 위치 아이콘 커스텀
 		var redIcon = L.icon({
@@ -226,10 +290,7 @@ img{
 		function onLocationFound(e) {
 		    var radius = e.accuracy;
 
-		    L.marker(e.latlng, {icon: redIcon}).addTo(map)
-		        //.bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-		    //L.circle(e.latlng, radius).addTo(map);
+		    L.marker(e.latlng, {icon: redIcon}).addTo(map);
 		}
 
 		map.on('locationfound', onLocationFound);

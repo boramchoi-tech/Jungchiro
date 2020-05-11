@@ -18,12 +18,11 @@ public class PollsDao {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-	
-	public List<PollsDto> findByLocationNear(){
-		double lat = 126.8622572;
-		double longt = 37.50989181;
-		double maxlength = 2/6378.1; //변수로 안넣고 query에 바로 넣으면 invalid json number 오류남
-		BasicQuery query1 = new BasicQuery("{location:{ $geoWithin: {  $centerSphere: [["+ lat +","+ longt+"], "+ maxlength +" ] } } }");
+	//내 주변 5km이내 투표소 리스트
+	public List<PollsDto> findByLocationNear(double lat, double lng){
+
+		double maxlength = 5/6378.1; //변수로 안넣고 query에 바로 넣으면 invalid json number 오류남
+		BasicQuery query1 = new BasicQuery("{location:{ $geoWithin: {  $centerSphere: [["+ lat +","+ lng+"], "+ maxlength +" ] } } }");
 
         List<PollsDto> list = mongoTemplate.find(query1, PollsDto.class,"polls");
 	         
