@@ -1568,6 +1568,8 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
   Kakao.init('154da91b1676d4f0b5c67cacc565cd84');
 </script>
 
+<%@ include file="/WEB-INF/views/form/header.jsp" %>
+
 	<div class="popular-articles">
 		<header class="popular-header header-card white-underline-links">
 			<h2 class="header-card-title">
@@ -1875,6 +1877,8 @@ $(function(){
 }); 
  
 </script>
+
+<%@ include file="/WEB-INF/views/form/footer.jsp" %>
 
 </body>
 </html>
