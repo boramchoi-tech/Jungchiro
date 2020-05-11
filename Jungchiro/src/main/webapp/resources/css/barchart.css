@@ -1,0 +1,86 @@
+.container {
+  width: 500px;
+  margin: 180px auto 0;
+}
+
+.myprogress {
+  position: relative;
+  height: 20px;
+  background-color: #ecf0f1;
+  border: 1px solid #ccc;
+  margin-top: 60px;
+}
+
+/* default styling for progress bar */
+.myprogress .pro-bar {
+  width: 50%;
+  height: 100%;
+  background-color: #16a085;
+}
+
+.myprogress:nth-child(1) .pro-bar {
+  width: 66.2%;
+}
+.myprogress:nth-child(2) .pro-bar {
+  width: 70%;
+}
+.myprogress:nth-child(3) .pro-bar {
+  width: 90%;
+}
+
+/* 
+
+* The section below is for making that black box floating over the progress bar
+
+* below we have the default styling.
+
+*/
+.myprogress::before {
+  position: absolute;
+  content: "66.2%";
+  font-size: 14px;
+  font-family: arial;
+  text-align: center;
+  padding: 10px;
+  background: #000;
+  top: -51px;
+  left: 300px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.myprogress:nth-child(1)::before {
+  content: "66.2%";
+  left: 300px;
+}
+.myprogress:nth-child(2)::before {
+  content: "70%";
+  left: 322px;
+}
+.myprogress:nth-child(3)::before {
+  content: "90%";
+  left: 422px;
+}
+
+/* The section below is for making that down arrow */
+.myprogress::after {
+  position: absolute;
+  content: "";
+  height: 10px;
+  background: rgba(255, 0, 0, 0);
+  top: -15px;
+  left: 320px;
+  border-left: 6px solid rgba(255, 0, 0, 0);
+  border-right: 6px solid rgba(255, 0, 0, 0);
+  border-top: 6px solid #000;
+}
+
+.myprogress:nth-child(1)::after {
+  left: 320px;
+}
+.myprogress:nth-child(2)::after {
+  left: 341px;
+}
+.myprogress:nth-child(3)::after {
+  left: 441px;
+}

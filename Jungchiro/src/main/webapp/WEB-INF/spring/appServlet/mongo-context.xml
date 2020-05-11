@@ -13,5 +13,4 @@
 		<constructor-arg name="databaseName" value="news"/>
 	</bean>
 
-
 </beans>

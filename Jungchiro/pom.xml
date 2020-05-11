@@ -181,6 +181,20 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.10.4</version>
 		</dependency>
+		<!-- mongodb 연결  -->
+		<!-- mongodb.com>docs>dava edition>3.11.2>mongodb driver section>installation guide -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
+			<version>3.11.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>2.2.6.RELEASE</version>
+		</dependency>
+		   
 		
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
