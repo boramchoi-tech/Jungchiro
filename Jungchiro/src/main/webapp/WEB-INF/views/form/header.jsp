@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="sessionLogin" value="${sessionScope.loginDto }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,13 @@
 <body>
 
 	<div id="role" class="nanum">
-		<a href="#login" class="login-btn">로그인</a>
+		<c:if test="${!empty loginDto }">
+			<a href="/poli/logout.do" class="login-btn">로그아웃</a>
+		</c:if>
+		
+		<c:if test="${empty loginDto }">
+			<a href="#login" class="login-btn">로그인</a>
+		</c:if>
 		 / 
 		관리자 페이지
 		 / 
@@ -231,7 +239,7 @@
 			    ajax.success(function(msg){
 			    	if (msg.loginCheck == true) {
 						$('.login-layer').fadeOut();		//로그인 성공
-						
+						location.reload();
 					} else {
 						$('#loginChk').show();
 						$('#loginChk').html('아이디 또는 패스워드를 확인해 주세요').css('color','red');

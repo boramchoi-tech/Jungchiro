@@ -3,6 +3,7 @@ package com.jungchiro.poli.login.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class LoginController {
 	
 	@RequestMapping("/main.do")
 	public String main() {
+		return "main";
+	}
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		return "main";
 	}
 

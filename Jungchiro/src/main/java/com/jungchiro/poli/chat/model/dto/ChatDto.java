@@ -8,7 +8,7 @@ public class ChatDto {
 	private String chat_name;
 	private String chat_category;
 	private Date chat_makeday;
-	
+
 	private int member_seq;
 	private Date member_chat_outtime;
 
