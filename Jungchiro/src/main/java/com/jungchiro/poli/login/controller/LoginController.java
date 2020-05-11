@@ -33,7 +33,7 @@ public class LoginController {
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "main";
+		return "redirect:main.do";
 	}
 
 	@RequestMapping(value="/login.do", method= {RequestMethod.POST, RequestMethod.GET})

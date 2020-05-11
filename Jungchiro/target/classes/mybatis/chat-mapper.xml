@@ -9,7 +9,11 @@
 			SELECT CHAT_SEQ.CURRVAL as CHAT_SEQ from dual
 		</selectKey>
 	</insert>
-	
+
+	<insert id="insertChatList" parameterType="int">
+		INSERT INTO MEMBER_CHAT VALUES(#{member_seq}, #{chat_seq}, SYSDATE)
+	</insert>
+
 	<select id="selectChatList" parameterType="int">
 		SELECT A.CHAT_SEQ, A.CHAT_NAME, A.CHAT_CATEGORY, A.CHAT_MAKEDAY, B.MEMBER_SEQ, B.MEMBER_CHAT_OUTTIME FROM CHAT A, MEMBER_CHAT B
 		WHERE

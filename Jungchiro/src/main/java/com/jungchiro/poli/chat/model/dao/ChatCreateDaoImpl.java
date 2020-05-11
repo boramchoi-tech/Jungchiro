@@ -16,10 +16,18 @@ public class ChatCreateDaoImpl implements ChatCreateDao {
 	public int createRoom(ChatDto dto) {
 		ChatDto chatDto = new ChatDto(dto.getChat_name(), dto.getChat_category());
 		sqlSession.insert(NAMESPACE + "createRoom", chatDto);
-		System.out.println(chatDto.getChat_seq() +"/"+ chatDto.getChat_name() +"/"+ chatDto.getChat_category() +"/"+ chatDto.getChat_makeday());
-		
+
 		//만든 채팅방 번호 보내기
 		return chatDto.getChat_seq();
+	}
+	
+	@Override
+	public int createChatList(int member_seq, int chat_seq) {
+		ChatDto createChatDto = new ChatDto(member_seq, chat_seq);
+		int res = sqlSession.insert(NAMESPACE + "insertChatList", createChatDto);
+		
+		//MEMBER_CHAT DB에 insert한 결과
+		return res;
 	}
 
 }

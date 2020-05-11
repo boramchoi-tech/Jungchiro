@@ -13,16 +13,18 @@
 
 	<div id="role" class="nanum">
 		<c:if test="${!empty loginDto }">
+			${loginDto.member_name }님 안녕하세요
+			마이 페이지
 			<a href="/poli/logout.do" class="login-btn">로그아웃</a>
 		</c:if>
 		
 		<c:if test="${empty loginDto }">
 			<a href="#login" class="login-btn">로그인</a>
 		</c:if>
-		 / 
-		관리자 페이지
-		 / 
-		마이 페이지
+
+		<c:if test="${loginDto.member_role eq 'Y' }">
+			관리자 페이지
+		</c:if>
 		&nbsp;&nbsp;
 	</div>
 
@@ -41,7 +43,7 @@
 		지도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		자유게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/poli/chatlist.do">채팅</a>
+		<a href="/poli/chatlist.do?seq=${loginDto.member_seq}">채팅</a>
 	</div>
 	
 	<div class="login-layer">

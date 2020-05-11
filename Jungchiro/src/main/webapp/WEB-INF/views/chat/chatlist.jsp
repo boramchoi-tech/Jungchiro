@@ -11,9 +11,11 @@
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
 	
 		채팅방 만들기
+		회원 번호 : ${loginDto.member_seq }
 		
 		<div class="create-room">
 			<form action="/poli/createroom.do" method="post">
+				<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
 				채팅방 이름: <input type="text" name="chat_name"><br>
 				카테고리: 
 				<select name="chat_category">
