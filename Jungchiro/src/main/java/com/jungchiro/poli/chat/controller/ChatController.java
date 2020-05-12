@@ -1,20 +1,26 @@
 package com.jungchiro.poli.chat.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jungchiro.poli.chat.model.biz.ChatCreateBiz;
 import com.jungchiro.poli.chat.model.biz.ChatListBiz;
 import com.jungchiro.poli.chat.model.biz.MessageBiz;
 import com.jungchiro.poli.chat.model.dto.ChatDto;
 import com.jungchiro.poli.chat.model.dto.MessageDto;
+import com.jungchiro.poli.login.model.dto.LoginDto;
 
 @Controller
 public class ChatController {
@@ -28,12 +34,30 @@ public class ChatController {
 	@Autowired
 	private MessageBiz messageBiz;
 	
-	@RequestMapping("/chatlist.do")
-	public String chatlist(ChatDto dto) {
-		ChatDto chatlist = chatBiz.selectChatList(dto.getMember_seq());
-
-		return "chat/chatlist";
+	@RequestMapping(value="/chatlist.do", method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Integer> chatlist(ChatDto dto, Model model) {
+		List<ChatDto> chatlist = chatBiz.selectChatList();
+		model.addAttribute("member_seq", dto.getMember_seq());
+		model.addAttribute("chatlist", chatlist);
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put();
+		
+		return map;
 	}
+	
+	
+	/*
+	 * public Map<String, Integer> idCheck(@RequestBody LoginDto dto) {
+	 * int res =
+	 * biz.idChk(dto.getMember_id());
+	 * 
+	 * Map<String, Integer> map = new HashMap<String, Integer>(); map.put("idChk",
+	 * res);
+	 * 
+	 * return map; }
+	 */
 	
 	@RequestMapping("/createroom.do")
 	public String createRoom(ChatDto dto, Model model) {				//chat_name, chat_category

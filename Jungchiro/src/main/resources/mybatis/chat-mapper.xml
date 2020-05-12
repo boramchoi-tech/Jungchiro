@@ -14,12 +14,19 @@
 		INSERT INTO MEMBER_CHAT VALUES(#{member_seq}, #{chat_seq}, SYSDATE)
 	</insert>
 
-	<select id="selectChatList" parameterType="int">
+	<select id="myChatList" parameterType="int" resultType="chatDto">
 		SELECT A.CHAT_SEQ, A.CHAT_NAME, A.CHAT_CATEGORY, A.CHAT_MAKEDAY, B.MEMBER_SEQ, B.MEMBER_CHAT_OUTTIME FROM CHAT A, MEMBER_CHAT B
 		WHERE
 			A.CHAT_SEQ = B.CHAT_SEQ
 		AND MEMBER_SEQ = #{member_seq}
-		ORDER BY B.MEMBER_CHAT_OUTTIME DESC;
+		ORDER BY B.MEMBER_CHAT_OUTTIME DESC
+	</select>
+	
+	<select id="selectChatList" parameterType="int" resultType="chatDto">
+		SELECT A.CHAT_SEQ, A.CHAT_NAME, A.CHAT_CATEGORY, A.CHAT_MAKEDAY, B.MEMBER_SEQ, B.MEMBER_CHAT_OUTTIME FROM CHAT A, MEMBER_CHAT B
+		WHERE
+			A.CHAT_SEQ = B.CHAT_SEQ
+		ORDER BY B.MEMBER_CHAT_OUTTIME DESC
 	</select>
 
 </mapper>

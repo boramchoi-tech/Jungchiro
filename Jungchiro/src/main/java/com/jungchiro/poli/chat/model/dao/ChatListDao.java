@@ -1,11 +1,14 @@
 package com.jungchiro.poli.chat.model.dao;
 
+import java.util.List;
+
 import com.jungchiro.poli.chat.model.dto.ChatDto;
 
 public interface ChatListDao {
 	
-	String NAMESPACE = "chatlist.";
+	String NAMESPACE = "chat.";
 	
-	public ChatDto selectChatList(int member_seq);
+	public List<ChatDto> selectChatList();
+	public List<ChatDto> myChatList(int member_seq);
 
 }
