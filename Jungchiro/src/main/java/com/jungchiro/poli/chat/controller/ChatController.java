@@ -42,7 +42,6 @@ public class ChatController {
 		model.addAttribute("chatlist", chatlist);
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put();
 		
 		return map;
 	}
