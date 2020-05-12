@@ -18,7 +18,7 @@
 	$(function() {
 		$('#searchBtn').click(
 				function() {
-					self.location = "boardlist.do" + '${pageMake.makeQuery(1)}'
+					self.location = "/poli/boardlist.do" + '${pageMake.makeQuery(1)}'
 							+ "&searchType="
 							+ $("select option:selected").val() + "&keyword="
 							+ encodeURIComponent($('#keywordInput').val());
@@ -89,7 +89,7 @@ li {
 							<td>${board.board_seq}</td>
 							<td>test</td>
 							<td><a
-								href="boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
+								href="/poli/boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
 								style="color: black">${board.board_title}</a></td>
 							<td>${board.board_category}</td>
 							<td><fmt:formatDate value="${board.board_date }"
@@ -102,7 +102,7 @@ li {
 		<tfoot>
 			<tr>
 				<td colspan="5" align="right"><input type="button" value="글쓰기"
-					onclick="location.href='boardinsertform.do'"></td>
+					onclick="location.href='/poli/boardinsertform.do'"></td>
 			</tr>
 
 			<tr>
@@ -110,18 +110,18 @@ li {
 					<ul>
 						<c:if test="${pageMake.prev}">
 							<li><a style="color: black"
-								href="boardlist.do${pageMake.makeSearch(pageMake.startPage - 1)}">이전</a></li>
+								href="/poli/boardlist.do${pageMake.makeSearch(pageMake.startPage - 1)}">이전</a></li>
 						</c:if>
 
 						<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
 							var="idx">
 							<li><a style="color: black"
-								href="boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
+								href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
 						</c:forEach>
 
 						<c:if test="${pageMake.next && pageMake.endPage > 0}">
 							<li><a style="color: black"
-								href="boardlist.do${pageMake.makeSearch(pageMake.endPage + 1)}">다음</a></li>
+								href="/poli/boardlist.do${pageMake.makeSearch(pageMake.endPage + 1)}">다음</a></li>
 						</c:if>
 					</ul>
 				</td>

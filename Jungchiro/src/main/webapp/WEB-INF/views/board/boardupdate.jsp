@@ -21,7 +21,7 @@
 
 
 	<h1>글 수정</h1>
-	<form action="boardupdateres.do" method="post">
+	<form action="/poli/boardupdateres.do" method="post">
 		<input type="hidden" name="board_seq" value="${board.board_seq}">
 
 		<table border="1">
@@ -50,7 +50,7 @@
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="수정">
 					<input type="button" value="취소"
-					onclick="location.href='boarddetail.do??board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+					onclick="location.href='/poli/boarddetail.do??board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
 			</tr>
 		</table>
 	</form>

@@ -101,7 +101,7 @@
 
 		$.ajax({
 			type : 'POST',
-			url : "/replyinsert.do",
+			url : "/poli/replyinsert.do",
 			data : {
 				board_seq : board_seq,
 				reply_content : reply_content
@@ -125,7 +125,7 @@
 
 		$.ajax({
 			type : "POST",
-			url : "/replydelete.do",
+			url : "/poli/replydelete.do",
 			data : {
 				board_seq : board_seq,
 				reply_seq : reply_seq
@@ -163,7 +163,7 @@
 
 		$.ajax({
 			type : "POST",
-			url : "/replyupdate.do",
+			url : "/poli/replyupdate.do",
 			data : {
 				board_seq : board_seq,
 				reply_seq : reply_seq,
@@ -221,11 +221,11 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="right"><input type="button" value="수정"
-				onclick="location.href='boardupdateform.do?board_seq=${board.board_seq}'">
+				onclick="location.href='/poli/boardupdateform.do?board_seq=${board.board_seq}'">
 				<input type="button" value="삭제"
-				onclick="location.href='boarddelete.do?board_seq=${board.board_seq}'" />
+				onclick="location.href='/poli/boarddelete.do?board_seq=${board.board_seq}'" />
 				<input type="button" value="글 목록"
-				onclick="location.href ='boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+				onclick="location.href ='/poli/boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
 		</tr>
 	</table>
 
@@ -236,7 +236,7 @@
 		<!-- end :: ajax 댓글 리스트 -->
 
 		<!-- start :: 댓글 달기 -->
-		<form action="/replyinsert.do" method="post" id="replySubmit">
+		<form action="/poli/replyinsert.do" method="post" id="replySubmit">
 			<input type="hidden" name="board_seq" value="${board.board_seq }" />
 			<div>
 				<textarea cols="50" rows="5" name="reply_content"
