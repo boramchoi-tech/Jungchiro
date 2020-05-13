@@ -19,7 +19,7 @@ public class BoardBizImpl implements BoardBiz {
 	@Override
 	public List<BoardDto> boardList(SearchDto search) {
 		// TODO Auto-generated method stub
-		
+
 		return dao.boardList(search);
 	}
 

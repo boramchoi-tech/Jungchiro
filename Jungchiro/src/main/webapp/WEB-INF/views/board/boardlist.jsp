@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +17,8 @@
 	$(function() {
 		$('#searchBtn').click(
 				function() {
-					self.location = "/poli/boardlist.do" + '${pageMake.makeQuery(1)}'
-							+ "&searchType="
+					self.location = "/poli/boardlist.do"
+							+ '${pageMake.makeQuery(1)}' + "&searchType="
 							+ $("select option:selected").val() + "&keyword="
 							+ encodeURIComponent($('#keywordInput').val());
 				});
@@ -42,7 +41,8 @@ li {
 	<div class="search">
 		<select name="searchType">
 			<option value="n"
-				<c:out value="${search.searchType == null ? 'selected' : ''}"/>>검색 필터</option>
+				<c:out value="${search.searchType == null ? 'selected' : ''}"/>>검색
+				필터</option>
 			<option value="t"
 				<c:out value="${search.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
 			<option value="c"
@@ -73,6 +73,7 @@ li {
 				<th>제목</th>
 				<th>카테고리</th>
 				<th>작성일</th>
+				<th>조회수</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -92,8 +93,7 @@ li {
 								href="/poli/boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
 								style="color: black">${board.board_title}</a></td>
 							<td>${board.board_category}</td>
-							<td><fmt:formatDate value="${board.board_date }"
-									pattern="YYYY/MM/dd" type="date" /></td>
+							<td>${board.board_date }</td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>

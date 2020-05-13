@@ -1,6 +1,6 @@
 package com.jungchiro.poli.reply.model.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ReplyDto {
 	
