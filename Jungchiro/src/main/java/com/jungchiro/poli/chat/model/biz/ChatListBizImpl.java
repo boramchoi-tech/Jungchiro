@@ -13,6 +13,11 @@ public class ChatListBizImpl implements ChatListBiz {
 	
 	@Autowired
 	private ChatListDao dao;
+	
+	@Override
+	public int totalCount() {
+		return dao.totalCount();
+	}
 
 	@Override
 	public List<ChatDto> selectChatList() {
@@ -20,8 +25,8 @@ public class ChatListBizImpl implements ChatListBiz {
 	}
 	
 	@Override
-	public List<ChatDto> myChatList(int member_seq) {
-		return dao.myChatList(member_seq);
+	public List<ChatDto> selectChatList(int member_seq) {
+		return dao.selectChatList(member_seq);
 	}
 
 }
