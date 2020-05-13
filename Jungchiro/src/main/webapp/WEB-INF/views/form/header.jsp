@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+=======
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="sessionLogin" value="${sessionScope.loginDto }"></c:set>
+>>>>>>> f717ed5b24f2b9ba278f1057a20733cccf8c4eb7
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,11 +101,12 @@
 	</div>
 	
 	<div id="header_menu" class="nanum">
-		뉴스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		지도&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+	    <a href="/poli/news.do">뉴스</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/poli/map.do">지도</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		자유게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/poli/chatlist.do">채팅</a>
+		<a href="/poli/boardlist.do?page=1">자유게시판</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/poli/chat.do?member_seq=${loginDto.member_seq }">채팅</a>
 	</div>
 	
 	<div class="login-layer">
@@ -203,7 +209,11 @@
 			</div>
 		</div>
 		
+		
 	</div>
+	
+	<!-- 여백 -->
+	<div style="height: 50px;"></div>
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
@@ -298,7 +308,7 @@
 			    ajax.success(function(msg){
 			    	if (msg.loginCheck == true) {
 						$('.login-layer').fadeOut();		//로그인 성공
-						
+						location.reload();
 					} else {
 						$('#loginChk').show();
 						$('#loginChk').html('아이디 또는 패스워드를 확인해 주세요').css('color','red');

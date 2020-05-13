@@ -14,7 +14,7 @@
 </resultMap>
 
 <select id="login" parameterType="loginDto" resultType="loginDto">
-	SELECT MEMBER_ID, MEMBER_NAME, MEMBER_SNS FROM MEMBER
+	SELECT MEMBER_SEQ, MEMBER_ID, MEMBER_NAME, MEMBER_SNS, MEMBER_ROLE FROM MEMBER
 	WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
 </select>
 
