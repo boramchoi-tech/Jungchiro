@@ -28,7 +28,7 @@ public class BoardController {
 	@Autowired
 	private BoardBiz biz;
 
-	@RequestMapping("/poli/boardlist.do")
+	@RequestMapping("/boardlist.do")
 	public String selectlist(Model model, HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("search") SearchDto search) {
 
@@ -45,7 +45,7 @@ public class BoardController {
 		return "board/boardlist";
 	}
 
-	@RequestMapping("/poli/boarddetail.do")
+	@RequestMapping("/boarddetail.do")
 	public String selectOne(Model model, int board_seq, @ModelAttribute("search") SearchDto search) {
 
 		logger.info("DETAIL");
@@ -56,7 +56,7 @@ public class BoardController {
 		return "board/boarddetail";
 	}
 
-	@RequestMapping("/poli/boardinsertform.do")
+	@RequestMapping("/boardinsertform.do")
 	public String insert() {
 
 		logger.info("INSERTFORM");
@@ -64,7 +64,7 @@ public class BoardController {
 		return "board/boardinsert";
 	}
 
-	@RequestMapping(value = "/poli/boardinsertres.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/boardinsertres.do", method = RequestMethod.POST)
 	public String insertRes(BoardDto board) {
 		logger.info("INSERTRES");
 		int res = biz.boardInsert(board);
@@ -77,7 +77,7 @@ public class BoardController {
 
 	}
 
-	@RequestMapping("/poli/boardupdateform.do")
+	@RequestMapping("/boardupdateform.do")
 	public String updateForm(Model model, int board_seq) {
 
 		logger.info("UPDATEFORM");
@@ -87,7 +87,7 @@ public class BoardController {
 		return "board/boardupdate";
 	}
 
-	@RequestMapping(value = "/poli/boardupdateres.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/boardupdateres.do", method = RequestMethod.POST)
 	public String updateRes(BoardDto board) {
 
 		logger.info("UPDATERES");
@@ -95,16 +95,16 @@ public class BoardController {
 		int res = biz.boardUpdate(board);
 
 		if (res > 0) {
-			return "redirect:/poli/boarddetail.do?board_seq=" + board.getBoard_seq();
+			return "redirect:boarddetail.do?board_seq=" + board.getBoard_seq();
 
 		} else {
 
-			return "redirect:/poli/boardupdateform.do?board_seq=" + board.getBoard_seq();
+			return "redirect:boardupdateform.do?board_seq=" + board.getBoard_seq();
 		}
 
 	}
 
-	@RequestMapping("/poli/boarddelete.do")
+	@RequestMapping("/boarddelete.do")
 	public String delete(int board_seq, @ModelAttribute("search") SearchDto search, RedirectAttributes rttr) {
 		logger.info("DELETE");
 
@@ -118,9 +118,9 @@ public class BoardController {
 		rttr.addAttribute("keyword", search.getKeyword());
 		if (res > 0) {
 
-			return "redirect:/poli/boardlist.do";
+			return "redirect:boardlist.do";
 		} else {
-			return "redirect:/poli/boarddetail.do?board_seq=" + board.getBoard_seq();
+			return "redirect:boarddetail.do?board_seq=" + board.getBoard_seq();
 		}
 
 	}

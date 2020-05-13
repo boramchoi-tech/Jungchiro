@@ -18,7 +18,7 @@
 	/**
 	 * 초기 페이지 로딩시 댓글 불러오기
 	 */
-	
+
 	$(function() {
 
 		selectReply();
@@ -43,7 +43,7 @@
 							$
 									.each(
 											data,
-											function(index, comm) {
+											function(index, reply) {
 
 												output += "<div><div>"
 														+ reply.reply_content
@@ -52,29 +52,26 @@
 												output += "<strong>" + "글쓴이"
 														+ " / " + "글쓴이 이메일"
 														+ "</strong> / "
-														+ reply.reply_date;
-												+"<br/><br/>";
+														+ reply.reply_date
+														+"<br/>";
 
-												//output += "<c:if test='${not empty sessionLoginMember.MEMBER_CODE || not empty sessionLoginKakao.MEMBER_CODE || not empty sessionLoginNaver.MEMBER_CODE}'>"
-
-												output += "<input type='button' class='btn' value='수정' id='updateBtn' onclick='updateFormToggle("
+												output += "<input type='button' value='수정' id='updateBtn' onclick='updateFormToggle("
 														+ reply.reply_seq
 														+ ")'/>&nbsp;&nbsp;&nbsp;";
 
-												output += "<input type='button' class='btn' value='삭제' onclick='deleteComment("
+												output += "<input type='button'value='삭제' onclick='deleteReply("
 														+ reply.board_seq
 														+ ","
 														+ reply.reply_seq
-														+ ")'/><br/>";
-												//+"</c:if>";
-
+														+ ")'/><br/><br/>";
+										
 												output += "<form action='/replyupdate.do' method='post' id='updateForm" + reply.reply_seq + "' style='display:none;'>"
 														+ "<input type='hidden' name='board_seq' value='" + reply.board_seq + "'/>"
 														+ "<input type='hidden' name='reply_seq' value='" + reply.reply_seq + "'/>"
 														+ "<textarea cols='50' rows='3' name='reply_content' placeholder=''>"
 														+ reply.reply_content
 														+ "</textarea>"
-														+ "<br/><input type='button' value='수정' onclick='updateComment("
+														+ "<br/><input type='button' value='수정' onclick='updateReply("
 														+ reply.reply_seq
 														+ ")'/>"
 														+ "&nbsp;&nbsp;&nbsp;"
@@ -101,7 +98,7 @@
 
 		$.ajax({
 			type : 'POST',
-			url : "/replyinsert.do",
+			url : "/poli/replyinsert.do",
 			data : {
 				board_seq : board_seq,
 				reply_content : reply_content
@@ -109,13 +106,15 @@
 			datatype : "text",
 
 			success : function(args) {
+				alert("댓글 쓰기 성공")
 				selectReply();
 				$("#replySubmit").find("textarea[name='reply_content']")
 						.val("");
 
 			},
 			error : function(request, status, error) {
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
 			}
 
 		});
@@ -125,7 +124,7 @@
 
 		$.ajax({
 			type : "POST",
-			url : "/replydelete.do",
+			url : "/poli/replydelete.do",
 			data : {
 				board_seq : board_seq,
 				reply_seq : reply_seq
@@ -133,7 +132,7 @@
 			datatype : "text",
 
 			success : function(args) {
-				alert("댓글 삭제 성공!!")
+				alert("댓글 삭제 성공")
 				selectReply();
 			},
 
@@ -163,7 +162,7 @@
 
 		$.ajax({
 			type : "POST",
-			url : "/replyupdate.do",
+			url : "/poli/replyupdate.do",
 			data : {
 				board_seq : board_seq,
 				reply_seq : reply_seq,
@@ -172,6 +171,7 @@
 			datatype : "text",
 
 			success : function(args) {
+				alert("댓글 수정 성공")
 				selectReply();
 			},
 
@@ -221,11 +221,11 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="right"><input type="button" value="수정"
-				onclick="location.href='boardupdateform.do?board_seq=${board.board_seq}'">
+				onclick="location.href='/poli/boardupdateform.do?board_seq=${board.board_seq}'">
 				<input type="button" value="삭제"
-				onclick="location.href='boarddelete.do?board_seq=${board.board_seq}'" />
+				onclick="location.href='/poli/boarddelete.do?board_seq=${board.board_seq}'" />
 				<input type="button" value="글 목록"
-				onclick="location.href ='boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+				onclick="location.href ='/poli/boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
 		</tr>
 	</table>
 
@@ -236,7 +236,7 @@
 		<!-- end :: ajax 댓글 리스트 -->
 
 		<!-- start :: 댓글 달기 -->
-		<form action="/replyinsert.do" method="post" id="replySubmit">
+		<form action="/poli/replyinsert.do" method="post" id="replySubmit">
 			<input type="hidden" name="board_seq" value="${board.board_seq }" />
 			<div>
 				<textarea cols="50" rows="5" name="reply_content"

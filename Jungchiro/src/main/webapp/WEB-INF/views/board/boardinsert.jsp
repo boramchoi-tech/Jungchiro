@@ -15,7 +15,7 @@
 					"click",
 					function() {
 						event.preventDefault();
-						location.href = "boardlist.do?page=${search.page}"
+						location.href = "/poli/boardlist.do?page=${search.page}"
 								+ "&perPageNum=${search.perPageNum}"
 								+ "&searchType=${search.searchType}&keyword=${search.keyword}";
 					})
@@ -28,7 +28,7 @@
 
 	<h1>글쓰기</h1>
 
-	<form action="boardinsertres.do" method="post">
+	<form action="/poli/boardinsertres.do" method="post">
 
 
 		<table border="1">
@@ -45,8 +45,9 @@
 				<th>카테고리</th>
 				<td><select name="board_category">
 						<option value="">카테고리 선택</option>
-						<option value="정책">정책</option>
-						<option value="선거">선거</option>
+						<option value="의안">의안</option>
+						<option value="시사">시사</option>
+						<option value="이슈">이슈</option>
 						<option value="기타">기타</option>
 				</select></td>
 			</tr>
@@ -59,7 +60,7 @@
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="글쓰기">
 					<input type="button" value="취소"
-					onclick="location.href='boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+					onclick="location.href='/poli/boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
 			</tr>
 		</table>
 	</form>

@@ -1,5 +1,6 @@
 package com.jungchiro.poli.chat.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +56,10 @@ public class ChatController {
 	public Map<String, Object> chatlist(ChatDto dto, Model model) {
 		System.out.println("chatlist.do");
 		System.out.println(dto.getMember_seq());
-		List<ChatDto> list = new ArrayList<ChatDto>();
-		
+		/*
+		 * List<ChatDto> list = new ArrayList<ChatDto>(); for (int i = 0 ; i <
+		 * list.size() ; i++) { System.out.println(); }
+		 */
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("test", 1);
