@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bill_fav">
+
+	<!-- 의안 즐겨찾기 여부 '취소' -->
+	<update id="cancleBillLike" parameterType="int">
+		UPDATE BILL_FAV
+		SET BILL_FAV_CHECK = 'N'
+		WHERE BILL_ID = #{bill_id} AND MEMBER_SEQ = #{member_seq}
+	</update>
+
+	<!-- 즐겨찾기 의안 전체 출력 -->
+	<select id="billFavList" resultMap="billFavMap">
+		SELECT *  
+		FROM BILL B, BILL_FAV F
+		WHERE B.BILL_ID = F.BILL_ID 
+		AND F.MEMBER_SEQ = #{member_seq}
+		ORDER BY F.BILL_FAV_SEQ DESC
+	</select>
+	
+	<!-- 즐겨찾기 의안 업데이트 확인(하루) -->
+	<select id="billFavUpdateList" resultMap="boardFavMap">
+		SELECT *
+		FROM BILL B, BILL_FAV F
+		WHERE B.BILL_ID = F.BILL_ID
+		AND F.MEMBER_SEQ = #{member_seq}
+		AND TO_CHAR(F.BILL_FAV_DATE, 'yyyy-mm-dd') > (TO_CHAR(SYSDATE-1, 'yyyy-mm-dd')
+		ORDER BY BILL_FAV_SEQ DESC
+	</select>
+	
+	<!-- 즐겨찾기 의안 등록 -->
+	<update id="billFavInsert" parameterType="billFavMap">
+		INSERT INTO BILL_FAV
+		VALUES(#{member_seq}, #{bill_id}, BILL_FAV_SEQ.NEXTVAL, 'Y')
+	</update>
+	
+	<!-- 즐겨찾기 의안 등록 여부 확인 -->
+	<select id="CheckbBillFav" resultType="BILL_FAV">
+		SELECT COUNT(*)
+		FROM BILL_FAV 
+		WHERE BILL_ID = #{bill_id} AND MEMBER_SEQ = #{member_seq} AND BILL_FAV_CHECK = 'Y'
+	</select>
+	
+	<!-- 즐겨찾기 의안 삭제 -->
+	<update id="billFavDelete">
+		UPDATE BILL_FAV
+		SET BILL_FAV_CHECK = 'N'
+		WHERE MEMBER_SEQ = #{member_seq}
+		AND BILL_ID IN
+		<foreach collection="BILL_ID" item="BILL_ID" open="(" separator=", " close=")">
+			#{bill_id}
+		</foreach>
+	</update>
+
+</mapper>

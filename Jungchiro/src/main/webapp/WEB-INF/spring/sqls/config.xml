@@ -6,6 +6,9 @@
 		<typeAlias type="com.jungchiro.poli.login.model.dto.LoginDto" alias="loginDto"/>
 		<typeAlias type="com.jungchiro.poli.chat.model.dto.ChatDto" alias="chatDto"/>
 		<typeAlias type="com.jungchiro.poli.chat.model.dto.MessageDto" alias="messageDto"/>
+		<typeAlias type="com.jungchiro.poli.notification.model.dto.NotificationDto" alias="notificationDto"/>
+		<typeAlias type="com.jungchiro.poli.mypage.dto.BoardFavDto" alias="board_favDto"/>
+		<typeAlias type="com.jungchiro.poli.mypage.dto.BillFavDto" alias="bill_favDto"/>
 	</typeAliases>
 	
 	<mappers>
@@ -13,6 +16,9 @@
 		<mapper resource="/mybatis/regist-mapper.xml"/>
 		<mapper resource="/mybatis/chat-mapper.xml"/>
 		<mapper resource="/mybatis/message-mapper.xml"/>
+		<mapper resource="/mybatis/notification-mapper.xml"/>
+		<mapper resource="/mybatis/board_fav-mapper.xml"/>
+		<mapper resource="/mybatis/bill_fav-mapper.xml"/>
 	</mappers>
 
 </configuration>

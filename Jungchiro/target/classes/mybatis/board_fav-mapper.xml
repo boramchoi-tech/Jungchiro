@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board_favDto">
+
+	<!-- 게시판 즐겨찾기 여부 '취소' -->
+	<update id="cancleBoardLike" parameterType="board_favDto">
+		UPDATE BOARD_FAV
+		SET BOARD_FAV_CHECK = 'N'
+		WHERE BOARD_SEQ = #{board_seq} AND MEMBER_SEQ = #{member_seq} 
+	</update>
+
+	<!-- 즐겨찾기 게시판 전체 출력 -->
+	<select id="boardFavList" parameterType="board_favDto">
+		SELECT *
+		FROM BOARD B, BOARD_FAV F
+		WHERE B.BOARD_SEQ = F.BOARD_SEQ
+		AND F.MEMBER_SEQ = #{member_seq}
+		AND F.BOARD_FAV_CHECK = 'Y'
+		ORDER BY F.BOARD_FAV_SEQ DESC		
+	</select>
+	
+	<!-- 즐겨찾기 게시판 업데이트 확인(하루) -->
+	<select id="boardFavUpdateList" resultType="board_favDto">
+		SELECT *
+		FROM BOARD B, BOARD_FAV F
+		WHERE B.BOARD_SEQ = F.BOARD_SEQ
+		AND F.MEMBER_SEQ = #{member_seq}
+		AND F.BOARD_FAV_CHECK = 'Y'
+		AND TO_CHAR(F.BOARD_FAV_DATE, 'yyyy-mm-dd') > (TO_CHAR(SYSDATE-1,'yyyy-mm-dd') 
+		ORDER BY BOARD_FAV_SEQ DESC
+	</select>
+	
+	<!-- 즐겨찾기 게시판 등록 -->
+	<insert id="boardFavInsert" parameterType="board_favDto">
+		INSERT INTO BOARD_FAV
+		VALUES(#{member_seq}, #{board_seq}, BOARD_FAV_SEQ.NEXTVAL, 'Y')
+	</insert>
+	
+	<!-- 즐겨찾기 게시판 등록 여부 확인 -->
+	<select id="CheckBoardFav" parameterType="int" resultType="board_favDto">
+		SELECT COUNT(*)
+		FROM BOARD_FAV
+		WHERE BOARD_SEQ = #{board_seq} AND MEMBER_SEQ = #{member_seq} AND BOARD_FAV_CHECK = 'Y'
+	</select>
+
+	<!-- 즐겨찾기 게시판 멀티 삭제 -->
+	<update id="boardFavDelete" parameterType="map">
+		UPDATE BOARD_FAV
+		SET BOARD_FAV_CHECK = 'N'
+		WHERE MEMBER_SEQ = #{member_seq} 
+		AND BOARD_SEQ IN
+		<foreach collection="BOARD_SEQ" item="BOARD_SEQ" open="(" separator=", " close=")">
+			#{board_seq}
+		</foreach>
+	</update>
+
+</mapper>

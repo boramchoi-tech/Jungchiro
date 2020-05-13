@@ -1,22 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
+
+<script type="text/javascript">
+
+
+	// 댓글 알림을 위한 eventSource 객체 구현(이벤트 스트림 구독)
+		
+	$(function(){
+		
+		var member_seq = document.getElementByName("member_seq").value;
+		console.log("member_seq = " + member_seq);
+		
+		if(member_seq != null){
+		
+			var url = "/poli/notification.do?user/push?member_seq="+member_seq;
+			var eventSource = new EventSource(url, {withCredentials:true});
+		
+			eventSource.addEventListener('open', function(e){
+				console.log("sse 연결");
+			}, false);
+			
+			eventSource.addEventListener('message', function(e){
+				
+				console.log(e.data);
+				
+				// controller에서 json 형식으로 받아옴(필수)
+				var data = JSON.parse(event.data);
+				var reply = data.reply;
+				
+				var replyContainer = document.getElementById('replyContainer');
+				var replyBox = document.createElement('div');
+				replyBox.setAttribute('class', replyCount);
+				var replyCountTxt = document.createTextNode(reply);
+				replyBox.appendChild(replyCountTxt);
+				replyContainer.appendChild(replyBox);
+				
+			});
+			
+			eventSource.addEventListener('error', function(e){
+				if(e.readyState == EventSource.CLOSED){
+					// connection 해제
+				}
+			}, false);
+			
+			// window.addEventListener('beforeunload', () => eventSource.close());	
+			
+		} 			
+		
+	});
+
+
+</script>
 </head>
 <body>
 
-	<div id="role" class="nanum">
-		<a href="#login" class="login-btn">로그인</a>
-		 / 
-		관리자 페이지
-		 / 
-		마이 페이지
-		&nbsp;&nbsp;
-	</div>
+<div id="role" class="nanum">
+
+	  <c:if test="${!empty loginDto }">
+		<a href="/poli/mypage.do"><img src="/poli/resources/images/notifications.png" style="height: 25px;, width:25px;"></a>		
+		<div id="replyContainer"></div>
+	  </c:if>
+
+      <c:if test="${!empty loginDto }">
+         ${loginDto.member_name }님 안녕하세요
+         	마이 페이지
+         <a href="/poli/logout.do" class="login-btn">로그아웃</a>
+         <input type="hidden" name="member_seq" value="${loginDto.member_seq }"/>
+      </c:if>
+      
+      <c:if test="${empty loginDto }">
+         <a href="#login" class="login-btn">로그인</a>
+      </c:if>
+
+      <c:if test="${loginDto.member_role eq 'Y' }">
+         	관리자 페이지
+      </c:if>
+      &nbsp;&nbsp;
+   </div>
 
 	<div id="header">
 		<div id="header_logo">
@@ -295,8 +362,8 @@
 				input에 빈칸 없는지 체크해야 함
 			*/
 		});
-		
-		
+				
+
 	</script>
 </body>
 </html>

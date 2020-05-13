@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="notification">
+<!-- reply 알람과 관련된 mapper -->
+
+	<!-- 마이페이지 안읽은 reply 달린 게시판 출력 -->
+	<select id="unreadBoardList" parameterType="int" resultType="notificationDto">
+		SELECT B.BOARD_SEQ, B.BOARD_TITLE
+		FROM BOARD B, REPLY R
+		WHERE B.MEMBER_SEQ = #{member_seq} AND R.ISREAD = 'N'
+		ORDER BY R.REPLY_DATE DESC
+	</select>
+	
+	<!-- 안읽은 reply 수-->
+	<select id="countReplyNotification" parameterType="int" resultType="notificationDto">
+		SELECT COUNT(R.REPLY_SEQ)
+		FROM REPLY R, BOARD B
+		WHERE R.BOARD_SEQ = B.BOARD_SEQ AND B.MEMBER_SEQ = #{member_seq} AND R.ISREAD = 'N' 
+	</select>
+	
+	<!-- reply insert할 때 -->
+	<insert id="">
+		INSERT INTO REPLY
+		VALUES(~, 'N')
+	</insert>
+	
+	<!-- reply 알림 리스트에서 글 클릭하면 읽음표시 전환 -->
+	<update id="updateNotificationRead" parameterType="notificationDto">
+		UPDATE REPLY
+		SET
+		ISREAD = 'Y'
+		WHERE BOARD_SEQ = #{board_seq}
+	</update>
+
+</mapper>
