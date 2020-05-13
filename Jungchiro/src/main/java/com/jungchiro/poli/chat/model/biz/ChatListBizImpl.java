@@ -18,6 +18,11 @@ public class ChatListBizImpl implements ChatListBiz {
 	public int totalCount() {
 		return dao.totalCount();
 	}
+	
+	@Override
+	public int totalCount(int member_seq) {
+		return dao.totalCount(member_seq);
+	}
 
 	@Override
 	public List<ChatDto> selectChatList() {

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,16 +31,42 @@ public class ChatController {
 	private MessageBiz messageBiz;
 	
 	@RequestMapping("/chat.do")
-	public String chat() {
+	public String chat(ChatDto dto, Model model) {
+		int totalCount = chatBiz.totalCount();
+		List<ChatDto> chatlist = null;
+		
+		if (totalCount == 0) {
+			System.out.println("존재하는 채팅방이 없음");
+			
+		} else {
+			chatlist = chatBiz.selectChatList();
+			System.out.println("전체 채팅방 출력");
+			
+		}
+		
+		model.addAttribute("chatlist", chatlist);
+		model.addAttribute("member_seq", dto.getMember_seq());
+		
 		return "chat/chatlist";
 	}
 	
 	@RequestMapping(value="/chatlist.do", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Map<String, Object> chatlist(ChatDto dto, Model model) {
-		model.addAttribute("member_seq", dto.getMember_seq());
+		System.out.println("chatlist.do");
+		System.out.println(dto.getMember_seq());
+		List<ChatDto> list = new ArrayList<ChatDto>();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("test", 1);
+		
+		return map;
+		
+	}
 		
 		//채팅방 개수
+		/*
 		int totalCount = chatBiz.totalCount();
 		System.out.println("controller: chatlist");
 
@@ -57,9 +84,10 @@ public class ChatController {
 				
 			} else {
 				List<ChatDto> chatlist = chatBiz.selectChatList();
+				System.out.println("전체 채팅방 출력");
 				map.put("chatroomCount", totalCount);					//전체 채팅방 출력
 				map.put("chatlist", chatlist);
-			}
+			}*/
 			
 			/*if (dto.getMember_seq() == 0) {
 
@@ -73,10 +101,7 @@ public class ChatController {
 			}*/
 			
 			
-		}
-
-		return map;
-	}
+		//}
 	
 	@RequestMapping("/createroom.do")
 	public String createRoom(ChatDto dto, Model model) {				//chat_name, chat_category

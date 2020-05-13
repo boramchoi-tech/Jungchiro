@@ -19,6 +19,12 @@ public class ChatListDaoImpl implements ChatListDao {
 		int totalCount = sqlSession.selectOne(NAMESPACE+"countAll");
 		return totalCount;
 	}
+	
+	@Override
+	public int totalCount(int member_seq) {
+		int totalCount = sqlSession.selectOne(NAMESPACE+"countChat");
+		return totalCount;
+	}
 
 	@Override
 	public List<ChatDto> selectChatList() {

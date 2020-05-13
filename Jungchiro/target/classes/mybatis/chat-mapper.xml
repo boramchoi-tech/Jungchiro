@@ -10,6 +10,16 @@
 			ORDER BY B.MEMBER_CHAT_OUTTIME
 		)
 	</select>
+	
+	<select id="countChat" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT A.CHAT_SEQ, A.CHAT_NAME, A.CHAT_CATEGORY, A.CHAT_MAKEDAY, B.MEMBER_SEQ, B.MEMBER_CHAT_OUTTIME FROM CHAT A, MEMBER_CHAT B
+			WHERE
+				A.CHAT_SEQ = B.CHAT_SEQ
+			AND MEMBER_SEQ = #{member_seq}
+			ORDER BY B.MEMBER_CHAT_OUTTIME
+		)
+	</select>
 
 	<insert id="createRoom" parameterType="chatDto">
 		INSERT INTO CHAT VALUES
