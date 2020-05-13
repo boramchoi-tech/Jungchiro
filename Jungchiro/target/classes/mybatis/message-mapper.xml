@@ -11,8 +11,13 @@
 	</resultMap>
 	
 	<select id="selectAll" parameterType="map" resultType="messageDto">
-		SELECT * FROM MESSAGE
-		WHERE CHAT_SEQ = #{chat_seq}
+		SELECT m.MESSAGE_SEQ, c.CHAT_SEQ, mem.MEMBER_SEQ, m.MESSAGE_CONTENT, m.MESSAGE_TIME, m.MESSAGE_REPORT, c.CHAT_NAME, mem.MEMBER_ID
+		FROM MESSAGE m, CHAT c, MEMBER mem
+		WHERE m.CHAT_SEQ = c.CHAT_SEQ
+		AND m.MEMBER_SEQ = mem.MEMBER_SEQ
+		AND m.CHAT_SEQ = #{chat_seq}
+		ORDER BY m.MESSAGE_SEQ ASC
+
 	</select>
-	
+
 </mapper>

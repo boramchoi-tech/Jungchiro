@@ -11,7 +11,7 @@
 		)
 	</select>
 	
-	<select id="countChat" resultType="int">
+	<select id="countChat" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM (
 			SELECT A.CHAT_SEQ, A.CHAT_NAME, A.CHAT_CATEGORY, A.CHAT_MAKEDAY, B.MEMBER_SEQ, B.MEMBER_CHAT_OUTTIME FROM CHAT A, MEMBER_CHAT B
 			WHERE
