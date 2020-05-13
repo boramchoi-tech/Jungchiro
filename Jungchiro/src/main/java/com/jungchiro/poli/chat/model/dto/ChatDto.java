@@ -14,6 +14,10 @@ public class ChatDto {
 
 	public ChatDto() {}
 	
+	public ChatDto(int member_seq) {
+		this.member_seq = member_seq;
+	}
+	
 	public ChatDto(int member_seq, int chat_seq) {
 		this.member_seq = member_seq;
 		this.chat_seq = chat_seq;

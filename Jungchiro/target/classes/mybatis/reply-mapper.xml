@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="replyDto">
+
+	<resultMap type="replyDto" id="replyMap">
+		<result property="reply_seq" column="REPLY_SEQ" />
+		<result property="board_seq" column="BOARD_SEQ" />
+		<result property="member_seq" column="MEMBER_SEQ" />
+		<result property="reply_content" column="REPLY_CONTENT" />
+		<result property="reply_date" column="REPLY_DATE" />
+
+	</resultMap>
+
+	<select id="replyList"></select>
+
+	<insert id="insertBoard"></insert>
+
+	<update id="updateBoard"></update>
+
+	<delete id="deleteBoard"></delete>
+</mapper>

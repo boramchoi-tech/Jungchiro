@@ -1,14 +1,15 @@
 package com.jungchiro.poli.chat.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jungchiro.poli.chat.model.biz.ChatCreateBiz;
 import com.jungchiro.poli.chat.model.biz.ChatListBiz;
@@ -28,11 +29,53 @@ public class ChatController {
 	@Autowired
 	private MessageBiz messageBiz;
 	
-	@RequestMapping("/chatlist.do")
-	public String chatlist(ChatDto dto) {
-		ChatDto chatlist = chatBiz.selectChatList(dto.getMember_seq());
-
+	@RequestMapping("/chat.do")
+	public String chat() {
 		return "chat/chatlist";
+	}
+	
+	@RequestMapping(value="/chatlist.do", method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Object> chatlist(ChatDto dto, Model model) {
+		model.addAttribute("member_seq", dto.getMember_seq());
+		
+		//채팅방 개수
+		int totalCount = chatBiz.totalCount();
+		System.out.println("controller: chatlist");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if (totalCount == 0) {
+			map.put("chatroomCount", totalCount);
+			
+		} else {
+			
+			if (dto.getMember_seq() != 0) {
+				List<ChatDto> chatlist = chatBiz.selectChatList(dto.getMember_seq());
+				map.put("chatroomCount", totalCount);
+				map.put("chatlist", chatlist);
+				
+			} else {
+				List<ChatDto> chatlist = chatBiz.selectChatList();
+				map.put("chatroomCount", totalCount);					//전체 채팅방 출력
+				map.put("chatlist", chatlist);
+			}
+			
+			/*if (dto.getMember_seq() == 0) {
+
+			} else {
+				List<ChatDto> chatlist = chatBiz.selectChatList(dto.getMember_seq());
+				model.addAttribute("chatlist", chatlist);
+				model.addAttribute("member_seq", dto.getMember_seq());
+				
+				// checkbox 표시한 경우
+				map.put("chatList", 1);
+			}*/
+			
+			
+		}
+
+		return map;
 	}
 	
 	@RequestMapping("/createroom.do")

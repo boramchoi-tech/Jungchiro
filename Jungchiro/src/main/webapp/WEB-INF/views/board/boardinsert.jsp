@@ -1,0 +1,70 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>정치로</title>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(".cancel_btn")
+			.on(
+					"click",
+					function() {
+						event.preventDefault();
+						location.href = "boardlist.do?page=${search.page}"
+								+ "&perPageNum=${search.perPageNum}"
+								+ "&searchType=${search.searchType}&keyword=${search.keyword}";
+					})
+</script>
+
+</head>
+<body>
+
+	<%@ include file="/WEB-INF/views/form/header.jsp"%>
+
+	<h1>글쓰기</h1>
+
+	<form action="boardinsertres.do" method="post">
+
+
+		<table border="1">
+			<tr>
+				<th>작성자</th>
+				<td>test</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="board_title"></td>
+			</tr>
+
+			<tr>
+				<th>카테고리</th>
+				<td><select name="board_category">
+						<option value="">카테고리 선택</option>
+						<option value="정책">정책</option>
+						<option value="선거">선거</option>
+						<option value="기타">기타</option>
+				</select></td>
+			</tr>
+
+			<tr>
+				<th>내용</th>
+				<td><textarea rows="10" cols="60" name="board_content"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right"><input type="submit" value="글쓰기">
+					<input type="button" value="취소"
+					onclick="location.href='boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+			</tr>
+		</table>
+	</form>
+
+	<%@ include file="/WEB-INF/views/form/footer.jsp"%>
+
+</body>
+</html>
