@@ -10,15 +10,6 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-	$(".cancel_btn")
-			.on(
-					"click",
-					function() {
-						event.preventDefault();
-						location.href = "/poli/boardlist.do?page=${search.page}"
-								+ "&perPageNum=${search.perPageNum}"
-								+ "&searchType=${search.searchType}&keyword=${search.keyword}";
-					})
 </script>
 
 </head>
@@ -59,8 +50,8 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="글쓰기">
-					<input type="button" value="취소"
-					onclick="location.href='/poli/boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+					<input type="button" value="취소" 
+					onclick="location.href ='/poli/boardlist.do?page=1'"></td>
 			</tr>
 		</table>
 	</form>
