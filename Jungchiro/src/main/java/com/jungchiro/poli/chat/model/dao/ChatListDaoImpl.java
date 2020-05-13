@@ -13,6 +13,12 @@ public class ChatListDaoImpl implements ChatListDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public int totalCount() {
+		int totalCount = sqlSession.selectOne(NAMESPACE+"countAll");
+		return totalCount;
+	}
 
 	@Override
 	public List<ChatDto> selectChatList() {
@@ -21,9 +27,10 @@ public class ChatListDaoImpl implements ChatListDao {
 	}
 	
 	@Override
-	public List<ChatDto> myChatList(int member_seq) {
-		List<ChatDto> chatlist = sqlSession.selectList(NAMESPACE+"selectChatList", member_seq);
+	public List<ChatDto> selectChatList(int member_seq) {
+		List<ChatDto> chatlist = sqlSession.selectList(NAMESPACE+"myChatList", member_seq);
 		return chatlist;
 	}
+	
 
 }

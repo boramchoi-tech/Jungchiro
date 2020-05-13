@@ -8,7 +8,8 @@ public interface ChatListDao {
 	
 	String NAMESPACE = "chat.";
 	
+	public int totalCount();
 	public List<ChatDto> selectChatList();
-	public List<ChatDto> myChatList(int member_seq);
+	public List<ChatDto> selectChatList(int member_seq);
 
 }
