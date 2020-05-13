@@ -48,7 +48,9 @@ img{
 </style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/form/header.jsp" %>
 <div id="map"></div>
+<%@ include file="/WEB-INF/views/form/footer.jsp" %>
 	<script type="text/javascript">
 		//{zoomControl: false, scrollWheelZoom: false} 
 		var map = L.map("map").setView(
