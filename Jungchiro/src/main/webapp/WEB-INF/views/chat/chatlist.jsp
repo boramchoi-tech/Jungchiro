@@ -76,7 +76,7 @@
  		var ajax = new ComAjax();
  		ajax.url("/poli/chatlist.do");
  		ajax.param(member_seq);
-
+/**/
  		$check.click(function() {
  			$("#chatList").children().remove();
  			
