@@ -22,7 +22,7 @@ public class ReplyDaoImpl implements ReplyDao {
 
 		try {
 
-			list = sqlSession.selectOne(NAMESPACE + "replyList", board_seq);
+			list = sqlSession.selectList(NAMESPACE + "replyList", board_seq);
 
 		} catch (Exception e) {
 			// TODO: handle exception
