@@ -1,6 +1,5 @@
 package com.jungchiro.poli.chat.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +40,7 @@ public class ChatController {
 			
 		} else {
 			chatlist = chatBiz.selectChatList();
-			System.out.println("전체 채팅방 출력");
-			
+
 		}
 		
 		model.addAttribute("chatlist", chatlist);
@@ -53,61 +51,32 @@ public class ChatController {
 	
 	@RequestMapping(value="/chatlist.do", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public Map<String, Object> chatlist(ChatDto dto, Model model) {
-		System.out.println("chatlist.do");
-		System.out.println(dto.getMember_seq());
-		/*
-		 * List<ChatDto> list = new ArrayList<ChatDto>(); for (int i = 0 ; i <
-		 * list.size() ; i++) { System.out.println(); }
-		 */
+	public Map<String, Object> chatlist(@RequestBody ChatDto dto, Model model) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("test", 1);
+		
+		if (dto.getMember_seq() != 0) {
+			int totalCount = chatBiz.totalCount(dto.getMember_seq());
+			List<ChatDto> chatlist = chatBiz.selectChatList(dto.getMember_seq());
+			map.put("chatroomCount", totalCount);
+			map.put("chatlist", chatlist);
+			
+		} else {
+			//전체 채팅방 출력
+			int totalCount = chatBiz.totalCount();
+			List<ChatDto> chatlist = chatBiz.selectChatList();
+			map.put("chatroomCount", totalCount);
+			map.put("chatlist", chatlist);
+			
+			
+		}
 		
 		return map;
 		
 	}
 		
-		//채팅방 개수
-		/*
-		int totalCount = chatBiz.totalCount();
-		System.out.println("controller: chatlist");
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if (totalCount == 0) {
-			map.put("chatroomCount", totalCount);
-			
-		} else {
-			
-			if (dto.getMember_seq() != 0) {
-				List<ChatDto> chatlist = chatBiz.selectChatList(dto.getMember_seq());
-				map.put("chatroomCount", totalCount);
-				map.put("chatlist", chatlist);
-				
-			} else {
-				List<ChatDto> chatlist = chatBiz.selectChatList();
-				System.out.println("전체 채팅방 출력");
-				map.put("chatroomCount", totalCount);					//전체 채팅방 출력
-				map.put("chatlist", chatlist);
-			}*/
-			
-			/*if (dto.getMember_seq() == 0) {
-
-			} else {
-				List<ChatDto> chatlist = chatBiz.selectChatList(dto.getMember_seq());
-				model.addAttribute("chatlist", chatlist);
-				model.addAttribute("member_seq", dto.getMember_seq());
-				
-				// checkbox 표시한 경우
-				map.put("chatList", 1);
-			}*/
-			
-			
-		//}
-	
 	@RequestMapping("/createroom.do")
-	public String createRoom(ChatDto dto, Model model) {				//chat_name, chat_category
+	public String createRoom(ChatDto dto) {
 		int chat_seq = biz.createRoom(dto);
 		int res = biz.createChatList(dto.getMember_seq(), chat_seq);
 		
@@ -118,8 +87,7 @@ public class ChatController {
 			
 		} else {
 			System.out.println("채팅방 번호 : " + chat_seq);
-			model.addAttribute("chat_seq", chat_seq);
-			return "chat/chatroom";
+			return "redirect:chat.do";
 		}
 
 	}

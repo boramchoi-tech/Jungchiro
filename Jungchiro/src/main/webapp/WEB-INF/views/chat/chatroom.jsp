@@ -6,9 +6,43 @@
 <head>
 <meta charset="UTF-8">
 <title>정치로</title>
+<style type="text/css">
+	*{
+		paddin: 0;
+		margin: 0;
+	}
+	
+	#chat_header{
+		background-color: #2c2c2c;
+	}
+	
+	#chat_name{
+		display: inline-block;
+		width: 80%;
+		line-height: 50px;
+		color: white;
+		text-align: center;
+	}
+	
+	#chat_exit{
+		float: right;
+		line-height: 50px;
+		color: white;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
-
+	<div id="chat_header">
+		<div id="chat_name">
+			채팅방 이름
+		</div>
+		
+		<div id="chat_exit">
+			&nbsp;&nbsp;나가기&nbsp;&nbsp;
+		</div>
+	</div>
+<%-- 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -117,6 +151,6 @@
     <div id="chatArea"><div id="chatMessageArea"></div></div>
     <br/>
     <input type="text" id="message">
-    <input type="button" id="sendBtn" value="전송">
+    <input type="button" id="sendBtn" value="전송"> --%>
 </body>
 </html>
