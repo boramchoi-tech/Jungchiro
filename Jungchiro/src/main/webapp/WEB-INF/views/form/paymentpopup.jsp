@@ -103,7 +103,7 @@
 						alert("결제에 성공하였습니다.");
 					})
 				} else {
-					alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+					alert("결제에 실패하였습니다 : " + rsp.error_msg);
 				}
 
 				console.log(msg);
