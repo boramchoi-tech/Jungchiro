@@ -35,6 +35,11 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:main.do";
 	}
+	
+	@RequestMapping(value = "/loginPage.do", method = RequestMethod.GET)
+	public String login() {
+		return "form/loginPage";
+	}
 
 	@RequestMapping(value="/login.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody

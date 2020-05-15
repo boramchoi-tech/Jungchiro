@@ -50,6 +50,9 @@ var ComAjax = function () {
         o.success = success;
         return f;
     };
+    
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
  
     f.call = function call(){
         $.ajax({
@@ -60,9 +63,13 @@ var ComAjax = function () {
             dataType    : o.dataType,
             contentType : o.contentType,
             
+            beforeSend : function(xhr)
+            {   //데이터를 전송하기 전에 헤더에 csrf값을 설정한다
+                xhr.setRequestHeader(header, token);
+            },
             // Type: Function(jqXHR jqXHR, String textStatus, String errorThrown)
             error: function (xhr, status, errorThrown){
-                alert("ajax 에러 : " + xhr.status + " : " + status + " : " + errorThrown);
+                alert("ajax 에러 : " + xhr.status + " : " + status + " : " + errorThrown + "");
             },
  
             // Type: Function(data, String textStatus, jqXHR jqXHR)
