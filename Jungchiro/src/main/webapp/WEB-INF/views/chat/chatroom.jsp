@@ -79,6 +79,7 @@
         appendMessage("연결을 끊었습니다.");
     }
     
+    
 	function send() {
         var nickname = ${loginDto.member_seq };
         var msg = $("#message").val();
