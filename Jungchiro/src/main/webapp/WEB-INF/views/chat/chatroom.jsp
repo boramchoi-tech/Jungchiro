@@ -42,7 +42,7 @@
 			&nbsp;&nbsp;나가기&nbsp;&nbsp;
 		</div>
 	</div>
-<%-- 
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -80,7 +80,7 @@
     }
     
 	function send() {
-        var nickname = $("#nickname").val();
+        var nickname = ${loginDto.member_seq };
         var msg = $("#message").val();
         wsocket.send("msg:"+nickname+":" + msg);
         $("#message").val("");
@@ -151,6 +151,6 @@
     <div id="chatArea"><div id="chatMessageArea"></div></div>
     <br/>
     <input type="text" id="message">
-    <input type="button" id="sendBtn" value="전송"> --%>
+    <input type="button" id="sendBtn" value="전송">
 </body>
 </html>
