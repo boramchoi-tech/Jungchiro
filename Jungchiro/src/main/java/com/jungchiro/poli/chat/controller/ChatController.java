@@ -93,9 +93,10 @@ public class ChatController {
 	}
 	
 	@RequestMapping("/enterroom.do")
-	public String enterRoom(Model model, int chat_seq) {
-		List<MessageDto> chatMessage = messageBiz.selectAll(chat_seq);
-		model.addAttribute("chat_seq", chat_seq);
+	public String enterRoom(Model model, @RequestBody ChatDto dto) {
+		List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
+		model.addAttribute("member_seq", dto.getMember_seq());
+		model.addAttribute("chat_seq", dto.getChat_seq());
 		model.addAttribute("chatMessage", chatMessage);
 		return "chat/chatroom";
 	}
