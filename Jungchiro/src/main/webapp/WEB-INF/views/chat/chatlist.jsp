@@ -59,9 +59,12 @@
 									</c:if>
 								</td>
 								<td>
-									<a href="/poli/enterroom.do?chat_seq=${chatlist.chat_seq }" class="enterroom">
-										${chatlist.chat_name }
-									</a>
+									<form action="/poli/enterroom.do" method="post" id="enterroom">
+										<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+										<input type="hidden" name="chat_seq" value="${chatlist.chat_seq }">
+										<input type="button" id="enterBtn" value="${chatlist.chat_name }">
+									</form>
+
 								</td>
 							</tr>
 							
@@ -82,6 +85,10 @@
  	$(function() {
  		$('#createBtn').click(function() {	
  			$('#createRoom').submit();
+ 		})
+ 		
+ 		$('#enterBtn').click(function() {
+ 			$('#enterroom').submit();
  		})
  		
  		var member_seq = $('.mychatlist').val();
