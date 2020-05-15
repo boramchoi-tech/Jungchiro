@@ -1,30 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="sessionLogin" value="${sessionScope.loginDto }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
+<style type="text/css">
+	form{display:inline}
+</style>
 </head>
 <body>
 
 	<div id="role" class="nanum">
-		<c:if test="${!empty loginDto }">
-			${loginDto.member_name }님 안녕하세요
+		<sec:authorize access="isAuthenticated()">
+			<sec:authentication var="principal" property="principal" />
+			${principal.member_name }님 안녕하세요
 			마이 페이지
-			<a href="/poli/logout.do" class="login-btn">로그아웃</a>
-		</c:if>
+			<form id="logout" action="/poli/logout" method="POST">
+			   <input id="logoutBtn" type="submit" value="Logout" />
+			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+			</form>
+		</sec:authorize>
 		
-		<c:if test="${empty loginDto }">
-			<a href="#login" class="login-btn">로그인</a>
-		</c:if>
+		<sec:authorize access="isAnonymous()">
+			<a href="/poli/loginPage.do" class="login-btn">로그인</a>
+		</sec:authorize>
 
-		<c:if test="${loginDto.member_role eq 'Y' }">
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			관리자 페이지
-		</c:if>
+		</sec:authorize>
 		&nbsp;&nbsp;
 	</div>
 

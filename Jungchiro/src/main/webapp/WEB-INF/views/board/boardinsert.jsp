@@ -27,8 +27,8 @@ function insert() {
 
 	<h1>글쓰기</h1>
 
-	<form name="insert" action="/poli/boardinsertres.do" method="post">
-
+	<form action="/poli/boardinsertres.do" method="post">
+	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 
 		<table border="1">
 			<tr>
