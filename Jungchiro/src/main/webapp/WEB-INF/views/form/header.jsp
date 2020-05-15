@@ -54,7 +54,7 @@
 		<a href="/poli/map.do">지도</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/boardlist.do?page=1">자유게시판</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/poli/chat.do?member_seq=${loginDto.member_seq }">채팅</a>
+		<a href="/poli/chat.do?member_seq=${principal.member_seq }">채팅</a>
 	</div>
 	
 	<div class="login-layer">

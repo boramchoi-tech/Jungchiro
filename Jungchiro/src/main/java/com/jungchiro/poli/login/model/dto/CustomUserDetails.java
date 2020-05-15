@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
+	private int member_seq;
 	private String member_id;
 	private String member_pw;
 	private String member_name;
@@ -53,6 +54,15 @@ public class CustomUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		// enable컬럼을 String으로 설정해서 오버라이딩해서 안씀
 		return false;
+	}
+
+	
+	public int getMember_seq() {
+		return member_seq;
+	}
+
+	public void setMember_seq(int member_seq) {
+		this.member_seq = member_seq;
 	}
 
 	public String getMember_name() {

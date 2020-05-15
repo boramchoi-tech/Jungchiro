@@ -25,6 +25,7 @@
 				</select>
 				<br>
 				<input type="button" value="만들기" id="createBtn">
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			</form>
 		</div>
 		
@@ -60,6 +61,7 @@
 								</td>
 								<td>
 									<form action="/poli/enterroom.do" method="post" id="enterroom">
+										<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 										<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
 										<input type="hidden" name="chat_seq" value="${chatlist.chat_seq }">
 										<input type="button" id="enterBtn" value="${chatlist.chat_name }">
