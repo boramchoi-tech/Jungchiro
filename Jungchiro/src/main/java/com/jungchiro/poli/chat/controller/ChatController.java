@@ -93,7 +93,7 @@ public class ChatController {
 	}
 	
 	@RequestMapping("/enterroom.do")
-	public String enterRoom(Model model, @RequestBody ChatDto dto) {
+	public String enterRoom(Model model, ChatDto dto) {
 		List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
 		model.addAttribute("member_seq", dto.getMember_seq());
 		model.addAttribute("chat_seq", dto.getChat_seq());

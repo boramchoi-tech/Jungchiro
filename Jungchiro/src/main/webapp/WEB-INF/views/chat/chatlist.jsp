@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -9,12 +10,14 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
-	
+		<sec:authentication var="principal" property="principal" />
+
 		<h1>채팅방 만들기</h1>
 
 		<div class="create-room">
 			<form action="/poli/createroom.do" method="post" id="createRoom">
-				<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+				<input type="hidden" name="member_seq" value="${principal.member_seq }">
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				채팅방 이름: <input type="text" name="chat_name" required><br>
 				카테고리: 
 				<select name="chat_category">
@@ -25,14 +28,13 @@
 				</select>
 				<br>
 				<input type="button" value="만들기" id="createBtn">
-				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			</form>
 		</div>
 		
 		<div class="chat-list">
 			<h1>채팅방 목록</h1>
 			
-			<input type="checkbox" class="mychatlist" value="${member_seq }"> 내가 참여한 채팅방 목록 보기
+			<input type="checkbox" class="mychatlist" value="${principal.member_seq }"> 내가 참여한 채팅방 목록 보기
 			
 			<table border="1">
 				<tbody id="chatList">
@@ -60,11 +62,11 @@
 									</c:if>
 								</td>
 								<td>
-									<form action="/poli/enterroom.do" method="post" id="enterroom">
+									<form action="/poli/enterroom.do" method="post" name="${chatlist.chat_seq } ">
 										<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-										<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+										<input type="hidden" name="member_seq" value="${principal.member_seq }">
 										<input type="hidden" name="chat_seq" value="${chatlist.chat_seq }">
-										<input type="button" id="enterBtn" value="${chatlist.chat_name }">
+										<input type="button" class="enterBtn" value="${chatlist.chat_name }">
 									</form>
 
 								</td>
@@ -89,7 +91,7 @@
  			$('#createRoom').submit();
  		})
  		
- 		$('#enterBtn').click(function() {
+ 		$('.enterBtn').click(function() {
  			$('#enterroom').submit();
  		})
  		
@@ -119,10 +121,27 @@
  		 								var list = val;
  		 								for (var i = 0; i < list.length; i++) {
  		 									var str = list[i];
+ 		 									
+ 		 									if(str.chat_category == 1) {
+ 		 										str.chat_category = '의안'
+ 		 									} else if (str.chat_category == 2) {
+ 		 										str.chat_category = '시사'
+ 		 									} else if (str.chat_category == 3) {
+ 		 										str.chat_category = '이슈'
+ 		 									} else if (str.chat_category == 4) {
+ 		 										str.chat_category = '기타'
+ 		 									}
+ 		 									
  		 									$('#chatList').append(
  		 										"<tr>"+
  		 						 	 			"<td>"+str.chat_category+"</td>"+
- 		 						 	 			"<td>"+"<a href='/poli/enterroom.do?chat_seq="+str.chat_seq+"' class='enterroom'>"+str.chat_name+"</a></td>"+
+ 		 						 	 			"<td>"+
+ 		 						 	 			"<form action='/poli/enterroom.do' method='post' name='"+str.chat_seq+"'>"+
+ 		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+
+ 		 						 	 			"<input type='hidden' name='member_seq' value='"+member_seq+"'>"+
+ 		 						 	 			"<input type='hidden' name='chat_seq' value='"+str.chat_seq+"'>"+
+ 		 						 	 			"<input type='button' class='enterBtn' value='"+str.chat_name+"'>"+
+ 		 						 	 			"</td>"+
  		 						 	 			"</tr>"		
  		 									)	
  		 								}
