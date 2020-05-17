@@ -32,7 +32,7 @@
 	}
 </style>
 </head>
-<body>
+<body onresize="parent.resizeTo(400,600)" onload="parent.resizeTo(400,600)">
 	<div id="chat_header">
 		<div id="chat_name">
 			채팅방 이름
@@ -45,7 +45,6 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-
 	var wsocket;
 	var uri = "ws://localhost:8090/poli/chatws.do?chat_seq="+${chat_seq};
 	

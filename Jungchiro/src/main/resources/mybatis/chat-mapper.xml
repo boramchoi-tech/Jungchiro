@@ -47,5 +47,15 @@
 			A.CHAT_SEQ = B.CHAT_SEQ
 		ORDER BY B.MEMBER_CHAT_OUTTIME DESC
 	</select>
+	
+	<select id="enterRoomChk" parameterType="chatDto" resultType="int">
+		SELECT COUNT(*) FROM
+			(SELECT A.MEMBER_SEQ, A.MEMBER_ID, B.MEMBER_CHAT_OUTTIME, C.CHAT_SEQ, C.CHAT_NAME
+			FROM MEMBER A, MEMBER_CHAT B, CHAT C
+			WHERE A.MEMBER_SEQ = B.MEMBER_SEQ
+			AND B.CHAT_SEQ = C.CHAT_SEQ
+			AND A.MEMBER_SEQ = #{member_seq}
+			AND C.CHAT_SEQ = #{chat_seq})
+	</select>
 
 </mapper>
