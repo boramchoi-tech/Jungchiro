@@ -6,12 +6,45 @@
 <head>
 <meta charset="UTF-8">
 <title>정치로</title>
+<style type="text/css">
+	*{
+		paddin: 0;
+		margin: 0;
+	}
+	
+	#chat_header{
+		background-color: #2c2c2c;
+	}
+	
+	#chat_name{
+		display: inline-block;
+		width: 80%;
+		line-height: 50px;
+		color: white;
+		text-align: center;
+	}
+	
+	#chat_exit{
+		float: right;
+		line-height: 50px;
+		color: white;
+		text-align: center;
+	}
+</style>
 </head>
-<body>
+<body onresize="parent.resizeTo(400,600)" onload="parent.resizeTo(400,600)">
+	<div id="chat_header">
+		<div id="chat_name">
+			채팅방 이름
+		</div>
+		
+		<div id="chat_exit">
+			&nbsp;&nbsp;나가기&nbsp;&nbsp;
+		</div>
+	</div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-
 	var wsocket;
 	var uri = "ws://localhost:8090/poli/chatws.do?chat_seq="+${chat_seq};
 	
@@ -45,8 +78,9 @@
         appendMessage("연결을 끊었습니다.");
     }
     
+    
 	function send() {
-        var nickname = $("#nickname").val();
+        var nickname = ${loginDto.member_seq };
         var msg = $("#message").val();
         wsocket.send("msg:"+nickname+":" + msg);
         $("#message").val("");
