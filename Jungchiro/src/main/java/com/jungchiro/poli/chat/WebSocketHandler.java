@@ -59,7 +59,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
             s.sendMessage(message);
 
             // 로그에 남기기 위한 것으로 큰 의미가 없음
-            log(s.getId() + "에 메시지 발송: " + message.getPayload());
+            //log(s.getId() + "에 메시지 발송: " + message.getPayload());
         }
         
 		/*
