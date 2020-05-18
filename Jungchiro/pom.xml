@@ -214,34 +214,42 @@
 			<artifactId>json</artifactId>
 			<version>20190722</version>
 		</dependency>
-		
+
 		<!-- SECURITY 디펜던시 추가 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		    <version>${security.version}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${security.version}</version>
 		</dependency>
-	    <dependency> 
-	      <groupId>org.springframework.security</groupId> 
-	      <artifactId>spring-security-web</artifactId> 
-	      <version>${security.version}</version> 
-	    </dependency> 
-	    <dependency>
-	      <groupId>org.springframework.security</groupId>
-	      <artifactId>spring-security-config</artifactId>
-	      <version>${security.version}</version> 
-	    </dependency>
-	    <dependency> 
-	      <groupId>org.springframework.security</groupId> 
-	      <artifactId>spring-security-taglibs</artifactId> 
-	      <version>${security.version}</version> 
-	    </dependency> 
-	    <dependency> 
-	      <groupId>org.springframework.security</groupId> 
-	      <artifactId>spring-security-test</artifactId> 
-	      <version>${security.version}</version> 
-	    </dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+
+		<!-- 의안 크롤링 -->
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
+		</dependency>
 
 	</dependencies>
 
