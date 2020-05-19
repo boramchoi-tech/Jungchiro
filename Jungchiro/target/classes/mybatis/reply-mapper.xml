@@ -8,6 +8,7 @@
 		<result property="member_seq" column="MEMBER_SEQ" />
 		<result property="reply_content" column="REPLY_CONTENT" />
 		<result property="reply_date" column="REPLY_DATE" />
+		<result property="reply_isread" column="REPLY_ISREAD" />
 
 	</resultMap>
 
@@ -22,7 +23,7 @@
 
 		INSERT INTO REPLY VALUES
 		(REPLY_SEQ.NEXTVAL, #{board_seq}, 1,
-		#{reply_content}, SYSDATE)
+		#{reply_content}, SYSDATE, 'N')
 
 	</insert>
 
