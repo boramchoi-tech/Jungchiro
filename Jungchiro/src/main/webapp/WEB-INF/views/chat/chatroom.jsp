@@ -44,6 +44,27 @@
 		height: 430px;
 		overflow: auto;
 	}
+	
+	#chatMessageArea {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		list-style-type: none;
+		margin: 0 auto;
+		padding: 8px;
+	}
+	
+	#chatMessageArea .message_content {
+	 	background: #eee;
+  		border-radius: 8px;
+ 		padding: 8px;
+ 		margin: 2px 8px 2px 0;
+	}
+	
+/* 	.messages li.ours {
+  align-self: flex-end;  Stick to the right side, please! 
+  margin: 2px 0 2px 8px;
+} */
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -59,7 +80,7 @@
     
     //웹소켓 연결 시
     function onOpen(evt) {
-        appendMessage("연결되었습니다.");
+        //appendMessage("연결되었습니다.");
     }
 	
     //퇴장
@@ -70,7 +91,9 @@
 	// 이는 서버로부터 메세지가 도착했을 때 호출 
     function onMessage(evt) {
         var data = evt.data;
-        appendMessage(data);
+        var messageToJSON = JSON.parse(data);
+        appendMessage("<li class='message_id'>" + messageToJSON.message_id + "&nbsp;&nbsp;" + messageToJSON.message_time + "</li><br>");
+        appendMessage("<li class='message_content'>" + messageToJSON.message_content + "</li><br>");
     }
     
     // WebSocket 인터페이스의 연결상태가 readyState 에서 CLOSED 로 바뀌었을 때 호출 이벤트 리스너.
@@ -85,7 +108,7 @@
 		var today = new Date();
 
         var msg = $("#message").val();
-        wsocket.send("${chat.member_id}&nbsp;&nbsp;"+today.toLocaleTimeString()+"<br>" + msg);
+        wsocket.send("${chat.chat_seq}&nbsp;&nbsp;${chat.member_id}&nbsp;&nbsp;"+today.toLocaleTimeString()+"<br>" + msg);
         $("#message").val("");
     }
 	
@@ -94,7 +117,7 @@
     function appendMessage(msg) {
         
         // 메세지 입력창에 msg를 하고 줄바꿈 처리
-        $("#chatMessageArea").append(msg+"<br>");
+        $("#chatMessageArea").append(msg);
         
         // 채팅창의 heigth를 할당
         var chatAreaHeight = $("#chatArea").height();
@@ -117,13 +140,22 @@
     		var keycode = (event.keyCode ? event.keyCode : event.which);
     		
     		if (keycode == '13') {											// 고유 번호가 13이면 send() (=> 고유번호 13: enter key)
-    			send();
+    			var msgChk = $('#message').val();
+    			if(msgChk != "") {
+	    			send();
+    				
+    			}
+    			
     		}
     		event.stopPropagation();
     	});
     	
     	$('#sendBtn').click(function() {
-    		send();
+    		var msgChk = $('#message').val();
+			if(msgChk != "") {
+    			send();
+				
+			}
     	})
     	
     	$('#exitBtn').click(function() {
@@ -149,7 +181,7 @@
     	<div id="chatMessageArea">
     		<c:choose>
     			<c:when test="${empty chatMessage }">
-    				채팅방을 생성하였습니다.
+    				채팅방을 생성하였습니다.<br>
     			</c:when>
     			
     			<c:otherwise>
@@ -160,7 +192,6 @@
     				</c:forEach>
     			</c:otherwise>
     		</c:choose>
-    	
     	</div>
     </div>
     
