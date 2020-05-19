@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -9,12 +10,14 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
-	
+		<sec:authentication var="principal" property="principal" />
+
 		<h1>채팅방 만들기</h1>
 
 		<div class="create-room">
 			<form action="/poli/createroom.do" method="post" id="createRoom">
-				<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+				<input type="hidden" name="member_seq" value="${principal.member_seq }">
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				채팅방 이름: <input type="text" name="chat_name" required><br>
 				카테고리: 
 				<select name="chat_category">
@@ -25,14 +28,13 @@
 				</select>
 				<br>
 				<input type="button" value="만들기" id="createBtn">
-				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			</form>
 		</div>
 		
 		<div class="chat-list">
 			<h1>채팅방 목록</h1>
 			
-			<input type="checkbox" class="mychatlist" value="${member_seq }"> 내가 참여한 채팅방 목록 보기
+			<input type="checkbox" class="mychatlist" value="${principal.member_seq }"> 내가 참여한 채팅방 목록 보기
 			
 			<table border="1">
 				<tbody id="chatList">
@@ -60,11 +62,12 @@
 									</c:if>
 								</td>
 								<td>
-									<form action="/poli/enterroom.do" method="post" id="enterroom">
+								<!-- action="/poli/enterroom.do" method="post"  -->
+									<form id="enter_${chatlist.chat_seq } ">
 										<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-										<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+										<input type="hidden" name="member_seq" value="${principal.member_seq }">
 										<input type="hidden" name="chat_seq" value="${chatlist.chat_seq }">
-										<input type="button" id="enterBtn" value="${chatlist.chat_name }">
+										<input type="button" class="enterBtn" value="${chatlist.chat_name }">
 									</form>
 
 								</td>
@@ -88,11 +91,7 @@
  		$('#createBtn').click(function() {	
  			$('#createRoom').submit();
  		})
- 		
- 		$('#enterBtn').click(function() {
- 			$('#enterroom').submit();
- 		})
- 		
+
  		var member_seq = $('.mychatlist').val();
  		var $check = $('.mychatlist');
 		var seqVal = {"member_seq":member_seq}
@@ -119,10 +118,27 @@
  		 								var list = val;
  		 								for (var i = 0; i < list.length; i++) {
  		 									var str = list[i];
+ 		 									
+ 		 									if(str.chat_category == 1) {
+ 		 										str.chat_category = '의안'
+ 		 									} else if (str.chat_category == 2) {
+ 		 										str.chat_category = '시사'
+ 		 									} else if (str.chat_category == 3) {
+ 		 										str.chat_category = '이슈'
+ 		 									} else if (str.chat_category == 4) {
+ 		 										str.chat_category = '기타'
+ 		 									}
+ 		 									
  		 									$('#chatList').append(
  		 										"<tr>"+
  		 						 	 			"<td>"+str.chat_category+"</td>"+
- 		 						 	 			"<td>"+"<a href='/poli/enterroom.do?chat_seq="+str.chat_seq+"' class='enterroom'>"+str.chat_name+"</a></td>"+
+ 		 						 	 			"<td>"+
+ 		 						 	 			"<form action='/poli/enterroom.do' method='post' id='enter_"+str.chat_seq+"'>"+
+ 		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+
+ 		 						 	 			"<input type='hidden' name='member_seq' value='"+member_seq+"'>"+
+ 		 						 	 			"<input type='hidden' name='chat_seq' value='"+str.chat_seq+"'>"+
+ 		 						 	 			"<input type='button' class='enterBtn' value='"+str.chat_name+"'>"+
+ 		 						 	 			"</td>"+
  		 						 	 			"</tr>"		
  		 									)	
  		 								}
@@ -150,10 +166,27 @@
  		 								var list = val;
  		 								for (var i = 0; i < list.length; i++) {
  		 									var str = list[i];
+ 		 									
+ 		 									if(str.chat_category == 1) {
+ 		 										str.chat_category = '의안'
+ 		 									} else if (str.chat_category == 2) {
+ 		 										str.chat_category = '시사'
+ 		 									} else if (str.chat_category == 3) {
+ 		 										str.chat_category = '이슈'
+ 		 									} else if (str.chat_category == 4) {
+ 		 										str.chat_category = '기타'
+ 		 									}
+ 		 									
  		 									$('#chatList').append(
  		 										"<tr>"+
  		 						 	 			"<td>"+str.chat_category+"</td>"+
- 		 						 	 			"<td>"+"<a href='/poli/enterroom.do?chat_seq="+str.chat_seq+"' class='enterroom'>"+str.chat_name+"</a></td>"+
+ 		 						 	 			"<td>"+
+ 		 						 	 			"<form action='/poli/enterroom.do' method='post' id='enter_"+str.chat_seq+"'>"+
+ 		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+
+ 		 						 	 			"<input type='hidden' name='member_seq' value='"+member_seq+"'>"+
+ 		 						 	 			"<input type='hidden' name='chat_seq' value='"+str.chat_seq+"'>"+
+ 		 						 	 			"<input type='button' class='enterBtn' value='"+str.chat_name+"'>"+
+ 		 						 	 			"</td>"+
  		 						 	 			"</tr>"		
  		 									)	
  		 								}
@@ -161,7 +194,6 @@
  		 	 					})
  		 	 			)
  		 			}
- 	 	 			
  	 	 		})
  	 			
  	 		}
@@ -169,20 +201,25 @@
  		})
 
  	});
+	
+ 	$(document).on('click', '.enterBtn', function() {
+ 		var form_name = $(this).parent().attr('id');
  		
- 	$('.enterroom').click(function() {
-		var $href = $(this).attr('href');
-		
-		var popupWidth = 400;
+ 		var popupWidth = 400;
 		var popupHeight = 600;
+		
+		var chatpopupX = window.screen.width/2 - (popupWidth/2);
+		var chatpopupY = window.screen.height/2 - (popupHeight/2);
+ 		
+ 		var frm = document.getElementById(form_name);
+ 		window.open('', 'viewer', 'width='+popupWidth+', height='+popupHeight+', left='+chatpopupX+', top='+chatpopupY);
+ 		frm.action = "/poli/enterroom.do";
+ 		frm.target = "viewer";
+ 		frm.method = "post";
+ 		frm.submit();
 
-		var chatpopupX = (window.screen.width/2) - (popupWidth/2);
-		var chatpopupY = (window.screen.height/2) - (popupHeight/2);
-		 
-		window.open($href, "_sub", 'width='+popupWidth+', height='+popupHeight+', left='+chatpopupX+', top='+chatpopupY);
-		return false;
-	});
- 	
+ 	});
+
 </script>
 
 </body>

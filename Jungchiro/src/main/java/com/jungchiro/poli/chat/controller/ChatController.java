@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jungchiro.poli.chat.model.biz.ChatCreateBiz;
 import com.jungchiro.poli.chat.model.biz.ChatListBiz;
+import com.jungchiro.poli.chat.model.biz.EnterChatBiz;
 import com.jungchiro.poli.chat.model.biz.MessageBiz;
 import com.jungchiro.poli.chat.model.dto.ChatDto;
 import com.jungchiro.poli.chat.model.dto.MessageDto;
@@ -29,6 +30,9 @@ public class ChatController {
 	
 	@Autowired
 	private MessageBiz messageBiz;
+	
+	@Autowired
+	private EnterChatBiz enterBiz;
 	
 	@RequestMapping("/chat.do")
 	public String chat(ChatDto dto, Model model) {
@@ -93,12 +97,44 @@ public class ChatController {
 	}
 	
 	@RequestMapping("/enterroom.do")
-	public String enterRoom(Model model, @RequestBody ChatDto dto) {
-		List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
-		model.addAttribute("member_seq", dto.getMember_seq());
-		model.addAttribute("chat_seq", dto.getChat_seq());
-		model.addAttribute("chatMessage", chatMessage);
-		return "chat/chatroom";
+	public String enterRoom(Model model, ChatDto dto) {
+		//member_seq, chat_seq 넘어옴
+		System.out.println("member_seq : " + dto.getMember_seq() + " / chat_seq : " + dto.getChat_seq());
+		int enterRoomChk = enterBiz.enterRoomChk(dto.getMember_seq(), dto.getChat_seq());
+		System.out.println("chk : " + enterRoomChk);
+		
+		//채팅 참여 목록에 없는 member_seq일 경우
+		if (enterRoomChk != 1) {
+			int enterRes = enterBiz.insertChatMember(dto.getMember_seq(), dto.getChat_seq());
+			
+			if (enterRes != 0) {	// 성공
+				ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
+				// return member_seq, member_id, member_chat_outtime, chat_seq, chat_name
+				System.out.println("채팅방 입장");
+				model.addAttribute("chat", enterInfo);
+				return "chat/chatroom";
+				
+			} else {	//실패
+				return "redirect:chat.do";
+			}
+			
+		} else {
+			ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
+			System.out.println("채팅방 입장");
+			model.addAttribute("chat", enterInfo);
+			return "chat/chatroom";
+			
+		}
+		
+		/*
+		 * 
+		 * 
+		 * List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
+		 * model.addAttribute("member_seq", dto.getMember_seq());
+		 * model.addAttribute("chat_seq", dto.getChat_seq());
+		 * model.addAttribute("chatMessage", chatMessage);
+		 * 
+		 */
 	}
 
 }
