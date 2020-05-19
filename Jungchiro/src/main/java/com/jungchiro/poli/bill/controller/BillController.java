@@ -30,7 +30,7 @@ public class BillController {
         
         //Driver SetUp
         driver = new ChromeDriver();
-        base_url = "https://www.naver.com";
+        base_url = "http://likms.assembly.go.kr/bill/BillSearchResult.do";
     }
 
 	public void crawl() {
