@@ -105,6 +105,24 @@ public class ChatController {
 		
 		//채팅 참여 목록에 없는 member_seq일 경우
 		if (enterRoomChk != 1) {
+			int enterRes = enterBiz.insertChatMember(dto.getMember_seq(), dto.getChat_seq());
+			
+			if (enterRes != 0) {	// 성공
+				ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
+				// return member_seq, member_id, member_chat_outtime, chat_seq, chat_name
+				System.out.println("채팅방 입장");
+				model.addAttribute("chat", enterInfo);
+				return "chat/chatroom";
+				
+			} else {	//실패
+				return "redirect:chat.do";
+			}
+			
+		} else {
+			ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
+			System.out.println("채팅방 입장");
+			model.addAttribute("chat", enterInfo);
+			return "chat/chatroom";
 			
 		}
 		
@@ -117,8 +135,6 @@ public class ChatController {
 		 * model.addAttribute("chatMessage", chatMessage);
 		 * 
 		 */
-		
-		return "chat/chatroom";
 	}
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jungchiro.poli.chat.model.dao.EnterChatDao;
+import com.jungchiro.poli.chat.model.dto.ChatDto;
 
 @Service
 public class EnterChatBizImpl implements EnterChatBiz {
@@ -19,6 +20,11 @@ public class EnterChatBizImpl implements EnterChatBiz {
 	@Override
 	public int insertChatMember(int member_seq, int chat_seq) {
 		return dao.insertChatMember(member_seq, chat_seq);
+	}
+	
+	@Override
+	public ChatDto enterInfo(int member_seq, int chat_seq) {
+		return dao.enterInfo(member_seq, chat_seq);
 	}
 
 }
