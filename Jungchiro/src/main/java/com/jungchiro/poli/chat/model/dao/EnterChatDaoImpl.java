@@ -24,8 +24,16 @@ public class EnterChatDaoImpl implements EnterChatDao {
 	public int insertChatMember(int member_seq, int chat_seq) {
 		ChatDto dto = new ChatDto(member_seq, chat_seq);
 		int res = sqlSession.insert(NAMESPACE+"insertChatMember", dto);
-		
+
 		return res;
+	}
+	
+	@Override
+	public ChatDto enterInfo(int member_seq, int chat_seq) {
+		ChatDto dto = new ChatDto(member_seq, chat_seq);
+		ChatDto enterInfo = sqlSession.selectOne(NAMESPACE+"enterInfo", dto);
+		
+		return enterInfo;
 	}
 
 }
