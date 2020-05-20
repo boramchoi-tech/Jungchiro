@@ -49,6 +49,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		font-size: 0.8em;
+		line-height: 0.8em;
 		list-style-type: none;
 		margin: 0 auto;
 		padding: 8px;
@@ -59,6 +61,13 @@
   		border-radius: 8px;
  		padding: 8px;
  		margin: 2px 8px 2px 0;
+	}
+	
+	.notice {
+		margin: 0 auto;
+		color: #999;
+		line-height: 2.5em;
+		font-weight: bold;
 	}
 	
 /* 	.messages li.ours {
@@ -181,7 +190,8 @@
     	<div id="chatMessageArea">
     		<c:choose>
     			<c:when test="${empty chatMessage }">
-    				채팅방을 생성하였습니다.<br>
+    				<li class="notice">채팅방을 생성하였습니다.</li>
+    				<br>
     			</c:when>
     			
     			<c:otherwise>
