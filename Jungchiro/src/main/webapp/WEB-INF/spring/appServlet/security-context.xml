@@ -14,14 +14,14 @@
         <context:component-scan base-package="com.jungchiro.poli"/>
                       
         <http auto-config="true" use-expressions="true">
-          <intercept-url pattern="/chat.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/>
-          <intercept-url pattern="/boardlist.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/>
+<!--           <intercept-url pattern="/chat.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/>
+          <intercept-url pattern="/boardlist.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/> -->
 		  <intercept-url pattern="/**" access="permitAll"/>
 		  
-		  <access-denied-handler error-page="/poli/access_denied"/>
+<!-- 		  <access-denied-handler error-page="/poli/access_denied"/> -->
 		  
 		  <!-- 자동로그인 -->
-		  <remember-me key="eorkj" remember-me-parameter="remember-me" token-validity-seconds="604800"/>
+<!-- 		  <remember-me key="eorkj" remember-me-parameter="remember-me" token-validity-seconds="604800"/> -->
 		  <!-- 로그인 폼-->
 		  <form-login
 			  username-parameter="loginId"
