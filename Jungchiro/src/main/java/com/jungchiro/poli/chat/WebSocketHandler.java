@@ -1,11 +1,9 @@
 package com.jungchiro.poli.chat;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.jungchiro.poli.chat.model.biz.MessageBiz;
 import com.jungchiro.poli.chat.model.biz.ParseTime;
-import com.jungchiro.poli.chat.model.dto.MessageDto;
 
 public class WebSocketHandler extends TextWebSocketHandler {
 	
@@ -45,8 +42,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				String message_id = messageList.get(i).get("message_id");
 				String message_time = messageList.get(i).get("message_time");
 				String message_content = messageList.get(i).get("message_content");
-				String jsonMessage = "{\"message_id\":\"" + message_id + "\",\"message_time\":\"" + message_time
-						+ "\",\"message_content\":\"" + message_content + "\"}";
+				
+				String time = parseTime.parseJStoJAVA(message_time);
+				String isToday = parseTime.isToday(time);
+
+				String jsonMessage = "{\"message_id\":\"" + message_id + "\",\"message_time\":\"" + isToday + "\",\"message_content\":\"" + message_content + "\"}";
 
 				session.sendMessage(new TextMessage(jsonMessage));
 			}
@@ -112,23 +112,24 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String message_time = msg_split2[0];
 		String message_content = msg_split2[1];
 		
+		String time = parseTime.parseJStoJAVA(message_time);
+		
 		HashMap<String, String> message_map = new HashMap<String, String>();
 		message_map.put("chat_seq", chat_seq);
 		message_map.put("message_id", message_id);
-		message_map.put("message_time", message_time);
+		message_map.put("message_time", time);
 		message_map.put("message_content", message_content);
 
 		messageList.add(message_map);
 		
-		String time = parseTime.parseJStoJAVA(message_time);
-		
+		String isToday = parseTime.isToday(time);
+
 		for (int i = 0; i < chatList.size(); i++) {
 
 			if (chatList.get(i).containsKey(chat_seq)) {
 				WebSocketSession s = chatList.get(i).get(chat_seq);
 				
-				String jsonMessage = "{\"message_id\":\"" + message_id + "\",\"message_time\":\"" + message_time
-						+ "\",\"message_content\":\"" + message_content + "\"}";
+				String jsonMessage = "{\"message_id\":\"" + message_id + "\",\"message_time\":\"" + isToday + "\",\"message_content\":\"" + message_content + "\"}";
 
 				s.sendMessage(new TextMessage(jsonMessage));
 
