@@ -29,9 +29,6 @@ public class ChatController {
 	private ChatListBiz chatBiz;
 	
 	@Autowired
-	private MessageBiz messageBiz;
-	
-	@Autowired
 	private EnterChatBiz enterBiz;
 	
 	@RequestMapping("/chat.do")

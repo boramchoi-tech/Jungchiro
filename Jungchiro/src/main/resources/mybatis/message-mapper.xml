@@ -19,5 +19,21 @@
 		ORDER BY m.MESSAGE_SEQ ASC
 
 	</select>
+	
+	<update id="batchInsert" parameterType="list">
+		INSERT INTO MESSAGE (MESSAGE_SEQ, CHAT_SEQ, MEMBER_SEQ, MESSAGE_CONTENT, MESSAGE_TIME, MESSAGE_REPORT)
+		SELECT MESSAGE_SEQ.NEXTVAL AS MESSAGE_SEQ, T.*
+		FROM (
+			<foreach collection="list" item="item" index="index" separator="union all">
+				SELECT #{item.chat_seq} AS CHAT_SEQ
+					 , #{item.member_seq} AS MEMBER_SEQ
+					 , #{item.message_content} AS MESSAGE_CONTENT
+					 , #{item.message_time} AS MESSAGE_TIME
+					 , '0' AS MESSAGE_REPORT
+				FROM SYS.DUAL
+			</foreach>
+		) T
+
+	</update>
 
 </mapper>

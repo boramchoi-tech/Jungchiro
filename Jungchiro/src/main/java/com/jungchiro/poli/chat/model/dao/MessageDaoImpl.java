@@ -27,4 +27,11 @@ public class MessageDaoImpl implements MessageDao {
 		return chatMessage;
 	}
 	
+	@Override
+	public Integer batchInsert(List<MessageDto> insertList) {
+		Integer res = sqlSession.insert(NAMESPACE + "batchInsert", insertList);
+		System.out.println(res);
+		return res;
+	}
+	
 }
