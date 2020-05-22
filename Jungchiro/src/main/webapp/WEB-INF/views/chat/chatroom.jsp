@@ -213,12 +213,33 @@
     				<li class="notice">채팅방을 생성하였습니다.</li>
     				<br>
     			</c:when>
-    			
     			<c:otherwise>
     				<c:forEach items="${chatMessage }" var="chatMessage">
-    					보낸 시각 : ${chatMessage.message_time }<br>
+    					<%-- 보낸 시각 : ${chatMessage.message_time }<br>
     					${chatMessage.member_seq }님의 말 : ${chatMessage.message_content }
-    					<br><br>
+    					<br><br> --%>
+    					
+						<c:choose>
+							<c:when test="${chatMessage.member_seq eq member_seq }">
+								<li class='message_id_mine'>${chatMessage.member_id }</li><br>
+								<div class='message_content_mine'>
+									${chatMessage.message_time }&nbsp;&nbsp;
+									<span class='contents_mine'>
+										${chatMessage.message_content }
+									</span>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<li class='message_id'>${chatMessage.member_id }</li><br>
+								<div class='message_content'>
+									<span class='contents'>
+										${chatMessage.message_content }
+									</span>
+									${chatMessage.message_time }&nbsp;&nbsp;
+								</div>
+							</c:otherwise>
+						</c:choose>
+    					
     				</c:forEach>
     			</c:otherwise>
     		</c:choose>

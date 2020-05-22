@@ -17,8 +17,6 @@ public class MessageDto {
 	
 	public MessageDto() {}
 	
-	
-
 	public MessageDto(int message_seq, int chat_seq, int member_seq, String message_content, Date message_time,
 			int message_report, String chat_name, String member_id) {
 		super();

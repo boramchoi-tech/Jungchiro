@@ -34,6 +34,25 @@ public class ParseTime {
 		return parseTime;
 	}
 	
+	public String isToday(Date date) {
+		Date today = new Date();
+		SimpleDateFormat tempFormat = new SimpleDateFormat("yyyy/MM/dd");
+		String tmpToday = tempFormat.format(today);
+		String tmpCompare = tempFormat.format(date);
+		
+		SimpleDateFormat returnFormat = new SimpleDateFormat("aa hh:mm");
+		String returnDate = returnFormat.format(date);
+		
+		if (tmpToday.equals(tmpCompare)) {
+			return returnDate;
+			
+		} else {
+			return tmpCompare;	
+			
+		}
+
+	}
+	
 	// 날짜 판별해서 yyyy/MM/dd로 리턴할지 aa hh:mm:ss로 리턴할지 판별
 	public String isToday(String time) {
 

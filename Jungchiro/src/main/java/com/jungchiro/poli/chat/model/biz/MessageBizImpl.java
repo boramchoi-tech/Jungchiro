@@ -15,7 +15,7 @@ public class MessageBizImpl implements MessageBiz {
 	private MessageDao messageDao;
 	
 	@Override
-	public List<MessageDto> selectAll(int chat_seq) {
+	public List<MessageDto> selectAll(int chat_seq) {		
 		return messageDao.selectAll(chat_seq);
 	}
 	

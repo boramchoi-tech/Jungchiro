@@ -64,8 +64,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		
 		if (chatList.size() < 3) { // 남아있는 세션이 2개 이하일 경우
 			List<HashMap<String, String>> insertMessageList = new ArrayList<HashMap<String, String>>();
-			insertMessageList.addAll(messageList); // list 복사한 후
 			
+			if (messageList.size() == 0) {			//따로 추가된 메시지가 없을 경우
+				for (int i = 0; i < chatList.size(); i++) {
+					
+					//세션 종료한 유저 삭제
+					if (chatList.get(i).containsValue(session)) {
+						chatList.remove(i);
+						System.out.println("세션 삭제 성공");
+
+					}
+				}
+				return;					//메소드 종료
+				
+			} else {
+				insertMessageList.addAll(messageList); // list 복사한 후
+			}
+
 			List<MessageDto> insertList = new ArrayList<MessageDto>();
 			
 			for (int i = 0; i < insertMessageList.size() ; i++) {

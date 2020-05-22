@@ -23,7 +23,7 @@ public class MessageDaoImpl implements MessageDao {
 		map.put("chat_seq", chat_seq);
 		
 		chatMessage = sqlSession.selectList(NAMESPACE + "selectAll", map);
-
+		
 		return chatMessage;
 	}
 	
