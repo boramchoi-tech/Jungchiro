@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +38,12 @@ public class LoginController {
 		return "redirect:main.do";
 	}
 	
-	@RequestMapping(value = "/loginPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginPage.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String login() {
+		
 		return "form/loginPage";
 	}
+
 
 	@RequestMapping(value="/login.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody

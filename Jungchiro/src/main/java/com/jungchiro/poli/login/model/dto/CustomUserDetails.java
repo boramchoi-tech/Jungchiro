@@ -52,8 +52,8 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		// enable컬럼을 String으로 설정해서 오버라이딩해서 안씀
-		return false;
+		
+		return (member_enable.equals("enabled")) ? true : false;
 	}
 
 	

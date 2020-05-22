@@ -3,6 +3,7 @@ package com.jungchiro.poli.login.model.biz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,18 +21,18 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = (String) authentication.getPrincipal();
 		String password = (String) authentication.getCredentials();
-		System.out.println(username+","+password);
 		
 		CustomUserDetails user =  (CustomUserDetails) userDetailsService.loadUserByUsername(username);
-
+		
+		
 		if(!matchPassword(password, user.getPassword())) {
 			throw new BadCredentialsException(username);
 		}
 		
-		if(!user.getMember_enable().equals("enabled")) {
-			throw new BadCredentialsException(username);
+		
+		if(user.getMember_enable().equals("disabled") || user.getMember_enable().equals("block")) {
+			throw new DisabledException(username);
 		}
-		System.out.println(user.getMember_name());
 		
 		return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
 	}
