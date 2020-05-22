@@ -99,5 +99,4 @@ public class BoardDaoImpl implements BoardDao {
 		return sqlSession.selectOne(NAMESPACE + "listCount", search);
 	}
 
-
 }

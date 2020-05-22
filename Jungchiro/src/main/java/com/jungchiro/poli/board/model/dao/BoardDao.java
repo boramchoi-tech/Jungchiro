@@ -19,5 +19,5 @@ public interface BoardDao {
 	public int boardDelete(int board_seq);
 
 	public int listCount(SearchDto search);
-
+	
 }

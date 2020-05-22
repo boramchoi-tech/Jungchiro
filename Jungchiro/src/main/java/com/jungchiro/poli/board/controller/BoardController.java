@@ -3,7 +3,6 @@ package com.jungchiro.poli.board.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jungchiro.poli.board.model.biz.BoardBiz;
 import com.jungchiro.poli.board.model.dto.BoardDto;
 import com.jungchiro.poli.board.model.dto.PageMakeDto;
-import com.jungchiro.poli.board.model.dto.PagingDto;
 import com.jungchiro.poli.board.model.dto.SearchDto;
 
 @Controller
@@ -47,7 +45,6 @@ public class BoardController {
 
 	@RequestMapping("/boarddetail.do")
 	public String selectOne(Model model, int board_seq, @ModelAttribute("search") SearchDto search) {
-
 		logger.info("DETAIL");
 
 		model.addAttribute("board", biz.boardDetail(board_seq));
@@ -78,7 +75,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/boardupdateform.do")
-	public String updateForm(Model model, int board_seq) {
+	public String updateForm(Model model, int board_seq) throws Exception {
 
 		logger.info("UPDATEFORM");
 
