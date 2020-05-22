@@ -18,4 +18,8 @@
 	WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
 </select>
 
+	<select id="selectUserById" resultType="com.jungchiro.poli.login.model.dto.CustomUserDetails">
+			SELECT * FROM MEMBER WHERE member_id=#{loginId}	
+	</select>
+
 </mapper>

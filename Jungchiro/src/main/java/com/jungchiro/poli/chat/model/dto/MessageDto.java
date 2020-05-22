@@ -10,11 +10,15 @@ public class MessageDto {
 	private String message_content;
 	private Date message_time;
 	private int message_report;
+	private String chat_name;
+	private String member_id;
+	
+	//message_seq, chat_seq, member_seq, message_content, message_time, message_report, chat_name, member_id
 	
 	public MessageDto() {}
-
+	
 	public MessageDto(int message_seq, int chat_seq, int member_seq, String message_content, Date message_time,
-			int message_report) {
+			int message_report, String chat_name, String member_id) {
 		super();
 		this.message_seq = message_seq;
 		this.chat_seq = chat_seq;
@@ -22,6 +26,15 @@ public class MessageDto {
 		this.message_content = message_content;
 		this.message_time = message_time;
 		this.message_report = message_report;
+		this.chat_name = chat_name;
+		this.member_id = member_id;
+	}
+	
+	public MessageDto(int chat_seq, int member_seq, Date message_time, String message_content) {
+		this.chat_seq = chat_seq;
+		this.member_seq = member_seq;
+		this.message_time = message_time;
+		this.message_content = message_content;
 	}
 
 	public int getMessage_seq() {
@@ -70,6 +83,26 @@ public class MessageDto {
 
 	public void setMessage_report(int message_report) {
 		this.message_report = message_report;
+	}
+
+	public String getChat_name() {
+		return chat_name;
+	}
+
+	public void setChat_name(String chat_name) {
+		this.chat_name = chat_name;
+	}
+
+
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 	
 	

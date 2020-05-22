@@ -12,6 +12,7 @@
 		<typeAlias type="com.jungchiro.poli.mypage.model.dto.BillFavDto" alias="bill_favDto"/>		
 		<typeAlias type="com.jungchiro.poli.mypage.model.dto.NotificationReplyDto" alias="NotificationReplyDto"/>		
 		<typeAlias type="com.jungchiro.poli.notification.model.dto.NotificationDto" alias="NotificationDto"/>
+		<typeAlias type="com.jungchiro.poli.bill.model.dto.BillDto" alias="billDto"/>
 	</typeAliases>
 	
 	<mappers>
@@ -25,6 +26,7 @@
 		<mapper resource="/mybatis/bill_fav-mapper.xml"/>
 		<mapper resource="/mybatis/notification-mapper.xml"/>
 		<mapper resource="/mybatis/replynotification-mapper.xml"/>
+		<mapper resource="/mybatis/bill-mapper.xml"/>
 	</mappers>
 
 </configuration>

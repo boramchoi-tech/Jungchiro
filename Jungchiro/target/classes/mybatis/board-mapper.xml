@@ -25,6 +25,9 @@
 		(SELECT A.*FROM
 		(SELECT B.*, ROWNUM AS RNUM FROM (SELECT * FROM BOARD ORDER BY BOARD_SEQ
 		DESC)B)A
+		DESC)B		
+		WHERE 1=1
+		<include refid="search"></include>)A
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd})
 		JOIN MEMBER USING (MEMBER_SEQ)
 		ORDER BY BOARD_SEQ DESC
@@ -57,6 +60,7 @@
 		(BOARD_SEQ.NEXTVAL, #{member_seq}, #{board_category},
 		#{board_title},
 		#{board_content}, NULL, NULL, SYSDATE, DEFAULT )
+		#{board_content}, NULL, NULL, SYSDATE, 0 )
 
 	</insert>
 
@@ -67,6 +71,7 @@
 		SET
 		BOARD_CATEGORY = #{board_category}, BOARD_TITLE=#{board_title},BOARD_CONTENT=#{board_content}
 		WHERE BOARD_SEQ=#{board_seq}
+
 
 	</update>
 

@@ -10,14 +10,25 @@ public class ChatDto {
 	private Date chat_makeday;
 
 	private int member_seq;
+	private String member_id;
 	private Date member_chat_outtime;
-
+	
 	public ChatDto() {}
 	
 	public ChatDto(int member_seq) {
 		this.member_seq = member_seq;
 	}
 	
+	//enterroom
+	public ChatDto(int member_seq, String member_id, Date member_chat_outtime, int chat_seq, String chat_name) {
+		super();
+		this.chat_seq = chat_seq;
+		this.chat_name = chat_name;
+		this.member_seq = member_seq;
+		this.member_id = member_id;
+		this.member_chat_outtime = member_chat_outtime;
+	}
+
 	public ChatDto(int member_seq, int chat_seq) {
 		this.member_seq = member_seq;
 		this.chat_seq = chat_seq;
@@ -36,6 +47,18 @@ public class ChatDto {
 	}
 	
 	public ChatDto(int chat_seq, String chat_name, String chat_category, Date chat_makeday, int member_seq,
+			String member_id, Date member_chat_outtime) {
+		super();
+		this.chat_seq = chat_seq;
+		this.chat_name = chat_name;
+		this.chat_category = chat_category;
+		this.chat_makeday = chat_makeday;
+		this.member_seq = member_seq;
+		this.member_id = member_id;
+		this.member_chat_outtime = member_chat_outtime;
+	}
+	
+	public ChatDto(int chat_seq, String chat_name, String chat_category, Date chat_makeday, int member_seq,
 			Date member_chat_outtime) {
 		super();
 		this.chat_seq = chat_seq;
@@ -44,6 +67,14 @@ public class ChatDto {
 		this.chat_makeday = chat_makeday;
 		this.member_seq = member_seq;
 		this.member_chat_outtime = member_chat_outtime;
+	}
+	
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 	public int getChat_seq() {
@@ -93,7 +124,7 @@ public class ChatDto {
 	public void setMember_chat_outtime(Date member_chat_outtime) {
 		this.member_chat_outtime = member_chat_outtime;
 	}
-	
+
 	
 	
 	

@@ -23,8 +23,15 @@ public class MessageDaoImpl implements MessageDao {
 		map.put("chat_seq", chat_seq);
 		
 		chatMessage = sqlSession.selectList(NAMESPACE + "selectAll", map);
-
+		
 		return chatMessage;
+	}
+	
+	@Override
+	public Integer batchInsert(List<MessageDto> insertList) {
+		Integer res = sqlSession.insert(NAMESPACE + "batchInsert", insertList);
+		System.out.println(res);
+		return res;
 	}
 	
 }

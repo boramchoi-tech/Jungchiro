@@ -10,4 +10,6 @@ public interface MessageDao {
 	
 	public List<MessageDto> selectAll(int chat_seq);
 
+	public Integer batchInsert(List<MessageDto> insertList);
+
 }

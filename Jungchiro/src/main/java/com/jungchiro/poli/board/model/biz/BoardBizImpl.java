@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.jungchiro.poli.board.model.dao.BoardDao;
 import com.jungchiro.poli.board.model.dto.BoardDto;
-import com.jungchiro.poli.board.model.dto.PagingDto;
 import com.jungchiro.poli.board.model.dto.SearchDto;
 
 @Service
@@ -17,7 +16,7 @@ public class BoardBizImpl implements BoardBiz {
 	private BoardDao dao;
 
 	@Override
-	public List<BoardDto> boardList(SearchDto search) {		
+	public List<BoardDto> boardList(SearchDto search) {
 		return dao.boardList(search);
 	}
 

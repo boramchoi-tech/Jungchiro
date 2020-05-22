@@ -10,15 +10,14 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src = "/poli/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-	$(".cancel_btn")
-			.on(
-					"click",
-					function() {
-						event.preventDefault();
-						location.href = "/poli/boardlist.do?page=${search.page}"
-								+ "&perPageNum=${search.perPageNum}"
-								+ "&searchType=${search.searchType}&keyword=${search.keyword}";
-					})
+
+function insert() {
+	if($(select[name='board_category']).val == "none"){
+		alert("카테고리를 선택해주세요");
+		return false;
+	}
+}
+
 </script>
 
 </head>
@@ -27,6 +26,7 @@
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
 
 	<form action="/poli/boardinsertres.do" method="post">
+	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 
 		<table border="1">
 			<tr>
@@ -41,7 +41,7 @@
 			<tr>
 				<th>카테고리</th>
 				<td><select name="board_category">
-						<option value="">카테고리 선택</option>
+						<option value="none">카테고리 선택</option>
 						<option value="의안">의안</option>
 						<option value="시사">시사</option>
 						<option value="이슈">이슈</option>
@@ -62,9 +62,14 @@
 
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="글쓰기">
-					<input type="hidden" name="member_seq" value="${loginDto.member_seq}">
+
 					<input type="button" value="취소" onclick="location.href='/poli/boardlist.do?page=1'"/>
 				</td>
+				<td colspan="2" align="right"><input type="submit" value="글쓰기" onclick="insert()">
+					<input type="hidden" name="member_seq" value="${principal.member_seq}">
+					<input type="button" value="취소" 
+					onclick="location.href ='/poli/boardlist.do?page=1'"></td>
+			</tr>
 		</table>
 	</form>
 

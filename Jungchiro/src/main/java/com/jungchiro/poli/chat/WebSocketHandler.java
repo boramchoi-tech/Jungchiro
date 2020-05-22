@@ -1,73 +1,197 @@
 package com.jungchiro.poli.chat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.jungchiro.poli.chat.model.biz.MessageBiz;
+import com.jungchiro.poli.chat.model.biz.ParseTime;
+import com.jungchiro.poli.chat.model.dto.MessageDto;
+
 public class WebSocketHandler extends TextWebSocketHandler {
 	
-    // 접속한 유저들의 목록을 담기 위한 Map 선언
-    // ConcurrentHashMap은 Hashtable과 유사하지만 멀티스래드 환경에서 더 안전하다
-    /*
-        ConcurrentHashMap에 대한 설명(반드시 읽고 숙지)
+	@Autowired
+	private MessageBiz biz;
+	
+	@Autowired
+	private ParseTime parseTime;
 
-  https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentHashMap.html
-  http://blog.leekyoungil.com/?p=159
-  http://limkydev.tistory.com/64
-    */
-    private Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
+	private List<ConcurrentHashMap<String, WebSocketSession>> chatList = new ArrayList<ConcurrentHashMap<String, WebSocketSession>>();
+	private List<HashMap<String, String>> messageList = new ArrayList<HashMap<String, String>>();
 
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		String uri = session.getUri().toString().split("chat_seq=")[1];
 
-        // session에서 id를 가져와서 로그에 남긴다(없어도 되는 과정)
-        log(session.getId() + " 연결 됨");
+		ConcurrentHashMap<String, WebSocketSession> chatUser = new ConcurrentHashMap<String, WebSocketSession>();
 
-        // 위에서 선언한 users라는 map에 user를 담는 과정(필수)
-        // map에 담는 이유는 메세지를 일괄적으로 뿌려주기 위해서이다
-        users.put(session.getId(), session);
-    }
+		chatUser.put(uri, session);
+		chatList.add(chatUser);
 
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        log(session.getId() + " 연결 종료됨");
+		for (int i = 0; i < messageList.size(); i++) {
+			String chat_seq = messageList.get(i).get("chat_seq");
 
-        // map에서 세션에서 연결 종료된 유저를 없애는 이유는
-        // 더 이상 메세지를 보낼 필요가 없기 때문에 목록에서 지우는 것이다
-        users.remove(session.getId());
-    }
-    
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        log(session.getId() + "로부터 메시지 수신: " + message.getPayload());
+			if (uri.equals(chat_seq)) {
+				String message_id = messageList.get(i).get("message_id");
+				String message_time = messageList.get(i).get("message_time");
+				String message_content = messageList.get(i).get("message_content");
+				
+				String time = parseTime.parseJStoJAVA(message_time);
+				String isToday = parseTime.isToday(time);
 
-        // 클라이언트로부터 메세지를 받으면 동작하는 handleTextMessage 함수!
-        // 수신한 하나의 메세지를 users 맵에 있는 모든 유저(세션)들에게
-        // 맵을 반복으로 돌면서 일일이 보내주게 되도록 처리
-        for (WebSocketSession s : users.values()) { //<-- .values() 로 session들만 가져옴
-            
-            // 여기서 모든 세션들에게 보내지게 된다
-            // 1회전당 현재 회전에 잡힌 session에게 메세지 보낸다
-            s.sendMessage(message);
+				String jsonMessage = "{\"message_id\":\"" + message_id + "\",\"message_time\":\"" + isToday + "\",\"message_content\":\"" + message_content + "\"}";
 
-            // 로그에 남기기 위한 것으로 큰 의미가 없음
-            log(s.getId() + "에 메시지 발송: " + message.getPayload());
-        }
-    }
+				session.sendMessage(new TextMessage(jsonMessage));
+			}
 
-    @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        log(session.getId() + " 익셉션 발생: " + exception.getMessage());
-    }
+		}
 
-    private void log(String logmsg) {
-        System.out.println(new Date() + " : " + logmsg);
-    }
+	}
 
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		log(session.getId() + " 연결 종료됨");
+		
+		if (chatList.size() < 3) { // 남아있는 세션이 2개 이하일 경우
+			List<HashMap<String, String>> insertMessageList = new ArrayList<HashMap<String, String>>();
+			
+			if (messageList.size() == 0) {			//따로 추가된 메시지가 없을 경우
+				for (int i = 0; i < chatList.size(); i++) {
+					
+					//세션 종료한 유저 삭제
+					if (chatList.get(i).containsValue(session)) {
+						chatList.remove(i);
+						System.out.println("세션 삭제 성공");
 
+					}
+				}
+				return;					//메소드 종료
+				
+			} else {
+				insertMessageList.addAll(messageList); // list 복사한 후
+			}
+
+			List<MessageDto> insertList = new ArrayList<MessageDto>();
+			
+			for (int i = 0; i < insertMessageList.size() ; i++) {
+				String seq = insertMessageList.get(i).get("chat_seq");
+				int chat_seq = Integer.parseInt(seq);
+				String memberseq = insertMessageList.get(i).get("member_seq");
+				int member_seq = Integer.parseInt(memberseq);
+				String time = insertMessageList.get(i).get("message_time");
+				String message_content = insertMessageList.get(i).get("message_content");
+				
+				SimpleDateFormat stringToDate = new SimpleDateFormat("yyyy/MM/dd aa hh:mm:ss");
+				Date message_time = null;
+				try {
+					message_time = stringToDate.parse(time);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				} // int chat_seq, int member_seq, String message_content, Date message_time 변환 끝
+				
+				MessageDto dto = new MessageDto(chat_seq, member_seq, message_time, message_content);
+				insertList.add(dto);
+				
+			}
+			
+			Integer res = biz.batchInsert(insertList);
+			
+			if (res > 0) {
+				messageList.clear();			// 메시지 담은 list clear한 후
+				
+				for (int i = 0; i < chatList.size(); i++) {
+					
+					//세션 종료한 유저 삭제
+					if (chatList.get(i).containsValue(session)) {
+						chatList.remove(i);
+						System.out.println("세션 삭제 성공");
+
+					}
+				}
+				System.out.println("DB 저장 성공");
+				
+			} else {
+				System.out.println("DB 저장 실패");
+				
+			}
+			
+		} else {
+			for (int i = 0; i < chatList.size(); i++) {
+				
+				//세션 종료한 유저 삭제
+				if (chatList.get(i).containsValue(session)) {
+					chatList.remove(i);
+					System.out.println("세션 삭제 성공");
+
+				}
+			}
+			
+		}
+
+	}
+
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		String chat_msg = message.getPayload();
+						// admin&nbsp;&nbsp;오후 5:46:47<br>ㅇ
+
+		//		0							1											2
+		//"${chat.chat_seq} / ${chat.member_id} / "+today+"<br>" + msg + " / ${chat.member_seq}"
+		String[] msg_split1 = chat_msg.split("&nbsp;&nbsp;");
+		String[] msg_split2 = msg_split1[2].split("<br>");
+
+		String chat_seq = msg_split1[0];
+		String message_id = msg_split1[1];
+		String member_seq = msg_split1[3];
+		
+		String message_time = msg_split2[0];
+		String message_content = msg_split2[1];
+		
+		String time = parseTime.parseJStoJAVA(message_time);
+		
+		HashMap<String, String> message_map = new HashMap<String, String>();
+		message_map.put("chat_seq", chat_seq);
+		message_map.put("member_seq", member_seq);
+		message_map.put("message_id", message_id);
+		message_map.put("message_time", time);
+		message_map.put("message_content", message_content);
+
+		messageList.add(message_map);
+		
+		String isToday = parseTime.isToday(time);
+
+		for (int i = 0; i < chatList.size(); i++) {
+
+			if (chatList.get(i).containsKey(chat_seq)) {
+				WebSocketSession s = chatList.get(i).get(chat_seq);
+				
+				String jsonMessage = "{\"message_id\":\"" + message_id + "\",\"message_time\":\"" + isToday + "\",\"message_content\":\"" + message_content + "\"}";
+
+				s.sendMessage(new TextMessage(jsonMessage));
+
+			}
+
+		}
+
+	}
+
+	@Override
+	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+		log(session.getId() + " 익셉션 발생: " + exception.getMessage());
+	}
+
+	private void log(String logmsg) {
+		System.out.println(new Date() + " : " + logmsg);
+	}
 
 }

@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="sessionLogin" value="${sessionScope.loginDto }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
 <!-- START :: JAVASCRIPT -->
@@ -71,26 +74,36 @@
 	
 
 </script>
+<style type="text/css">
+	form{display:inline}
+</style>
+
 </head>
 <body>
 	<input type="hidden" id="member_seq" value="${loginDto.member_seq }">
 
 	<div id="role" class="nanum">
-		<c:if test="${!empty loginDto }">
-			${loginDto.member_name }님 안녕하세요
-			<a href="/poli/mypage.do?member_seq=${loginDto.member_seq }">마이 페이지</a>
-			<a href="/poli/logout.do" class="login-btn">로그아웃</a>
-			<img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
-			<span id="bell_count"></span>
-		</c:if>
-		
-		<c:if test="${empty loginDto }">
-			<a href="#login" class="login-btn">로그인</a>
-		</c:if>
 
-		<c:if test="${loginDto.member_role eq 'Y' }">
+		<sec:authorize access="isAuthenticated()">
+			<sec:authentication var="principal" property="principal" />
+			${principal.member_name }님 안녕하세요
+			마이 페이지
+			<form id="logout" action="/poli/logout" method="POST">
+			   <input id="logoutBtn" type="submit" value="Logout" />
+			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
+			   <span id="bell_count"></span>
+			</form>
+		</sec:authorize>
+
+		
+		<sec:authorize access="isAnonymous()">
+			<a href="/poli/loginPage.do" class="login-btn">로그인</a>
+		</sec:authorize>
+
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			관리자 페이지
-		</c:if>
+		</sec:authorize>
 		&nbsp;&nbsp;
 	</div>
 
@@ -108,9 +121,9 @@
 
 	    <a href="/poli/news.do">뉴스</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/map.do">지도</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/poli/billlist.do?page=1">의안정보</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/boardlist.do?page=1">자유게시판</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/poli/chat.do?member_seq=${loginDto.member_seq }">채팅</a>
+		<a href="/poli/chat.do?member_seq=${principal.member_seq }">채팅</a>
 	</div>
 	
 	<div class="login-layer">

@@ -12,14 +12,12 @@ public class ReplyDto {
 	private String reply_isread;
 	private String member_id;
 
-	
 	public ReplyDto() {
 		
 	}
 
 
-	public ReplyDto(int reply_seq, int board_seq, int member_seq, String reply_content, Date reply_date,
-			String reply_isread, String member_id) {
+	public ReplyDto(int reply_seq, int board_seq, int member_seq, String reply_content, Date reply_date, String reply_isread, String member_id) {
 		super();
 		this.reply_seq = reply_seq;
 		this.board_seq = board_seq;
@@ -90,7 +88,6 @@ public class ReplyDto {
 		this.reply_isread = reply_isread;
 	}
 
-
 	public String getMember_id() {
 		return member_id;
 	}
@@ -99,7 +96,7 @@ public class ReplyDto {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	
+
 	
 
 }

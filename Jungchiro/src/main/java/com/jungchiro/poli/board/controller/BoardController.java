@@ -58,7 +58,6 @@ public class BoardController {
 	// 쿠키 이용 조회수 중복 증가 방지된 글 하나 출력
 	@RequestMapping("/boarddetail.do")
 	public String selectOne(HttpServletRequest request, HttpServletResponse response, Model model, int board_seq, @ModelAttribute("search") SearchDto search) {
-
 		logger.info("DETAIL");
 		
 		// 조회수 중복 증가 방지를 위한 쿠키 사용
@@ -131,8 +130,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/boardupdateform.do")
-	public String updateForm(Model model, int board_seq, int member_seq) {
-
+	public String updateForm(Model model, int board_seq) throws Exception {
 		logger.info("UPDATEFORM");
 
 		model.addAttribute("board", biz.boardDetail(board_seq));

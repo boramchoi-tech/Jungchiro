@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -9,12 +10,14 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
-	
-		채팅방 만들기
+		<sec:authentication var="principal" property="principal" />
+
+		<h1>채팅방 만들기</h1>
 
 		<div class="create-room">
-			<form action="/poli/createroom.do" method="post">
-				<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+			<form action="/poli/createroom.do" method="post" id="createRoom">
+				<input type="hidden" name="member_seq" value="${principal.member_seq }">
+				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				채팅방 이름: <input type="text" name="chat_name" required><br>
 				카테고리: 
 				<select name="chat_category">
@@ -24,14 +27,14 @@
 					<option value="4">기타</option>
 				</select>
 				<br>
-				<input type="submit" value="만들기">
+				<input type="button" value="만들기" id="createBtn">
 			</form>
 		</div>
 		
 		<div class="chat-list">
-			<h1>전체 채팅방 목록</h1>
+			<h1>채팅방 목록</h1>
 			
-			<input type="checkbox" class="mychatlist" value="${member_seq }"> 내가 참여한 채팅방 목록 보기
+			<input type="checkbox" class="mychatlist" value="${principal.member_seq }"> 내가 참여한 채팅방 목록 보기
 			
 			<table border="1">
 				<tbody id="chatList">
@@ -45,12 +48,28 @@
 							<tr>
 								<td>
 									<!-- 1: 의안 / 2: 시사 / 3: 이슈 / 4: 기타 -->
-									${chatlist.chat_category }
+									<c:if test="${chatlist.chat_category eq '1'}">
+										<c:out value="의안"/>
+									</c:if>
+									<c:if test="${chatlist.chat_category eq '2'}">
+										<c:out value="시사"/>
+									</c:if>
+									<c:if test="${chatlist.chat_category eq '3'}">
+										<c:out value="이슈"/>
+									</c:if>
+									<c:if test="${chatlist.chat_category eq '4'}">
+										<c:out value="기타"/>
+									</c:if>
 								</td>
 								<td>
-									<a href="/poli/enterroom.do?chat_seq=${chatlist.chat_seq }" class="enterroom">
-										${chatlist.chat_name }
-									</a>
+								<!-- action="/poli/enterroom.do" method="post"  -->
+									<form id="enter_${chatlist.chat_seq } ">
+										<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+										<input type="hidden" name="member_seq" value="${principal.member_seq }">
+										<input type="hidden" name="chat_seq" value="${chatlist.chat_seq }">
+										<input type="button" class="enterBtn" value="${chatlist.chat_name }">
+									</form>
+
 								</td>
 							</tr>
 							
@@ -69,33 +88,25 @@
 <script type="text/javascript">
  		
  	$(function() {
- 		var seq = $('.mychatlist').val();
+ 		$('#createBtn').click(function() {	
+ 			$('#createRoom').submit();
+ 		})
+
+ 		var member_seq = $('.mychatlist').val();
  		var $check = $('.mychatlist');
- 		var member_seq = {"member_seq":seq}
- 		
- 		var ajax = new ComAjax();
- 		ajax.url("/poli/chatlist.do");
- 		ajax.param(member_seq);
-/**/
+		var seqVal = {"member_seq":member_seq}
+		
  		$check.click(function() {
  			$("#chatList").children().remove();
- 			
-	 		ajax.success(function(msg) {
-	 			
-	 			
-	 		})
-	 		
-	 		ajax.call();
- 		});
- 	});
- 		
- 		/* $check.click(function() {
- 			
- 			if ($check.is(":checked")) {
- 				$("#chatList").children().remove();
- 				
- 				ajax.success(function(msg) {
- 		 			if(msg.chatroomCount == 0) {
+ 	 	 	var ajax = new ComAjax();
+ 	 		ajax.url("/poli/chatlist.do");
+
+ 	 		if($check.is(":checked")) {
+ 	 			// checkbox에 체크했을 경우 member_seq를 보내서 totalCount(member_seq), selectChatList(member_seq) 실행
+	 	 		ajax.param(seqVal);
+ 	 			ajax.success(function(msg) {
+ 	 				
+ 	 				if(msg.chatroomCount == 0) {
  		 				$("#chatList").append(
  							"<tr><td colspan='2'>---내가 참여 중인 채팅방이 존재하지 않습니다---</td></tr>"
  						);
@@ -107,10 +118,27 @@
  		 								var list = val;
  		 								for (var i = 0; i < list.length; i++) {
  		 									var str = list[i];
+ 		 									
+ 		 									if(str.chat_category == 1) {
+ 		 										str.chat_category = '의안'
+ 		 									} else if (str.chat_category == 2) {
+ 		 										str.chat_category = '시사'
+ 		 									} else if (str.chat_category == 3) {
+ 		 										str.chat_category = '이슈'
+ 		 									} else if (str.chat_category == 4) {
+ 		 										str.chat_category = '기타'
+ 		 									}
+ 		 									
  		 									$('#chatList').append(
  		 										"<tr>"+
  		 						 	 			"<td>"+str.chat_category+"</td>"+
- 		 						 	 			"<td>"+"<a href='/poli/enterroom.do?chat_seq="+str.chat_seq+"' class='enterroom'>"+str.chat_name+"</a></td>"+
+ 		 						 	 			"<td>"+
+ 		 						 	 			"<form action='/poli/enterroom.do' method='post' id='enter_"+str.chat_seq+"'>"+
+ 		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+
+ 		 						 	 			"<input type='hidden' name='member_seq' value='"+member_seq+"'>"+
+ 		 						 	 			"<input type='hidden' name='chat_seq' value='"+str.chat_seq+"'>"+
+ 		 						 	 			"<input type='button' class='enterBtn' value='"+str.chat_name+"'>"+
+ 		 						 	 			"</td>"+
  		 						 	 			"</tr>"		
  		 									)	
  		 								}
@@ -118,87 +146,80 @@
  		 	 					})
  		 	 			)
  		 			}
- 		 			
- 		 		});
- 				
- 				ajax.param({"member_seq":member_seq});
- 				ajax.call();
- 				return false;
- 				
- 			} else {
- 				alert('체크 해제');
- 				/* ajax.param({"member_seq":member_seq});
- 				ajax.call();
- 				return false; */
-/* 
- 			}
- 		}) */
- 		
- 		/* var member_seq = $('.mychatlist').val();
- 		console.log('seq : ' + member_seq);
- 		
- 		var ajax = new ComAjax();
- 		ajax.url("/poli/chatlist.do");
- 		
- 		ajax.success(function(msg) {
- 			if(msg.chatroomCount == 0) {
- 				$("#chatList").append(
-					"<tr><td colspan='2'>---채팅방이 존재하지 않습니다---</td></tr>"
-				);
- 				
- 			} else {
- 				$("#chatList").append(
- 	 					$.each(msg, function(key, val) {
- 	 						if (key == 'chatlist') {
- 								var list = val;
- 								for (var i = 0; i < list.length; i++) {
- 									var str = list[i];
- 									$('#chatList').append(
- 										"<tr>"+
- 						 	 			"<td>"+str.chat_category+"</td>"+
- 						 	 			"<td>"+"<a href='/poli/enterroom.do?chat_seq="+str.chat_seq+"' class='enterroom'>"+str.chat_name+"</a></td>"+
- 						 	 			"</tr>"		
- 									)	
- 								}
- 	 						}
- 	 					})
- 	 			)
- 			}
- 			
- 		});
- 		
- 		var $check = $('.mychatlist');
- 		$check.click(function() {
- 			if ($check.is(":checked")) {
- 				alert('체크');
- 				ajax.param({"member_seq":member_seq});
- 				ajax.call();
- 				return false;
- 				
- 			} else {
- 				alert('체크 해제');
- 				ajax.param({"member_seq":member_seq});
- 				ajax.call();
- 				return false;
-
- 			}
+ 	 	 			
+ 	 	 		})
+ 	 			
+ 	 		} else {
+ 	 			// checkbox 해제할 경우 member_seq에 0를 보내서 totalCount(), selectChatList() 실행
+ 	 			ajax.param({"member_seq":0});
+ 	 			ajax.success(function(msg) {
+ 	 				
+ 	 				if(msg.chatroomCount == 0) {
+ 		 				$("#chatList").append(
+ 							"<tr><td colspan='2'>---내가 참여 중인 채팅방이 존재하지 않습니다---</td></tr>"
+ 						);
+ 		 				
+ 		 			} else {
+ 		 				$("#chatList").append(
+ 		 	 					$.each(msg, function(key, val) {
+ 		 	 						if (key == 'chatlist') {
+ 		 								var list = val;
+ 		 								for (var i = 0; i < list.length; i++) {
+ 		 									var str = list[i];
+ 		 									
+ 		 									if(str.chat_category == 1) {
+ 		 										str.chat_category = '의안'
+ 		 									} else if (str.chat_category == 2) {
+ 		 										str.chat_category = '시사'
+ 		 									} else if (str.chat_category == 3) {
+ 		 										str.chat_category = '이슈'
+ 		 									} else if (str.chat_category == 4) {
+ 		 										str.chat_category = '기타'
+ 		 									}
+ 		 									
+ 		 									$('#chatList').append(
+ 		 										"<tr>"+
+ 		 						 	 			"<td>"+str.chat_category+"</td>"+
+ 		 						 	 			"<td>"+
+ 		 						 	 			"<form action='/poli/enterroom.do' method='post' id='enter_"+str.chat_seq+"'>"+
+ 		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+
+ 		 						 	 			"<input type='hidden' name='member_seq' value='"+member_seq+"'>"+
+ 		 						 	 			"<input type='hidden' name='chat_seq' value='"+str.chat_seq+"'>"+
+ 		 						 	 			"<input type='button' class='enterBtn' value='"+str.chat_name+"'>"+
+ 		 						 	 			"</td>"+
+ 		 						 	 			"</tr>"		
+ 		 									)	
+ 		 								}
+ 		 	 						}
+ 		 	 					})
+ 		 	 			)
+ 		 			}
+ 	 	 		})
+ 	 			
+ 	 		}
+	 	 	ajax.call();
  		})
- 		ajax.call(); */
- 
 
- 	$('.enterroom').click(function() {
-		var $href = $(this).attr('href');
-		
-		var popupWidth = 400;
+ 	});
+	
+ 	$(document).on('click', '.enterBtn', function() {
+ 		var form_name = $(this).parent().attr('id');
+ 		
+ 		var popupWidth = 400;
 		var popupHeight = 600;
 		
-		var chatpopupX = (window.screen.width/2) - (popupWidth/2);
-		var chatpopupY = (window.screen.height/2) - (popupHeight/2);
-		 
-		window.open($href, "_sub", 'width='+popupWidth+', height='+popupHeight+', left='+chatpopupX+', top='+chatpopupY);
-		return false;
-	});
- 	
+		var chatpopupX = window.screen.width/2 - (popupWidth/2);
+		var chatpopupY = window.screen.height/2 - (popupHeight/2);
+ 		
+ 		var frm = document.getElementById(form_name);
+ 		window.open('', 'viewer', 'width='+popupWidth+', height='+popupHeight+', left='+chatpopupX+', top='+chatpopupY);
+ 		frm.action = "/poli/enterroom.do";
+ 		frm.target = "viewer";
+ 		frm.method = "post";
+ 		frm.submit();
+
+ 	});
+
 </script>
 
 </body>

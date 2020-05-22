@@ -108,6 +108,7 @@
 													+ reply.reply_content
 													+ "</div></div>";
 
+
 												output += "<input type='button' value='수정' id='updateBtn' onclick='updateFormToggle("
 														+ reply.reply_seq
 														+ ")'/>&nbsp;&nbsp;&nbsp;";
@@ -117,7 +118,7 @@
 														+ ","
 														+ reply.reply_seq
 														+ ")'/><br/><br/>";
-										
+
 												output += "<form action='/replyupdate.do' method='post' id='updateForm" + reply.reply_seq + "' style='display:none;'>"
 														+ "<input type='hidden' name='board_seq' value='" + reply.board_seq + "'/>"
 														+ "<input type='hidden' name='reply_seq' value='" + reply.reply_seq + "'/>"
@@ -149,7 +150,9 @@
 		var reply_content = $("#replySubmit").find(
 				"textarea[name='reply_content']").val();
 		var member_seq = $("#member_seq").val().trim();
-			
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
 		$.ajax({
 			type : 'POST',
 			url : "/poli/replyinsert.do",
@@ -159,7 +162,9 @@
 				reply_content : reply_content
 			},
 			datatype : "text",
-
+			beforeSend : function(xhr) { //데이터를 전송하기 전에 헤더에 csrf값을 설정한다
+				xhr.setRequestHeader(header, token);
+			},
 			success : function(args) {
 				alert("댓글 쓰기 성공")
 				selectReply();

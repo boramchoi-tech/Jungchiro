@@ -58,7 +58,7 @@
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="수정">
 					<input type="button" value="취소"
-					onclick="location.href='/poli/boarddetail.do??board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
+					onclick="location.href='/poli/boarddetail.do?board_seq=${board.board_seq}'"></td>
 			</tr>
 		</table>
 	</form>
