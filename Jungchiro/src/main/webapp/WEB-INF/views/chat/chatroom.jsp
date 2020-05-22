@@ -215,15 +215,12 @@
     			</c:when>
     			<c:otherwise>
     				<c:forEach items="${chatMessage }" var="chatMessage">
-    					<%-- 보낸 시각 : ${chatMessage.message_time }<br>
-    					${chatMessage.member_seq }님의 말 : ${chatMessage.message_content }
-    					<br><br> --%>
     					
 						<c:choose>
 							<c:when test="${chatMessage.member_seq eq member_seq }">
 								<li class='message_id_mine'>${chatMessage.member_id }</li><br>
 								<div class='message_content_mine'>
-									${chatMessage.message_time }&nbsp;&nbsp;
+									<%-- ${chatMessage.message_time }&nbsp;&nbsp; 나중에 시간 생기면 time 고치기 --%>
 									<span class='contents_mine'>
 										${chatMessage.message_content }
 									</span>
