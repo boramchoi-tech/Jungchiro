@@ -201,3 +201,8 @@ a.btn-google {
   color: #fff;
   line-height: 27px;
 }
+
+#bell {
+	margin-top: 2px;
+	cursor: pointer;
+}

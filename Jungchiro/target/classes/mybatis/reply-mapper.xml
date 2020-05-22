@@ -8,36 +8,38 @@
 		<result property="member_seq" column="MEMBER_SEQ" />
 		<result property="reply_content" column="REPLY_CONTENT" />
 		<result property="reply_date" column="REPLY_DATE" />
-		<result property="reply_isread" column="REPLY_ISREAD" />
+		<result property="reply_isread" column="REPLY_ISREAD"/>
+		<result property="member_id" column="MEMBER_ID"/>
 
 	</resultMap>
 
 	<select id="replyList" parameterType="int" resultType="replyDto">
 
 		SELECT *
-		FROM REPLY WHERE BOARD_SEQ = #{board_seq}
+		FROM REPLY JOIN MEMBER USING(MEMBER_SEQ) WHERE BOARD_SEQ = #{board_seq}
 
 	</select>
 
 	<insert id="replyInsert" parameterType="replyDto">
 
 		INSERT INTO REPLY VALUES
-		(REPLY_SEQ.NEXTVAL, #{board_seq}, 1,
+		(REPLY_SEQ.NEXTVAL, #{board_seq}, #{member_seq},
 		#{reply_content}, SYSDATE, 'N')
 
 	</insert>
 
 	<update id="replyUpdate" parameterType="replyDto">
 
-		UPDATE REPLY SET REPLY_CONTENT = #{reply_content}, REPLY_DATE =
-		SYSDATE WHERE
+		UPDATE REPLY SET REPLY_CONTENT = #{reply_content}, REPLY_DATE = SYSDATE 
+		WHERE
 		REPLY_SEQ = #{reply_seq}
 
 	</update>
 
 	<delete id="replyDelete" parameterType="int">
 	
-	DELETE FROM REPLY WHERE REPLY_SEQ = #{reply_seq}
+		DELETE FROM REPLY WHERE REPLY_SEQ = #{reply_seq}
 	
 	</delete>
+	
 </mapper>

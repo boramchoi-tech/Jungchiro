@@ -14,7 +14,5 @@ public interface ReplyDao {
 	public int replyUpdate(ReplyDto reply);
 
 	public int replyDelete(int reply_seq);
-	
-	
-
+		
 }

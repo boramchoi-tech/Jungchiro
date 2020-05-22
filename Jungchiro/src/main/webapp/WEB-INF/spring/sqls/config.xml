@@ -8,8 +8,11 @@
 		<typeAlias type="com.jungchiro.poli.chat.model.dto.MessageDto" alias="messageDto"/>
 		<typeAlias type="com.jungchiro.poli.board.model.dto.BoardDto" alias="boardDto"/>
 		<typeAlias type="com.jungchiro.poli.reply.model.dto.ReplyDto" alias="replyDto"/>
+		<typeAlias type="com.jungchiro.poli.mypage.model.dto.BoardFavDto" alias="board_favDto"/>
+		<typeAlias type="com.jungchiro.poli.mypage.model.dto.BillFavDto" alias="bill_favDto"/>		
+		<typeAlias type="com.jungchiro.poli.mypage.model.dto.NotificationReplyDto" alias="NotificationReplyDto"/>		
+		<typeAlias type="com.jungchiro.poli.notification.model.dto.NotificationDto" alias="NotificationDto"/>
 		<typeAlias type="com.jungchiro.poli.bill.model.dto.BillDto" alias="billDto"/>
-
 	</typeAliases>
 	
 	<mappers>
@@ -19,6 +22,10 @@
 		<mapper resource="/mybatis/message-mapper.xml"/>
 		<mapper resource="/mybatis/board-mapper.xml"/>
 		<mapper resource="/mybatis/reply-mapper.xml"/>
+		<mapper resource="/mybatis/board_fav-mapper.xml"/>
+		<mapper resource="/mybatis/bill_fav-mapper.xml"/>
+		<mapper resource="/mybatis/notification-mapper.xml"/>
+		<mapper resource="/mybatis/replynotification-mapper.xml"/>
 		<mapper resource="/mybatis/bill-mapper.xml"/>
 	</mappers>
 

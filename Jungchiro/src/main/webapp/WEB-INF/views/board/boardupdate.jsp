@@ -6,13 +6,11 @@
 <meta charset="UTF-8">
 <title>정치로</title>
 
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src = "/poli/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 	
 </script>
-
 
 </head>
 <body>
@@ -33,19 +31,29 @@
 
 			<tr>
 				<th>카테고리</th>
-				<td><select name="board_category">
+				<td>
+					<select name="board_category">
 						<option value="${board.board_category }">카테고리 선택</option>
 						<option value="정책">정책</option>
 						<option value="선거">선거</option>
 						<option value="기타">기타</option>
-				</select></td>
+					</select>
+				</td>
 			</tr>
 
 			<tr>
 
 				<th>내용</th>
-				<td><textarea rows="10" cols="60" name="board_content">${board.board_content }
-				    </textarea></td>
+				<td>
+					<textarea rows="10" cols="60" name="board_content">
+						${board.board_content }
+				    </textarea>
+				    <script>
+							CKEDITOR.replace("board_content",{			 
+						    filebrowserUploadUrl : "/poli/imageUpload.do"			
+							});
+					</script>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="수정">
