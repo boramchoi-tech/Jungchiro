@@ -8,7 +8,7 @@
 <title>정치로</title>
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script src = "/poli/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 	$(".cancel_btn")
 			.on(
@@ -26,15 +26,12 @@
 
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
 
-	<h1>글쓰기</h1>
-
 	<form action="/poli/boardinsertres.do" method="post">
-
 
 		<table border="1">
 			<tr>
 				<th>작성자</th>
-				<td>test</td>
+				<td>${loginDto.member_id }</td>
 			</tr>
 			<tr>
 				<th>제목</th>
@@ -55,13 +52,19 @@
 			<tr>
 				<th>내용</th>
 				<td><textarea rows="10" cols="60" name="board_content"></textarea>
+						<script>
+							CKEDITOR.replace("board_content",{			 
+						    filebrowserUploadUrl : "/poli/imageUpload.do"			
+							});
+						</script>
 				</td>
-			</tr>
+			</tr>			
+
 			<tr>
 				<td colspan="2" align="right"><input type="submit" value="글쓰기">
-					<input type="button" value="취소"
-					onclick="location.href='/poli/boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'"></td>
-			</tr>
+					<input type="hidden" name="member_seq" value="${loginDto.member_seq}">
+					<input type="button" value="취소" onclick="location.href='/poli/boardlist.do?page=1'"/>
+				</td>
 		</table>
 	</form>
 

@@ -182,6 +182,30 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.10.4</version>
 		</dependency>
+		
+		<!-- commons-id.commons-io commons-fileupload.commons-fileupload -->  		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.6</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.6</version>
+		</dependency>
+		
+		
 		<!-- mongodb 연결 -->
 		<!-- mongodb.com>docs>dava edition>3.11.2>mongodb driver section>installation 
 			guide -->
@@ -197,14 +221,13 @@
 			<version>2.2.6.RELEASE</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>		
 
 		<!-- mongodb.com > docs > java edition > 3.11.2 > mongodb driver section 
 			> installation guide -->

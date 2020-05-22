@@ -1,6 +1,9 @@
 package com.jungchiro.poli.reply.model.dao;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +77,7 @@ public class ReplyDaoImpl implements ReplyDao {
 
 		return res;
 	}
+
+
 
 }

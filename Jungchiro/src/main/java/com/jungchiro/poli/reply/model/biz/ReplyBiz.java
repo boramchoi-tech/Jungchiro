@@ -13,5 +13,5 @@ public List<ReplyDto> replyList(int board_seq);
 	public int replyUpdate(ReplyDto reply);
 
 	public int replyDelete(int reply_seq);
-
+	
 }

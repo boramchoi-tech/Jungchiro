@@ -11,6 +11,8 @@ public interface BoardDao {
 	public List<BoardDto> boardList(SearchDto search);
 
 	public BoardDto boardDetail(int board_seq);
+	
+	public int boardCountUpdate(int board_seq);
 
 	public int boardInsert(BoardDto board);
 

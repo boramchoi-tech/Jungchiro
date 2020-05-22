@@ -8,8 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,4 +51,23 @@ public class LoginController {
 		return map;
 	}
 	
+	// 회원탈퇴
+	@RequestMapping(value="/dropId", method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Boolean> dropId(LoginDto dto){
+		
+		int res = 0;
+		boolean isDrop = false;
+		
+		// 회원탈퇴 메소드
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
+		if(res == 0) {
+			isDrop = true;
+			map.put("isDrop", isDrop);
+		}
+		
+		return map;
+	}
 }

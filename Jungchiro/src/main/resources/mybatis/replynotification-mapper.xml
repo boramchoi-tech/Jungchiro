@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="NotificationReplyDto">
+
+	<!-- 마이페이지 댓글 리스트 -->
+	<select id="replyNotificationList" parameterType="int" resultType="NotificationReplyDto">
+		SELECT *
+		FROM REPLY R, BOARD B
+		WHERE R.BOARD_SEQ = B.BOARD_SEQ AND B.MEMBER_SEQ = #{member_seq} AND R.REPLY_ISREAD = 'N'
+		ORDER BY R.REPLY_SEQ DESC
+	</select>
+
+	<!-- 댓글 읽음 표시 전체 전환 -->
+	<update id="changeReplyIsread" parameterType="int">
+	
+		UPDATE(SELECT * FROM REPLY JOIN BOARD USING(BOARD_SEQ) WHERE BOARD.MEMBER_SEQ = #{member_seq})A
+		SET A.REPLY_ISREAD = 'Y'
+		
+	</update>
+	
+	<!-- 댓글 읽음 하나 전환 -->
+	<update id="changeOneReplyIsread" parameterType="map">
+	
+		UPDATE(
+			SELECT * FROM REPLY JOIN BOARD USING(BOARD_SEQ) WHERE BOARD.MEMBER_SEQ = #{member_seq} AND BOARD_SEQ = #{board_seq}
+			)A
+		SET
+		A.REPLY_ISREAD = 'Y'
+		
+	</update>
+	
+	<!-- 댓글 읽음 멀티 전환 -->
+	<update id="changeMultiReplyIsread" parameterType="map">
+	
+			UPDATE(
+			SELECT * FROM REPLY JOIN BOARD USING(BOARD_SEQ) WHERE BOARD.MEMBER_SEQ = #{member_seq} AND BOARD_SEQ IN
+			<foreach collection="board_seq" item="board_seq" open="(" separator=", " close=")">
+				#{board_seq}
+			</foreach>
+			)A
+		SET
+		A.REPLY_ISREAD = 'Y'
+	
+	</update>
+
+</mapper>

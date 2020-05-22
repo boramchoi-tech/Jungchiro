@@ -17,39 +17,37 @@ public class BoardBizImpl implements BoardBiz {
 	private BoardDao dao;
 
 	@Override
-	public List<BoardDto> boardList(SearchDto search) {
-		// TODO Auto-generated method stub
-		
+	public List<BoardDto> boardList(SearchDto search) {		
 		return dao.boardList(search);
 	}
 
 	@Override
 	public BoardDto boardDetail(int board_seq) {
-		// TODO Auto-generated method stub
 		return dao.boardDetail(board_seq);
+	}
+	
+	@Override
+	public int boardCountUpdate(int board_seq) {
+		return dao.boardCountUpdate(board_seq);
 	}
 
 	@Override
 	public int boardInsert(BoardDto board) {
-		// TODO Auto-generated method stub
 		return dao.boardInsert(board);
 	}
 
 	@Override
 	public int boardUpdate(BoardDto board) {
-		// TODO Auto-generated method stub
 		return dao.boardUpdate(board);
 	}
 
 	@Override
 	public int boardDelete(int board_seq) {
-		// TODO Auto-generated method stub
 		return dao.boardDelete(board_seq);
 	}
 
 	@Override
 	public int listCount(SearchDto search) {
-		// TODO Auto-generated method stub
 		return dao.listCount(search);
 	}
 
