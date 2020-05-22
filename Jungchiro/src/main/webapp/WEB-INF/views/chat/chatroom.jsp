@@ -137,7 +137,7 @@
 		var today = new Date();
 
         var msg = $("#message").val();
-        wsocket.send("${chat.chat_seq}&nbsp;&nbsp;${chat.member_id}&nbsp;&nbsp;"+today+"<br>" + msg);
+        wsocket.send("${chat.chat_seq}&nbsp;&nbsp;${chat.member_id}&nbsp;&nbsp;"+today+"<br>" + msg + "&nbsp;&nbsp;${chat.member_seq}");
         $("#message").val("");
     }
 	

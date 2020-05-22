@@ -32,9 +32,9 @@ public class MessageDto {
 		this.member_id = member_id;
 	}
 	
-	public MessageDto(int chat_seq, String member_id, Date message_time, String message_content) {
+	public MessageDto(int chat_seq, int member_seq, Date message_time, String message_content) {
 		this.chat_seq = chat_seq;
-		this.member_id = member_id;
+		this.member_seq = member_seq;
 		this.message_time = message_time;
 		this.message_content = message_content;
 	}
