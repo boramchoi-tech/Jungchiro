@@ -12,6 +12,7 @@
 		<result property="decide_date" column="DECIDE_DATE" />
 		<result property="decide_result" column="DECIDE_RESULT" />
 		<result property="bill_content" column="BILL_CONTENT" />
+		<result property="content_address" column="CONTENT_ADDRESS" />
 		<result property="bill_status" column="BILL_STATUS" />
 	</resultMap>
 

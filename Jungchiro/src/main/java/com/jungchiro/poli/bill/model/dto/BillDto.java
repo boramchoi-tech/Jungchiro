@@ -13,6 +13,7 @@ public class BillDto {
 	private Date decide_date;
 	private String decide_result;
 	private String bill_content;
+	private String content_address;
 	private String bill_status;
 	
 	public BillDto() {
@@ -20,7 +21,8 @@ public class BillDto {
 	}
 
 	public BillDto(int bill_number, int bill_seq, String bill_type, String bill_name, String bill_proposer,
-			Date propose_date, Date decide_date, String decide_result, String bill_content, String bill_status) {
+			Date propose_date, Date decide_date, String decide_result, String bill_content, String content_address,
+			String bill_status) {
 		super();
 		this.bill_number = bill_number;
 		this.bill_seq = bill_seq;
@@ -31,6 +33,7 @@ public class BillDto {
 		this.decide_date = decide_date;
 		this.decide_result = decide_result;
 		this.bill_content = bill_content;
+		this.content_address = content_address;
 		this.bill_status = bill_status;
 	}
 
@@ -106,6 +109,14 @@ public class BillDto {
 		this.bill_content = bill_content;
 	}
 
+	public String getContent_address() {
+		return content_address;
+	}
+
+	public void setContent_address(String content_address) {
+		this.content_address = content_address;
+	}
+
 	public String getBill_status() {
 		return bill_status;
 	}
@@ -113,6 +124,7 @@ public class BillDto {
 	public void setBill_status(String bill_status) {
 		this.bill_status = bill_status;
 	}
+
 	
 	
 	

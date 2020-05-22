@@ -35,7 +35,7 @@ li {
 			<col width="100">
 			<col width="100">
 			<col width="100">
-			<col width="50">
+			<col width="100">
 			<col width="100">
 		</colgroup>
 		<thead>
@@ -70,7 +70,7 @@ li {
 							<td>${bill.propose_date}</td>
 							<td>${bill.decide_date}</td>
 							<td>${bill.decide_result}</td>
-							<td>${bill.bill_content}</td>
+							<td><a href="${bill.content_address}">${bill.bill_content}</a></td>
 							<td>${bill.bill_status}</td>
 						</tr>
 					</c:forEach>
