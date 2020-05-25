@@ -111,16 +111,16 @@ li {
 				<td colspan="6">
 					<ul>
 						<c:if test="${pageMake.prev}">
-							<li><a style="color: black"
+							<li><a 
 								href="/poli/boardlist.do${pageMake.makeSearch(pageMake.startPage - 1)}">이전</a></li>
 						</c:if>
 						<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
 							var="idx">
-							<li><a style="color: black"
+							<li><a 
 								href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
 						</c:forEach>
 						<c:if test="${pageMake.next && pageMake.endPage > 0}">
-							<li><a style="color: black"
+							<li><a 
 								href="/poli/boardlist.do${pageMake.makeSearch(pageMake.endPage + 1)}">다음</a></li>
 						</c:if>
 					</ul>

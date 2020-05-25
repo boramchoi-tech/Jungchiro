@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BillDto {
 	
-	private int bill_number;
+	private int bill_id;
 	private int bill_seq;
 	private String bill_type;
 	private String bill_name;
@@ -20,11 +20,11 @@ public class BillDto {
 		super();
 	}
 
-	public BillDto(int bill_number, int bill_seq, String bill_type, String bill_name, String bill_proposer,
+	public BillDto(int bill_id, int bill_seq, String bill_type, String bill_name, String bill_proposer,
 			Date propose_date, Date decide_date, String decide_result, String bill_content, String content_address,
 			String bill_status) {
 		super();
-		this.bill_number = bill_number;
+		this.bill_id = bill_id;
 		this.bill_seq = bill_seq;
 		this.bill_type = bill_type;
 		this.bill_name = bill_name;
@@ -37,12 +37,12 @@ public class BillDto {
 		this.bill_status = bill_status;
 	}
 
-	public int getBill_number() {
-		return bill_number;
+	public int getBill_id() {
+		return bill_id;
 	}
 
-	public void setBill_number(int bill_number) {
-		this.bill_number = bill_number;
+	public void setBill_id(int bill_id) {
+		this.bill_id = bill_id;
 	}
 
 	public int getBill_seq() {
@@ -125,7 +125,6 @@ public class BillDto {
 		this.bill_status = bill_status;
 	}
 
-	
 	
 	
 }

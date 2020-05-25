@@ -11,8 +11,8 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<script type="text/javascript"></script>
-
+<script type="text/javascript">
+</script>
 
 <style type="text/css">
 li {
@@ -63,15 +63,18 @@ li {
 					<!-- 모든 조건이 거짓일때 -->
 					<c:forEach items="${list }" var="bill">
 						<tr>
-							<td>${bill.bill_number}</td>
+							<td>${bill.bill_id}</td>
 							<td>${bill.bill_type}</td>
 							<td>${bill.bill_name}</td>
 							<td>${bill.bill_proposer}</td>
 							<td>${bill.propose_date}</td>
 							<td>${bill.decide_date}</td>
 							<td>${bill.decide_result}</td>
-							<td><a href="${bill.content_address}">${bill.bill_content}</a></td>
+							<td><a href="#"
+								onclick="window.open('${bill.content_address}','의안 상세', 'width=590, height=500, top=250, left=500, resizable=yes, scrollbars=yes, status=no');"
+								style="cursor: pointer">${bill.bill_content}</a></td>
 							<td>${bill.bill_status}</td>
+
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -81,15 +84,15 @@ li {
 
 			<tr>
 				<td colspan="9">
-				
+
 					<ul>
 						<c:if test="${pageMake.prev}">
 							<li><a style="color: black"
 								href="/poli/billlist.do${pageMake.makeQuery(pageMake.startPage - 1)}">이전</a></li>
 						</c:if>
 
-						<c:forEach begin="${pageMake.startPage}"
-							end="${pageMake.endPage}" var="idx">
+						<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
+							var="idx">
 							<li><a href="/poli/billlist.do${pageMake.makeQuery(idx)}">${idx}</a></li>
 						</c:forEach>
 
