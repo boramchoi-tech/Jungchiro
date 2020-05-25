@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="NotificationDto">
+
+	<!-- 안읽은 reply 수-->
+	<select id="getNotification" resultType="int" parameterType="int">
+		SELECT COUNT(R.REPLY_SEQ)
+		FROM REPLY R, BOARD B
+		WHERE R.BOARD_SEQ = B.BOARD_SEQ AND B.MEMBER_SEQ = #{member_seq} AND R.REPLY_ISREAD = 'N' 
+	</select>
+
+</mapper>

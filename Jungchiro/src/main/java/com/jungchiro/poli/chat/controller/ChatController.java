@@ -1,5 +1,6 @@
 package com.jungchiro.poli.chat.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +30,10 @@ public class ChatController {
 	private ChatListBiz chatBiz;
 	
 	@Autowired
-	private MessageBiz messageBiz;
+	private EnterChatBiz enterBiz;
 	
 	@Autowired
-	private EnterChatBiz enterBiz;
+	private MessageBiz messageBiz;
 	
 	@RequestMapping("/chat.do")
 	public String chat(ChatDto dto, Model model) {
@@ -110,7 +111,7 @@ public class ChatController {
 			if (enterRes != 0) {	// 성공
 				ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
 				// return member_seq, member_id, member_chat_outtime, chat_seq, chat_name
-				System.out.println("채팅방 입장");
+				model.addAttribute("enterRoomChk", enterRoomChk);
 				model.addAttribute("chat", enterInfo);
 				return "chat/chatroom";
 				
@@ -120,21 +121,17 @@ public class ChatController {
 			
 		} else {
 			ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
-			System.out.println("채팅방 입장");
+			List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
+			
+			model.addAttribute("chatMessage", chatMessage);
+			model.addAttribute("member_seq", dto.getChat_seq());
 			model.addAttribute("chat", enterInfo);
+			
+			System.out.println("채팅방 입장");
 			return "chat/chatroom";
 			
 		}
-		
-		/*
-		 * 
-		 * 
-		 * List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
-		 * model.addAttribute("member_seq", dto.getMember_seq());
-		 * model.addAttribute("chat_seq", dto.getChat_seq());
-		 * model.addAttribute("chatMessage", chatMessage);
-		 * 
-		 */
+
 	}
 
 }

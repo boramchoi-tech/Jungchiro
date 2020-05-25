@@ -50,6 +50,7 @@ public class ReplyController {
 				hm.put("member_seq", list.get(i).getMember_seq());
 				hm.put("reply_content", list.get(i).getReply_content());
 				hm.put("reply_date", list.get(i).getReply_date());
+				hm.put("member_id", list.get(i).getMember_id());
 
 				hmlist.add(hm);
 			}

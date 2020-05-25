@@ -13,10 +13,22 @@ public class MessageBizImpl implements MessageBiz {
 	
 	@Autowired
 	private MessageDao messageDao;
-
+	
 	@Override
-	public List<MessageDto> selectAll(int chat_seq) {
+	public List<MessageDto> selectAll(int chat_seq) {		
 		return messageDao.selectAll(chat_seq);
 	}
+	
+	@Override
+	public Integer batchInsert(List<MessageDto> insertList) {
+		Integer res = 0;
+		res = messageDao.batchInsert(insertList);
+
+		return res;
+	}
+
+	 
+		
+		
 
 }

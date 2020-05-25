@@ -1860,7 +1860,7 @@ $(function(){
         		    {
         		      title: '앱으로 이동',
         		      link: {
-        		        mobileWebUrl: url_j,
+        		        mobileWebUrl: url _j,
         		      },
         		    },
         		  ],

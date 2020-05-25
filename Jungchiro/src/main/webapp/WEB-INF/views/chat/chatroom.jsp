@@ -49,22 +49,48 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+		font-size: 0.8em;
+		line-height: 1.3em;
 		list-style-type: none;
 		margin: 0 auto;
 		padding: 8px;
 	}
 	
-	#chatMessageArea .message_content {
-	 	background: #eee;
+	#chatMessageArea .message_id_mine {
+		align-self: flex-end;
+		font-weight: bold;
+	}
+	
+	#chatMessageArea .message_content_mine {
+		align-self: flex-end;
+	}
+	
+	#chatMessageArea .message_content_mine .contents_mine {
+		background: #007eff;
+	 	color: white;
   		border-radius: 8px;
  		padding: 8px;
  		margin: 2px 8px 2px 0;
 	}
 	
-/* 	.messages li.ours {
-  align-self: flex-end;  Stick to the right side, please! 
-  margin: 2px 0 2px 8px;
-} */
+	#chatMessageArea .message_id {
+		font-weight: bold;
+	}
+	
+	#chatMessageArea .message_content .contents {
+		background: #eee;
+  		border-radius: 8px;
+ 		padding: 8px;
+ 		margin: 2px 8px 2px 0;
+	}
+	
+	.notice {
+		margin: 0 auto;
+		color: #999;
+		line-height: 2.5em;
+		font-weight: bold;
+	}
+	
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -92,23 +118,26 @@
     function onMessage(evt) {
         var data = evt.data;
         var messageToJSON = JSON.parse(data);
-        appendMessage("<li class='message_id'>" + messageToJSON.message_id + "&nbsp;&nbsp;" + messageToJSON.message_time + "</li><br>");
-        appendMessage("<li class='message_content'>" + messageToJSON.message_content + "</li><br>");
+        
+        if (messageToJSON.message_id == '${chat.member_id}') {
+        	appendMessage("<li class='message_id_mine'>" + messageToJSON.message_id + "</li><br>");
+            appendMessage("<div class='message_content_mine'>" + messageToJSON.message_time + "&nbsp;&nbsp;<span class='contents_mine'>" + messageToJSON.message_content + "</span></div><br>");
+        	
+        } else {
+        	appendMessage("<li class='message_id'>" + messageToJSON.message_id + "</li><br>");
+        	appendMessage("<div class='message_content'><span class='contents'>" + messageToJSON.message_content + "</span>" + messageToJSON.message_time + "</div><br>");
+        	
+        }
+
     }
     
-    // WebSocket 인터페이스의 연결상태가 readyState 에서 CLOSED 로 바뀌었을 때 호출 이벤트 리스너.
-    // 이 이벤트 리스너는 "close"라는 이름의 CloseEvent를 받는다.
-    function onClose(evt) {
-        appendMessage("연결을 끊었습니다.");
-    }
-    
-    
+    function onClose(evt) {}
     
 	function send() {
 		var today = new Date();
 
         var msg = $("#message").val();
-        wsocket.send("${chat.chat_seq}&nbsp;&nbsp;${chat.member_id}&nbsp;&nbsp;"+today.toLocaleTimeString()+"<br>" + msg);
+        wsocket.send("${chat.chat_seq}&nbsp;&nbsp;${chat.member_id}&nbsp;&nbsp;"+today+"<br>" + msg + "&nbsp;&nbsp;${chat.member_seq}");
         $("#message").val("");
     }
 	
@@ -181,14 +210,33 @@
     	<div id="chatMessageArea">
     		<c:choose>
     			<c:when test="${empty chatMessage }">
-    				채팅방을 생성하였습니다.<br>
+    				<li class="notice">채팅방을 생성하였습니다.</li>
+    				<br>
     			</c:when>
-    			
     			<c:otherwise>
     				<c:forEach items="${chatMessage }" var="chatMessage">
-    					보낸 시각 : ${chatMessage.message_time }<br>
-    					${chatMessage.member_seq }님의 말 : ${chatMessage.message_content }
-    					<br><br>
+    					
+						<c:choose>
+							<c:when test="${chatMessage.member_seq eq member_seq }">
+								<li class='message_id_mine'>${chatMessage.member_id }</li><br>
+								<div class='message_content_mine'>
+									<%-- ${chatMessage.message_time }&nbsp;&nbsp; 나중에 시간 생기면 time 고치기 --%>
+									<span class='contents_mine'>
+										${chatMessage.message_content }
+									</span>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<li class='message_id'>${chatMessage.member_id }</li><br>
+								<div class='message_content'>
+									<span class='contents'>
+										${chatMessage.message_content }
+									</span>
+									${chatMessage.message_time }&nbsp;&nbsp;
+								</div>
+							</c:otherwise>
+						</c:choose>
+    					
     				</c:forEach>
     			</c:otherwise>
     		</c:choose>
@@ -196,7 +244,7 @@
     </div>
     
     <div id="sendChat">
-	    <input type="text" id="message">
+	    <input type="text" id="message" maxlength="18">
 		<input type="button" id="sendBtn" value="전송">
     </div>
 </body>

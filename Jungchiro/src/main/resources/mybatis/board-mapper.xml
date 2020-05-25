@@ -12,67 +12,77 @@
 		<result property="board_img2" column="BOARD_IMG2" />
 		<result property="board_date" column="BOARD_DATE" />
 		<result property="board_count" column="BOARD_COUNT" />
+		<result property="member_name" column="MEMBER_NAME"/>
+		<result property="member_id" column="MEMBER_ID"/>
 
 	</resultMap>
 
-	<select id="boardList" resultType="boardDto"
-		parameterType="com.jungchiro.poli.board.model.dto.SearchDto">
+	<!-- 게시판 전체 출력 -->
+	<select id="boardList" resultType="boardDto" parameterType="com.jungchiro.poli.board.model.dto.SearchDto">
 
-		SELECT A.* FROM 
-		(SELECT B.*, ROWNUM AS RNUM FROM (SELECT * FROM BOARD ORDER BY BOARD_SEQ DESC)B
+		SELECT *
+		FROM
+		(SELECT A.*FROM
+		(SELECT B.*, ROWNUM AS RNUM FROM (SELECT * FROM BOARD ORDER BY BOARD_SEQ
+		DESC)B		
 		WHERE 1=1
-		<include refid="search"></include>
-		)A
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		<include refid="search"></include>)A
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd})
+		JOIN MEMBER USING (MEMBER_SEQ)
 		ORDER BY BOARD_SEQ DESC
 
-
 	</select>
 
-	<select id="boardDetail" parameterType="int"
-		resultType="boardDto">
-
-		SELECT
-		BOARD_SEQ, MEMBER_SEQ, BOARD_CATEGORY, BOARD_TITLE,
-		BOARD_CONTENT,
-		BOARD_IMG1, BOARD_IMG2, BOARD_DATE, BOARD_COUNT
-		FROM
-		BOARD WHERE
-		BOARD_SEQ
-		= #{board_seq}
-
+	<!-- 게시판 글 하나 출력 -->
+	<select id="boardDetail" parameterType="int" resultType="boardDto">
+		
+		SELECT *
+		FROM BOARD B, MEMBER M
+		WHERE B.BOARD_SEQ = #{board_seq} AND B.MEMBER_SEQ = M.MEMBER_SEQ
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<select id="boardCountUpdate" parameterType="int">
+		UPDATE BOARD
+		SET
+		BOARD_COUNT = BOARD_COUNT + 1
+		WHERE BOARD_SEQ = #{board_seq}
 	</select>
 
+	<!-- 게시판 글쓰기 -->
 	<insert id="boardInsert" parameterType="boardDto">
 
 		INSERT INTO BOARD
 		(BOARD_SEQ, MEMBER_SEQ, BOARD_CATEGORY, BOARD_TITLE,
 		BOARD_CONTENT,
 		BOARD_IMG1, BOARD_IMG2, BOARD_DATE, BOARD_COUNT) VALUES
-		(BOARD_SEQ.NEXTVAL, 1, #{board_category},
+		(BOARD_SEQ.NEXTVAL, #{member_seq}, #{board_category},
 		#{board_title},
-		#{board_content}, NULL, NULL, SYSDATE, DEFAULT )
+		#{board_content}, NULL, NULL, SYSDATE, 0 )
 
 	</insert>
 
+	<!-- 게시판 글 수정 -->
 	<update id="boardUpdate" parameterType="boardDto">
 
 		UPDATE BOARD
 		SET
-		BOARD_CATEGORY = #{board_category}BOARD_TITLE=#{board_title},
-		BOARD_CONTENT=#{board_content},
-		WHERE
-		BOARD_SEQ=#{board_seq}
+		BOARD_CATEGORY = #{board_category}, BOARD_TITLE=#{board_title},BOARD_CONTENT=#{board_content}
+		WHERE BOARD_SEQ=#{board_seq}
+
 
 	</update>
 
+	<!-- 게시판 글 삭제 -->
 	<delete id="boardDelete" parameterType="int">
 
-		DELELTE FROM BOARD WHERE
+		DELELTE FROM BOARD 
+		WHERE
 		BOARD_SEQ=#{board_seq}
 
 	</delete>
 
+	<!-- 페이징에 필요 -->
 	<select id="listCount"
 		parameterType="com.jungchiro.poli.board.model.dto.SearchDto"
 		resultType="int">

@@ -12,7 +12,7 @@ public class ChatDto {
 	private int member_seq;
 	private String member_id;
 	private Date member_chat_outtime;
-
+	
 	public ChatDto() {}
 	
 	public ChatDto(int member_seq) {
@@ -124,7 +124,7 @@ public class ChatDto {
 	public void setMember_chat_outtime(Date member_chat_outtime) {
 		this.member_chat_outtime = member_chat_outtime;
 	}
-	
+
 	
 	
 	

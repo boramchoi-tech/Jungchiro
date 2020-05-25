@@ -7,5 +7,7 @@ import com.jungchiro.poli.chat.model.dto.MessageDto;
 public interface MessageBiz {
 	
 	public List<MessageDto> selectAll(int chat_seq);
+	
+	public Integer batchInsert(List<MessageDto> insertList);
 
 }

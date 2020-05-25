@@ -11,13 +11,79 @@
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
+<!-- START :: JAVASCRIPT -->
+<script type="text/javascript">
+
+
+	// sse 위한 eventSource 객체 생성
+	$(function(){
+		
+		var member_seq = $("#member_seq").val().trim();
+		console.log(member_seq);
+		
+		if(member_seq != "" || member_seq != null){
+		
+			var eventSource = new EventSource('/poli/notification.do?member_seq='+member_seq);
+			
+			eventSource.addEventListener('open',function(e){
+				console.log('open 됐다!');
+			}, false);
+			
+			eventSource.addEventListener('message', function(e){
+				console.log('message 왔다!');
+				var msg = parseInt(e.data);
+				console.log(msg);
+			
+				if(msg > 0){
+					document.getElementById("bell_count").innerHTML = msg+"";
+				}
+
+			});
+			
+			eventSource.addEventListener('error', function(e){
+				if(e.readyState == EventSource.CLOSED){
+					eventSource.close();
+				}
+			}, false);		
+			
+		} else {			
+			
+			eventSource.close();	
+			
+		}
+		
+	});
+
+	
+	/*
+	*	벨(notification) 누르면 마이페이지로 이동
+	*/
+	
+	function notification(){
+		
+		var member_seq = $("#member_seq").val().trim();
+		console.log(member_seq);
+		
+		if(member_seq == "" || null){
+			return false;
+		} else {			
+		location.href="/poli/mypage.do?member_seq="+member_seq;			
+		}
+		
+	}
+	
+
+</script>
 <style type="text/css">
 	form{display:inline}
 </style>
+
 </head>
 <body>
+	<input type="hidden" id="member_seq" value="${loginDto.member_seq }">
 
 	<div id="role" class="nanum">
+
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication var="principal" property="principal" />
 			${principal.member_name }님 안녕하세요
@@ -25,8 +91,11 @@
 			<form id="logout" action="/poli/logout" method="POST">
 			   <input id="logoutBtn" type="submit" value="Logout" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
+			   <span id="bell_count"></span>
 			</form>
 		</sec:authorize>
+
 		
 		<sec:authorize access="isAnonymous()">
 			<a href="/poli/loginPage.do" class="login-btn">로그인</a>
@@ -52,7 +121,7 @@
 
 	    <a href="/poli/news.do">뉴스</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/map.do">지도</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		의안정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="/poli/billlist.do?page=1">의안정보</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/boardlist.do?page=1">자유게시판</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/chat.do?member_seq=${principal.member_seq }">채팅</a>
 	</div>
@@ -166,6 +235,7 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
 	<script type="text/javascript">
+	
 		$('.login-btn').click(function() {
 			var $href = $(this).attr('href');
 			layer_popup($href);
@@ -320,6 +390,8 @@
 				input에 빈칸 없는지 체크해야 함
 			*/
 		});
+		
+
 		
 		
 	</script>
