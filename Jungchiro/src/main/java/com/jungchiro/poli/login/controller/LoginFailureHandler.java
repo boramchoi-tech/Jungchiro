@@ -35,7 +35,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		   || exception instanceof UsernameNotFoundException) {
 			errorMsg  = "아이디나 비밀번호가 맞지 않습니다.";
 		} else if(exception instanceof DisabledException) {
-			errorMsg = "탈퇴한 아이디입니다.";
+			errorMsg = "탈퇴(혹은 차단)된 아이디입니다.<br/>"+ "관리자에게 문의하세요";
 		}
 		
 		request.setAttribute("loginId", request.getParameter("loginId"));
