@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정치로</title>
+<title>자유게시판</title>
+<link rel="stylesheet" type="text/css"
+	href="/poli/resources/css/board.css" />
 </head>
 
 <script type="text/javascript"
@@ -31,7 +33,21 @@ li {
 	float: left;
 	padding: 6px;
 }
+
+ul {
+	justify-content: center;
+}
+
 </style>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
 
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
@@ -59,79 +75,73 @@ li {
 		<button id="searchBtn" type="button">검색</button>
 	</div>
 
-	<table border="1">
-		<colgroup>
-			<col width="50">
-			<col width="100">
-			<col width="200">
-			<col width="100">
-			<col width="100">
-			<col width="100">			
-		</colgroup>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>카테고리</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-				<th>작성일</th>
-				<th>조회수</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:choose>
-				<c:when test="${empty list} ">
-					<tr>
-						<td colspan="6">-------------작성된 글이 없습니다.------------</td>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<!-- 모든 조건이 거짓일때 -->
-					<c:forEach items="${list }" var="board">
-						<tr>					
-							<td>${board.board_seq}</td>
-							<td>${board.board_category}</td>
-							<td><a href="/poli/boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
-								style="color: black">${board.board_title}</a></td>
-							<td>${board.member_id}</td>
-							<td>${board.board_count}</td>
-							<td>${board.board_date}</td>
+	<div class="container">
+		<table class="table table-hover">
+
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">카테고리</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">조회수</th>
+					<th scope="col">작성일</th>
+					<th scope="col">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${empty list} ">
+						<tr>
+							<td colspan="6">-------------작성된 글이 없습니다.------------</td>
 						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="6" align="right"><input type="button" value="글쓰기"
-					onclick="location.href='/poli/boardinsertform.do'"></td>
-			</tr>
-			<tr>
-				<td colspan="6">
-					<ul>
-						<c:if test="${pageMake.prev}">
-							<li><a 
-								href="/poli/boardlist.do${pageMake.makeSearch(pageMake.startPage - 1)}">이전</a></li>
-						</c:if>
-						<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
-							var="idx">
-							<li><a 
-								href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
+					</c:when>
+					<c:otherwise>
+						<!-- 모든 조건이 거짓일때 -->
+						<c:forEach items="${list }" var="board">
+							<tr>
+								<td>${board.board_seq}</td>
+								<td>${board.board_category}</td>
+								<td><a
+									href="/poli/boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
+									style="color: black">${board.board_title}</a></td>
+								<td>${board.member_id}</td>
+								<td>${board.board_count}</td>
+								<td>${board.board_date}</td>
+							</tr>
 						</c:forEach>
-						<c:if test="${pageMake.next && pageMake.endPage > 0}">
-							<li><a 
-								href="/poli/boardlist.do${pageMake.makeSearch(pageMake.endPage + 1)}">다음</a></li>
-						</c:if>
-					</ul>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-	
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td scope="row" align="right"><input type="button" value="글쓰기"
+						onclick="location.href='/poli/boardinsertform.do'"></td>
+				</tr>
+			</tfoot>
+		</table>
+
+	</div>
+
+	<div class="text-center">
+		<ul class="pagination">
+			<c:if test="${pageMake.prev}">
+				<li class="page-item"><a class="page-link"
+					href="/poli/boardlist.do${pageMake.makeSearch(pageMake.startPage - 1)}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
+				var="idx">
+				<li class="page-item"><a class="page-link" href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
+			</c:forEach>
+			<c:if test="${pageMake.next && pageMake.endPage > 0}">
+				<li class="page-item"><a class="page-link"
+					href="/poli/boardlist.do${pageMake.makeSearch(pageMake.endPage + 1)}">다음</a></li>
+			</c:if>
+		</ul>
+	</div>
 
 
-			
+
 
 
 	<%@ include file="/WEB-INF/views/form/footer.jsp"%>
