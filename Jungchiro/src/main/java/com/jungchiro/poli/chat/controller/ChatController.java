@@ -124,7 +124,7 @@ public class ChatController {
 			List<MessageDto> chatMessage = messageBiz.selectAll(dto.getChat_seq());
 			
 			model.addAttribute("chatMessage", chatMessage);
-			model.addAttribute("member_seq", dto.getChat_seq());
+			model.addAttribute("member_seq", dto.getMember_seq());
 			model.addAttribute("chat", enterInfo);
 			
 			System.out.println("채팅방 입장");
