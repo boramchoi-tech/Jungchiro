@@ -95,6 +95,7 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
+
 	var wsocket;
 	var uri = "ws://localhost:8090/poli/chatws.do?chat_seq="+${chat.chat_seq};
 	
@@ -147,23 +148,16 @@
         
         // 메세지 입력창에 msg를 하고 줄바꿈 처리
         $("#chatMessageArea").append(msg);
-        
-        // 채팅창의 heigth를 할당
-        var chatAreaHeight = $("#chatArea").height();
-        
-        // 쌓인 메세지의 height에서 채팅창의 height를 뺀다
-        // 이를 이용해서 바로 밑에서 스크롤바의 상단여백을 설정한다
-        var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-        
-        /* .scrollTop(int) : Set the current vertical position of the scroll bar
-                             for each of the set of matched elements.*/
-        // .scrollTop(int) : 파라미터로 들어간 px 만큼 top에 공백을 둔 채
-        //                   스크롤바를 위치시킨다
-        $("#chatArea").scrollTop(maxScroll);
     }
     
 
     $(document).ready(function() {
+    	
+    	var chatAreaHeight = $("#chatArea").height();
+
+    	$("#chatMessageArea").scrollTop();
+    	$("#chatMessageArea").innerHeight();
+    	var scrollHeight = $("#chatMessageArea").prop('scrollHeight');
     	
     	$('#message').keypress(function(event){								// 키보드 고유 번호 판별
     		var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -191,6 +185,7 @@
     		disconnect();
     	})
     });
+
 	
 </script>
 </head>
@@ -215,7 +210,6 @@
     			</c:when>
     			<c:otherwise>
     				<c:forEach items="${chatMessage }" var="chatMessage">
-    					
 						<c:choose>
 							<c:when test="${chatMessage.member_seq eq member_seq }">
 								<li class='message_id_mine'>${chatMessage.member_id }</li><br>
@@ -224,7 +218,7 @@
 									<span class='contents_mine'>
 										${chatMessage.message_content }
 									</span>
-								</div>
+								</div><br>
 							</c:when>
 							<c:otherwise>
 								<li class='message_id'>${chatMessage.member_id }</li><br>
@@ -232,8 +226,8 @@
 									<span class='contents'>
 										${chatMessage.message_content }
 									</span>
-									${chatMessage.message_time }&nbsp;&nbsp;
-								</div>
+									<%-- ${chatMessage.message_time }&nbsp;&nbsp; 나중에 시간 생기면 time 고치기 --%>
+								</div><br>
 							</c:otherwise>
 						</c:choose>
     					
