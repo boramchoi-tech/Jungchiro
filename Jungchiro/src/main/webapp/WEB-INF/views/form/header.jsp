@@ -178,10 +178,9 @@
 							</colgroup>
 							<tr>
 								<th rowspan="2">아이디</th>
-								<td colspan="2"><input type="text" id="regist_id" name="member_id"></td>
+								<td colspan="2"><input type="text" id="registid" name="member_id"></td>
 							</tr>
 							<tr>
-								<td colspan="2" id="idChk"></td>
 							</tr>
 							<tr>
 								<th>비밀번호</th>
@@ -350,23 +349,7 @@
 				}
 			});
 			
-			$('#regist_id').keyup(function() {
-				var member_id = $("#regist_id").val().trim();
-				
-				var ajax = new ComAjax();
-				var idChk = {"member_id":member_id}
-				ajax.url("/poli/idChk.do");
-				ajax.param(idChk);
-				ajax.success(function(msg) {
-					if(msg.idChk == 1) {
-						$('#idChk').html('중복된 아이디가 존재합니다.').css('color','red');
-					} else {
-						$('#idChk').html('사용 가능한 아이디입니다.').css('color','black');
-					}
-				});
-				ajax.call();
-				
-			});
+			
 			
 			$('#member_email').keyup(function() {
 				var member_email = $("#member_email").val().trim();
