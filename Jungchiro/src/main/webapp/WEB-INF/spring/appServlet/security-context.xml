@@ -14,14 +14,13 @@
         <context:component-scan base-package="com.jungchiro.poli"/>
                       
         <http auto-config="true" use-expressions="true">
-<!--           <intercept-url pattern="/chat.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/>
-          <intercept-url pattern="/boardlist.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/> -->
+           <intercept-url pattern="/chat.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/>
+          <intercept-url pattern="/boardlist.do" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')"/> 
 		  <intercept-url pattern="/**" access="permitAll"/>
 		  
-<!-- 		  <access-denied-handler error-page="/poli/access_denied"/> -->
 		  
 		  <!-- 자동로그인 -->
-<!-- 		  <remember-me key="eorkj" remember-me-parameter="remember-me" token-validity-seconds="604800"/> -->
+ 		  <remember-me key="eorkj" remember-me-parameter="remember-me" token-validity-seconds="604800"/> 
 		  <!-- 로그인 폼-->
 		  <form-login
 			  username-parameter="loginId"
@@ -30,7 +29,7 @@
 			  login-page="/loginPage.do"
 			  default-target-url="/main.do" 
 			  authentication-failure-handler-ref="loginFailureHandler"
-			  always-use-default-target="false"
+			  always-use-default-target="true"
 		  />
 		   <!--     
                 로그인 폼
@@ -69,10 +68,11 @@
 
 		<beans:bean id="userService" class="com.jungchiro.poli.login.model.biz.CustomUserDetailsService"></beans:bean>
 		<beans:bean id="userAuthProvider" class="com.jungchiro.poli.login.model.biz.CustomAuthenticationProvider"></beans:bean>
+		
 		<beans:bean id="loginFailureHandler" class="com.jungchiro.poli.login.controller.LoginFailureHandler">
 			<beans:property name="loginId" value="loginId"/>
 			<beans:property name="loginPwd" value="loginPwd"/>
 			<beans:property name="errorMsg" value="errorMsg"/>
-			<beans:property name="defaultFailureUrl" value="loginPage.do?error"/>
+			<beans:property name="defaultFailureUrl" value="loginPage.do"/>
 		</beans:bean>
 </beans:beans>
