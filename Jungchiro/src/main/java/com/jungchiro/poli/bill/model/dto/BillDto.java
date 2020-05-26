@@ -125,8 +125,14 @@ public class BillDto {
 		this.bill_status = bill_status;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "BillDto [bill_id=" + bill_id + ", bill_seq=" + bill_seq + ", bill_type=" + bill_type + ", bill_name="
+				+ bill_name + ", bill_proposer=" + bill_proposer + ", propose_date=" + propose_date + ", decide_date="
+				+ decide_date + ", decide_result=" + decide_result + ", bill_content=" + bill_content
+				+ ", content_address=" + content_address + ", bill_status=" + bill_status + "]";
+	}
+
 	
 }
 

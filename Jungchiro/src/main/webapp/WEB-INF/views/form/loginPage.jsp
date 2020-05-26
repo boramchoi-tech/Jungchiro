@@ -7,8 +7,10 @@
 <title>로그인</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/loginPage.css"/>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){ 
+		$("#authNum").hide(); 
 		$("#loginbtn").click(function(){
 			if($("#user").val() == ""){
 				$("#error_msg").text("아이디를 입력해주세요");
@@ -17,7 +19,60 @@
 				$("#error_msg").text("비밀번호를 입력해주세요");
 				return false;
 			}
+		});
+		
+		$('#regist_id').keyup(function() {
+			var member_id = $("#regist_id").val().trim();
+			var ajax = new ComAjax();
+			var idChk = {"member_id":member_id}
+			ajax.url("/poli/idChk.do");
+			ajax.param(idChk);
+			ajax.success(function(msg) {
+				if(msg.idChk == 1) {
+					$('#idChk').html('중복된 아이디가 존재합니다.').css('color','red');
+				} else {
+					$('#idChk').html('사용 가능한 아이디입니다.').css('color','black');
+				}
+			});
+			ajax.call();
+			
+		});
+	
+		var emailAuthNum;
+		 //이메일 인증하기 클릭 시 발생하는 이벤트
+		$("#emailAuth").click(function(){
+			/* 이메일 중복 체크 후 메일 발송 비동기 처리 */
+			var ajax = new ComAjax();
+			
+		 			ajax.url("/poli/emailChk.do");
+		 			var userEmail = $("#memberEmail").val();
+		 			var data = {
+		 					"member_email" : userEmail
+		 			}
+		 			//입력한 이메일 ajax 파라미터로 보내기
+		 			ajax.param(data);
+		 			ajax.success(function(data){
+		 				alert("사용가능한 이메일입니다. 인증번호를 입력해주세요");
+		 				emailAuthNum = data.emailAuthNum;
+		 			})
+		 			
+		 			
+		 			ajax.call();
+		 			
+		 	/* 인증번호 입력칸 보이게 */		
+			$("#authNum").show(); 
 		})
+		/*인증번호 확인버튼 클릭 시 발생하는 이벤트*/
+		$("#emailConfirm").click(function(){
+			var inputNum = $("#inputNum").val();
+			if(emailAuthNum == inputNum){
+				alert("인증이 완료되었습니다");
+				$("input[type='submit']").removeAttr("disabled");
+			} else{
+				alert("인증번호를 잘못 입력하셨습니다");
+			}
+		})
+
 	})
 </script>
 </head>
@@ -53,32 +108,40 @@
                     <a href="#forgot">비밀번호 찾기</a>
                 </div>
             </div>
+         </form>
+          <form action="${pageContext.request.contextPath}/regist.do" method="post">
             <div class="sign-up-htm">
+            <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
                 <div class="group">
                     <label for="user" class="label">아이디</label>
-                    <input id="user" type="text" class="input">
+                    <input id="regist_id" name="member_id" type="text" class="input">
+                    <span id="idChk"></span>
                 </div>
                 <div class="group">
                     <label for="pass" class="label">비밀번호</label>
-                    <input id="pass" type="password" class="input" data-type="password">
+                    <input id="pass" name="member_pw" type="password" class="input" data-type="password">
                 </div>
                 <div class="group">
-                    <label for="pass" class="label">비밀번호 확인</label>
-                    <input id="pass" type="password" class="input" data-type="password">
+                    <label for="pass" class="label">이름</label>
+                    <input id="pass" name="member_name" type="text" class="input" >
                 </div>
                 <div class="group">
-                    <label for="pass" class="label">이메일</label>
-                    <input id="pass" type="text" class="input">
+                    <label for="pass" class="label">이메일<a id="emailAuth" style="color: white; float: right; text-decoration: underline;">이메일 인증하기</a></label>
+                    <input id="memberEmail" name="member_email" type="text" class="input">
                 </div>
-                <div class="group">
-                    <input type="submit" class="button" value="회원가입">
+                 <div class="group"  id="authNum">
+                    <label for="pass" class="label">인증번호 입력<a id="emailConfirm" style="color: white; float: right; text-decoration: underline;">확인</a></label>
+                    <input id="inputNum" type="text" class="input" >
+                </div>
+                <div class="group" >
+                    <input type="submit" class="button" value="회원가입" disabled="disabled">
                 </div>
                 <div class="hr"></div>
                 <div class="foot-lnk">
                     <label for="tab-1">이미 회원이신가요?</a>
                 </div>
             </div>
-             </form>
+          </form>
         </div>
        
     </div>

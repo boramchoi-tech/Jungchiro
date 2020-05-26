@@ -94,6 +94,43 @@ ul {
 					<c:when test="${empty list} ">
 						<tr>
 							<td colspan="6">-------------작성된 글이 없습니다.------------</td>
+	<table border="1">
+		<colgroup>
+			<col width="50">
+			<col width="100">
+			<col width="200">
+			<col width="100">
+			<col width="100">
+			<col width="100">			
+		</colgroup>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${empty list} ">
+					<tr>
+						<td colspan="6">-------------작성된 글이 없습니다.------------</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<!-- 모든 조건이 거짓일때 -->
+					<c:forEach items="${list }" var="board">
+						<tr>					
+							<td>${board.board_seq}</td>
+							<td>${board.board_category}</td>
+							<td><a href="/poli/boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
+								style="color: black">${board.board_title}</a></td>
+							<td>${board.member_id}</td>
+							<td>${board.board_count}</td>
+							<td>${board.board_date}</td>
 						</tr>
 					</c:when>
 					<c:otherwise>

@@ -79,15 +79,15 @@
 </style>
 
 </head>
-<body>
-	<input type="hidden" id="member_seq" value="${loginDto.member_seq }">
+<body>	
 
 	<div id="role" class="nanum">
 
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication var="principal" property="principal" />
+			<input type="hidden" id="member_seq" value="${principal.member_seq }">
 			${principal.member_name }님 안녕하세요
-			마이 페이지
+			<a href="/poli/mypage.do?member_seq=${principal.member_seq }">마이 페이지</a>
 			<form id="logout" action="/poli/logout" method="POST">
 			   <input id="logoutBtn" type="submit" value="Logout" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
@@ -178,10 +178,9 @@
 							</colgroup>
 							<tr>
 								<th rowspan="2">아이디</th>
-								<td colspan="2"><input type="text" id="regist_id" name="member_id"></td>
+								<td colspan="2"><input type="text" id="registid" name="member_id"></td>
 							</tr>
 							<tr>
-								<td colspan="2" id="idChk"></td>
 							</tr>
 							<tr>
 								<th>비밀번호</th>
@@ -350,23 +349,7 @@
 				}
 			});
 			
-			$('#regist_id').keyup(function() {
-				var member_id = $("#regist_id").val().trim();
-				
-				var ajax = new ComAjax();
-				var idChk = {"member_id":member_id}
-				ajax.url("/poli/idChk.do");
-				ajax.param(idChk);
-				ajax.success(function(msg) {
-					if(msg.idChk == 1) {
-						$('#idChk').html('중복된 아이디가 존재합니다.').css('color','red');
-					} else {
-						$('#idChk').html('사용 가능한 아이디입니다.').css('color','black');
-					}
-				});
-				ajax.call();
-				
-			});
+			
 			
 			$('#member_email').keyup(function() {
 				var member_email = $("#member_email").val().trim();

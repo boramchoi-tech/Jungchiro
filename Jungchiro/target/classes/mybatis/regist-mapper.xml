@@ -16,7 +16,7 @@
 	<insert id="registRes" parameterType="loginDto">
 		INSERT INTO MEMBER VALUES
 		(MEMBER_SEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_name}, 
-		#{member_email}, 'general', 'enabled', 'N')
+		#{member_email}, 'general', 'enabled', 'ROLE_USER')
 	</insert>
 	
 	<select id="idCheck" parameterType="loginDto" resultType="int">
