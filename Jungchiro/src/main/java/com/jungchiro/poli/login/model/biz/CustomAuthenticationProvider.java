@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.jungchiro.poli.login.model.dto.CustomUserDetails;
 
@@ -15,6 +16,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -44,7 +48,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	}
 	
 	private boolean matchPassword(String loginPwd, String password) {
-		return loginPwd.equals(password);
+		return passwordEncoder.matches(loginPwd, password);
 	}
 
 }

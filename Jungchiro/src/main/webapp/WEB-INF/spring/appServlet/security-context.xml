@@ -68,7 +68,8 @@
 
 		<beans:bean id="userService" class="com.jungchiro.poli.login.model.biz.CustomUserDetailsService"></beans:bean>
 		<beans:bean id="userAuthProvider" class="com.jungchiro.poli.login.model.biz.CustomAuthenticationProvider"></beans:bean>
-		
+		<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	
 		<beans:bean id="loginFailureHandler" class="com.jungchiro.poli.login.controller.LoginFailureHandler">
 			<beans:property name="loginId" value="loginId"/>
 			<beans:property name="loginPwd" value="loginPwd"/>
