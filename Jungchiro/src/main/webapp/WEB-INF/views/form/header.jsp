@@ -79,15 +79,15 @@
 </style>
 
 </head>
-<body>
-	<input type="hidden" id="member_seq" value="${loginDto.member_seq }">
+<body>	
 
 	<div id="role" class="nanum">
 
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication var="principal" property="principal" />
+			<input type="hidden" id="member_seq" value="${principal.member_seq }">
 			${principal.member_name }님 안녕하세요
-			마이 페이지
+			<a href="/poli/mypage.do?member_seq=${principal.member_seq }">마이 페이지</a>
 			<form id="logout" action="/poli/logout" method="POST">
 			   <input id="logoutBtn" type="submit" value="Logout" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
