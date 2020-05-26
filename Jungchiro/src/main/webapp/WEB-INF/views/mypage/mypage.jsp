@@ -24,8 +24,14 @@
 		width: 50px;
 		height: 50px;
 	}
+	
+	.arrow{
+		width: 20px;
+		height: 15px;
+	}
 
 </style>
+<!-- END :: CSS -->
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
@@ -149,7 +155,7 @@
 									"</tr>"							
 							);
 							
-							if(result.length < end){
+							if(result.getMoreBoardList.length < end){
 								$("#moreBoard").parent().remove();
 							} 
 						});
@@ -182,10 +188,10 @@
 		var sequence = parseInt($("#sequence").val());
 		console.log("member_seq : " + member_seq + "  sequence : " + sequence );
 	
-		var starting = (seq*5) + 1;
-		var ending = start + 4;
+		var starting = (sequence*5) + 1;
+		var ending = starting + 4;
 
-		console.log("start : " + start + "end : " + end);
+		console.log("start : " + starting + "end : " + ending);
 		
 		var MoreBill = {
 				"member_seq" : member_seq,
@@ -214,38 +220,41 @@
 				ajax01.url("/poli/getMoreBillList.do");
 				ajax01.param(MoreBillList);
 				
-				ajax01.success(function(result){
-					if(result.getMoreBillList != null){
+				ajax01.success(function(message){
+					
+					if(message.getMoreBillList != null){
 						
-						console.log(result.getMoreBillList);
+						console.log(message.getMoreBillList);
 						
-						$.each(result.getMoreBillList, function(key, val){
+						$.each(message.getMoreBillList, function(key, val){
 							
 							$("#insertMoreBillFav").append(
-									"<tr id='moreSeq'>"+
+									"<tr id='moreSequence'>"+
 									"<td><input type='checkbox' name='billChk' value='"+val.bill_id+"'></td>" +
-									"<td>"+val.bill_kind+"</td>" +
 									"<td>"+val.bill_id+"</td>" +
-									"<td><a href='/poli/billdetail.do?bill_id="+val.bill_id+"'>"+val.bill_name+"</a></td>" +
-									"<td>"+val.bill_proc+"</td>" +
+									"<td>>"+val.bill_name+"</a></td>" +
 									"</tr>"							
 							);
 							
-							if(result.length < end){
+							
+							if(message.getMoreBillList.length < ending){
 								$("#moreBill").parent().remove();
 							} 
+							
 						});
 						sequence += 1;
 						$("#sequence").val(sequence);
 						console.log(sequence);
 					
 					}
-				})
+				});
+				
 				ajax01.call();
 				
 			} else {
 				$("#moreBill").parent().remove();
-				alert("더 추가된 게시물이 없습니다.");				
+				alert("더 추가된 게시물이 없습니다.");	
+
 			}
 			
 		});
@@ -275,7 +284,7 @@
 				
 				<form action="/poli/replyNotificationDelete.do" method="post" id="replyDelete">
 					<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-					<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+					<input type="hidden" name="member_seq" value="${principal.member_seq }">
 				
 					<table border="1">
 					
@@ -325,7 +334,7 @@
 					<!-- 댓글 전체 삭제 -->
 					<form action="/poli/replyNotificationDeleteAll.do" method="post">
 						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-						<input type="hidden" name="member_seq" value="${loginDto.member_seq }"/>
+						<input type="hidden" name="member_seq" value="${principal.member_seq }"/>
 						<input type="submit" value="전체 삭제하기"/>
 					</form>
 				
@@ -378,7 +387,6 @@
 					<colgroup>
 						<col width="50">
 						<col width="300">
-						<col width="100">	
 					</colgroup>
 					
 					<c:choose>
@@ -394,7 +402,6 @@
 								<tr>
 									<td>${billFavUpdateDto.bill_id}</td>
 									<td>${billFavUpdateDto.bill_name }</td>
-									<td>${billFavUpdateDto.bill_proc }</td>
 								</tr>
 							</c:forEach>
 						</c:otherwise>
@@ -421,11 +428,11 @@
 
 					<tr>
 						<td>아이디</td>
-						<td id="member_id">${loginDto.member_id}</td>
+						<td id="member_id">${principal.username}</td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td>${loginDto.member_name}</td>
+						<td>${principal.member_name}</td>
 					</tr>
 					
 			</table>
@@ -448,7 +455,7 @@
 					<!-- 게시판 즐겨찾기 -->
 					<form action="/poli/boardFavDelete.do" method="post" id="boardDelete">
 						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-						<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+						<input type="hidden" name="member_seq" value="${principal.member_seq }">
 						
 						<table border="1" id="insertMoreBoardFav">
 						
@@ -499,7 +506,8 @@
 						<div>
 							<input type="hidden" id="seq" value="${seq }">
 							<div id="moreBoard" onclick="moreBoardFav();">
-								<p>더보기</p>
+							<img src='/poli/resources/images/down-arrow.png' class="arrow"/>								
+								<span>더보기</span>
 							</div>
 						</div>
 						
@@ -512,22 +520,19 @@
 					<!-- 의안 즐겨찾기 -->
 					<form action="/poli/billFavDelete.do" method="post" id="billDelete">
 						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-						<input type="hidden" name="member_seq" value="${loginDto.member_seq }">
+						<input type="hidden" name="member_seq" value="${principal.member_seq }">
 						
 						<table border="1" id="insertMoreBillFav">
 						
 									<colgroup>
 										<col width="50">
 										<col width="80">
-										<col width="100">
-										<col width="300">	
-										<col width="100">
+										<col width="300">
 									</colgroup>
 						
 								<tr>
 									<th><input type="checkbox" name="billAll" onclick="billAllChks(this.checked);"></th>
 									<th>의안 ID</th>
-									<th>제안자 구분</th>
 									<th>의안명</th>
 								</tr>
 								<c:choose>
@@ -545,15 +550,11 @@
 												<input type="checkbox" name="billChk" value="${billFavDto.bill_id }">
 											</td>
 											<td>
-												${billFavDto.bill_kind }
-											</td>
-											<td>
 												${billFavDto.bill_id }
 											</td>
 											<td>
-												<a href="/poli/billdetail.do?bill_id=${billFavDto.bill_id }">
-													${billFavDto.billFavDto_name }
-												</a>
+												${billFavDto.bill_name }
+
 											</td>
 										</tr>
 									</c:forEach>
@@ -569,7 +570,8 @@
 						<div>
 							<input type="hidden" id="sequence" value="${sequence }">
 							<div id="moreBill" onclick="moreBillFav();">
-								<p>더보기</p>
+								<img src='/poli/resources/images/down-arrow.png' class="arrow"/>
+								<span>더보기</span>
 							</div>
 						</div>
 						

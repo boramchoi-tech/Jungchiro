@@ -65,6 +65,8 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <!-- ASYNC -->
+		<async-supported>true</async-supported>
     </filter>
  
     <filter-mapping>

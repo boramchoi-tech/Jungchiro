@@ -129,7 +129,7 @@ public class MyPageController {
 		
 		int res = boardFavBiz.getTotalBoardFav(dto.getMember_seq());
 		
-		if( res < dto.getEnd()) {
+		if( res <= dto.getEnd()) {
 			map.put("getMoreBoardList", boardFavBiz.boardFavPartialList(dto.getMember_seq(), dto.getStart(), res));
 		} else {
 			map.put("getMoreBoardList", boardFavBiz.boardFavPartialList(dto.getMember_seq(), dto.getStart(), dto.getEnd()));
@@ -166,6 +166,36 @@ public class MyPageController {
 		map.put("isInsert", isInsert);
 		
 		return map;
+	}
+	
+	// 의안 즐겨찾기 등록
+	@RequestMapping(value="/insertBillFav.do",method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Boolean> insertBillFav(@RequestBody BillFavDto dto, HttpServletResponse response) throws IOException{
+		
+		logger.info("INSERTBILLFAV");
+		
+		int result = billFavBiz.checkBillFav(dto.getBill_id(), dto.getMember_seq());
+		
+		if(result > 0) {
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('이미 즐겨찾기 등록된 게시물입니다.')");
+			out.println("</script>");
+		}
+		
+		int res = billFavBiz.billFavInsert(dto);
+		boolean isInsert = false;
+		
+		if( res > 0) {
+			isInsert = true;
+		}		
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		map.put("isInsert", isInsert);
+		
+		return map;
+		
 	}
 	
 	// 게시판 즐겨찾기 취소(자유게시판에서 사용)
@@ -294,46 +324,18 @@ public class MyPageController {
 		
 		int res = billFavBiz.getTotalBillFav(dto.getMember_seq());
 		
-		if( res < dto.getEnd()) {
-			map.put("getMoreBoardList", billFavBiz.billFavPartialList(dto.getMember_seq(), dto.getStart(), res));
+		if( res <= dto.getEnd()) {
+			map.put("getMoreBillList", billFavBiz.billFavPartialList(dto.getMember_seq(), dto.getStart(), res));
 		} else {
-			map.put("getMoreBoardList", billFavBiz.billFavPartialList(dto.getMember_seq(), dto.getStart(), dto.getEnd()));
+			map.put("getMoreBillList", billFavBiz.billFavPartialList(dto.getMember_seq(), dto.getStart(), dto.getEnd()));
 		}
 		
 	return map;
 	
 	}
 	
-	// 의안 즐겨찾기 등록
-	@RequestMapping(value="/insertBillFav.do", method= {RequestMethod.POST, RequestMethod.GET})
-	@ResponseBody
-	public Map<String, Boolean> insertBillFav(@RequestBody BillFavDto dto, HttpServletResponse response) throws IOException{
-		
-		logger.info("INSERTBILLFAV");
-		
-		int result = billFavBiz.checkBillFav(dto.getBill_id(), dto.getMember_seq());
-		
-		if(result > 0) {
-			PrintWriter out = response.getWriter();
-			out.println("<script type='text/javascript'>");
-			out.println("alert('이미 즐겨찾기 등록된 의안입니다.')");
-			out.println("</script>");
-		}
-		
-		int res = billFavBiz.billFavInsert(dto);
-		boolean isInsert = false;
-		
-		if( res > 0) {
-			isInsert = true;
-		}
-		
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("isInsert", isInsert);
-		
-		return map;
-	}
 	
-	// 의안 즐겨찾기 취소(자유게시판에서 사용)
+	// 의안 즐겨찾기 취소(의안리스트에서 사용)
 	@RequestMapping(value="/cancleBillFav.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Map<String, Boolean> cancleBoardFav(@RequestBody BillFavDto dto, HttpServletResponse response) throws IOException{

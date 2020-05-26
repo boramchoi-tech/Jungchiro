@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BillDto {
 	
-	private int bill_number;
+	private String bill_id;
 	private int bill_seq;
 	private String bill_type;
 	private String bill_name;
@@ -20,11 +20,11 @@ public class BillDto {
 		super();
 	}
 
-	public BillDto(int bill_number, int bill_seq, String bill_type, String bill_name, String bill_proposer,
+	public BillDto(String bill_id, int bill_seq, String bill_type, String bill_name, String bill_proposer,
 			Date propose_date, Date decide_date, String decide_result, String bill_content, String content_address,
 			String bill_status) {
 		super();
-		this.bill_number = bill_number;
+		this.bill_id = bill_id;
 		this.bill_seq = bill_seq;
 		this.bill_type = bill_type;
 		this.bill_name = bill_name;
@@ -37,12 +37,12 @@ public class BillDto {
 		this.bill_status = bill_status;
 	}
 
-	public int getBill_number() {
-		return bill_number;
+	public String getBill_id() {
+		return bill_id;
 	}
 
-	public void setBill_number(int bill_number) {
-		this.bill_number = bill_number;
+	public void setBill_id(String bill_id) {
+		this.bill_id = bill_id;
 	}
 
 	public int getBill_seq() {
@@ -125,8 +125,14 @@ public class BillDto {
 		this.bill_status = bill_status;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "BillDto [bill_id=" + bill_id + ", bill_seq=" + bill_seq + ", bill_type=" + bill_type + ", bill_name="
+				+ bill_name + ", bill_proposer=" + bill_proposer + ", propose_date=" + propose_date + ", decide_date="
+				+ decide_date + ", decide_result=" + decide_result + ", bill_content=" + bill_content
+				+ ", content_address=" + content_address + ", bill_status=" + bill_status + "]";
+	}
+
 	
 }
 

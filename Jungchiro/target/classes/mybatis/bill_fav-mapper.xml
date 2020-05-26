@@ -51,7 +51,7 @@
 	<!-- 즐겨찾기 의안 등록 -->
 	<insert id="billFavInsert" parameterType="bill_favDto">
 		INSERT INTO BILL_FAV
-		VALUES(#{member_seq}, #{bill_id}, BILL_FAV_SEQUENCE.NEXTVAL, 'Y', SYSDATE)
+		VALUES(#{member_seq}, #{bill_id}, BILL_FAV_SEQ.NEXTVAL, 'Y', SYSDATE)
 	</insert>
 	
 	<!-- 즐겨찾기 취소 -->
