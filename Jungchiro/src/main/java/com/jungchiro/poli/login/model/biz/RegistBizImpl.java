@@ -45,10 +45,10 @@ public class RegistBizImpl implements RegistBiz {
 		String content =
 	            " 인증번호는 [<b>" +key+ "</b>] 입니다. <br/>"
 	            +"받으신 인증번호를 홈페이지에 입력해 주시면 회원가입이 가능합니다."; 
-		
+
 		sendMail.setSubject("[정치로 서비스 이메일 인증]");
 		sendMail.setText(content);
-		sendMail.setFrom("alsruddl0808@gmail.com", "정치로");
+		sendMail.setFrom("mkbiz94@gmail.com", "정치로");
 		sendMail.setTo(member_email);
 		sendMail.send();
 		

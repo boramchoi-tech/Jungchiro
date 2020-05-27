@@ -97,7 +97,7 @@
 <script type="text/javascript">
 
 	var wsocket;
-	var uri = "ws://52.231.201.95:8080/poli/chatws.do?chat_seq="+${chat.chat_seq};
+	var uri = "ws://localhost:8787/poli/chatws.do?chat_seq="+${chat.chat_seq};
 	
 	//웹소켓 생성
 	wsocket = new WebSocket(uri);
@@ -148,17 +148,18 @@
         
         // 메세지 입력창에 msg를 하고 줄바꿈 처리
         $("#chatMessageArea").append(msg);
+        
+        var scrollHeight = $("#chatMessageArea").prop('scrollHeight'); 
+   	    $('#chatMessageArea').animate({scrollTop: scrollHeight}, 250);
+
     }
     
 
     $(document).ready(function() {
     	
-    	var chatAreaHeight = $("#chatArea").height();
-
-    	$("#chatMessageArea").scrollTop();
-    	$("#chatMessageArea").innerHeight();
-    	var scrollHeight = $("#chatMessageArea").prop('scrollHeight');
-    	
+    	var scrollHeight = $("#chatMessageArea").prop('scrollHeight'); 
+    	 $("#chatMessageArea").scrollTop(scrollHeight); 
+    	 
     	$('#message').keypress(function(event){								// 키보드 고유 번호 판별
     		var keycode = (event.keyCode ? event.keyCode : event.which);
     		
