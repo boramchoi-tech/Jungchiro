@@ -97,7 +97,7 @@
 <script type="text/javascript">
 
 	var wsocket;
-	var uri = "ws://localhost:8090/poli/chatws.do?chat_seq="+${chat.chat_seq};
+	var uri = "ws://52.231.201.95:8080/poli/chatws.do?chat_seq="+${chat.chat_seq};
 	
 	//웹소켓 생성
 	wsocket = new WebSocket(uri);
