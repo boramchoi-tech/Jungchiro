@@ -33,6 +33,14 @@
 							+ encodeURIComponent($('#keywordInput').val());
 				});
 	});
+	
+	$('#keywordInput').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#searchBtn').click();
+	         return false;
+	     }
+	});
+	
 </script>
 
 <style type="text/css">
@@ -42,7 +50,7 @@ li {
 	padding: 6px;
 }
 
-thead {
+#board_head {
 	background-color: #007eff;
 	color: white;
 }
@@ -53,6 +61,7 @@ ul {
 </style>
 
 <body>
+	
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
 
 	<h1>자유게시판</h1>
@@ -80,7 +89,7 @@ ul {
 
 	<div class="container">
 		<table class="table table-hover">
-			<thead>
+			<thead id="board_head">
 				<tr>
 					<th scope="col">번호</th>
 					<th scope="col">카테고리</th>

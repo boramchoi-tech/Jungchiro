@@ -284,7 +284,7 @@
 		</tr>
 		
 		<!-- 글 수정 / 삭제 -->
-		<c:if test="${loginDto.member_seq eq board.member_seq }">
+		<c:if test="${principal.member_seq eq board.member_seq }">
 			<tr>
 				<td colspan="8" align="right"><input type="button" value="수정" onclick="location.href='/poli/boardupdateform.do?board_seq=${board.board_seq}&member_seq=${board.member_seq }'">
 						<input type="button" value="삭제" onclick="location.href='/poli/boarddelete.do?board_seq=${board.board_seq}'" />

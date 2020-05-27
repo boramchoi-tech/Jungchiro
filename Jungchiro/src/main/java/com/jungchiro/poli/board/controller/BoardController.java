@@ -120,7 +120,7 @@ public class BoardController {
 	public String insertRes(BoardDto board) {
 		logger.info("INSERTRES");
 		int res = biz.boardInsert(board);
-
+		
 		if (res > 0) {
 			return "redirect:boardlist.do?page=1";
 		} else {
@@ -158,6 +158,7 @@ public class BoardController {
 	@RequestMapping("/boarddelete.do")
 	public String delete(int board_seq, @ModelAttribute("search") SearchDto search, RedirectAttributes rttr) {
 		logger.info("DELETE");
+		
 
 		BoardDto board = new BoardDto();
 

@@ -26,13 +26,13 @@
 		(SELECT A.*FROM
 		(SELECT B.*, ROWNUM AS RNUM FROM (SELECT *
 		FROM BOARD ORDER BY BOARD_SEQ
-		DESC)B
-		WHERE 1=1
-		<include refid="search"></include>
-		)A
-		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd})
+		DESC)B)A
+		WHERE RNUM BETWEEN #{rowStart}
+		AND #{rowEnd})
 		JOIN MEMBER USING
 		(MEMBER_SEQ)
+		WHERE 1=1
+		<include refid="search"></include>
 		ORDER BY BOARD_SEQ DESC
 
 	</select>
@@ -43,7 +43,8 @@
 
 		SELECT *
 		FROM BOARD B, MEMBER M
-		WHERE B.BOARD_SEQ = #{board_seq} AND
+		WHERE B.BOARD_SEQ =
+		#{board_seq} AND
 		B.MEMBER_SEQ = M.MEMBER_SEQ
 	</select>
 
@@ -84,7 +85,7 @@
 	<!-- 게시판 글 삭제 -->
 	<delete id="boardDelete" parameterType="int">
 
-		DELELTE FROM BOARD
+		DELETE FROM BOARD
 		WHERE
 		BOARD_SEQ=#{board_seq}
 
@@ -97,7 +98,8 @@
 		SELECT COUNT(BOARD_SEQ)
 		FROM BOARD
 		JOIN MEMBER USING (MEMBER_SEQ)
-		WHERE 1=1
+		WHERE
+		1=1
 		<include refid="search"></include>
 		AND BOARD_SEQ > 0
 
