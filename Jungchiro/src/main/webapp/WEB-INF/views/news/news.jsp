@@ -5,74 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>News</title>
 <style type="text/css">
-
-.wp-block-audio figcaption {
-	margin-top: .5em;
-	margin-bottom: 1em;
-	color: #555d66;
-	text-align: center;
-	font-size: 13px;
-}
-
-.wp-block-audio audio {
-	width: 100%;
-	min-width: 300px;
-}
-
-.block-editor-block-list__layout .reusable-block-edit-panel {
-	align-items: center;
-	background: #f8f9f9;
-	color: #555d66;
-	display: flex;
-	flex-wrap: wrap;
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-		Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
-	font-size: 13px;
-	top: -14px;
-	margin: 0 -14px;
-	padding: 8px 14px;
-	position: relative;
-	border: 1px dashed rgba(145, 151, 162, .25);
-	border-bottom: none
-}
-
-.block-editor-block-list__layout .block-editor-block-list__layout .reusable-block-edit-panel
-	{
-	margin: 0 -14px;
-	padding: 8px 14px
-}
-
-.block-editor-block-list__layout .reusable-block-edit-panel .reusable-block-edit-panel__spinner
-	{
-	margin: 0 5px
-}
-
-.block-editor-block-list__layout .reusable-block-edit-panel .reusable-block-edit-panel__info
-	{
-	margin-right: auto
-}
-
-.block-editor-block-list__layout .reusable-block-edit-panel .reusable-block-edit-panel__label
-	{
-	margin-right: 8px;
-	white-space: nowrap;
-	font-weight: 600
-}
-
-.block-editor-block-list__layout .reusable-block-edit-panel .reusable-block-edit-panel__title
-	{
-	flex: 1 1 100%;
-	font-size: 14px;
-	height: 30px;
-	margin: 4px 0 8px
-}
-
-.block-editor-block-list__layout .reusable-block-edit-panel .components-button.reusable-block-edit-panel__button
-	{
-	flex-shrink: 0
-}
 
 
 *, ::after, ::before {
@@ -161,134 +95,6 @@ button, input {
 	line-height: normal
 }
 
-button, html input[type=button], input[type=reset], input[type=submit] {
-	-webkit-appearance: button;
-	cursor: pointer
-}
-
-button[disabled], input[disabled] {
-	cursor: default
-}
-
-input[type=checkbox], input[type=radio] {
-	padding: 0
-}
-
-input[type=search] {
-	-webkit-appearance: textfield
-}
-
-input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration
-	{
-	-webkit-appearance: none
-}
-
-button::-moz-focus-inner, input::-moz-focus-inner {
-	border: 0;
-	padding: 0
-}
-
-textarea {
-	overflow: auto;
-	vertical-align: top
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table
-	{
-	font-size: .75rem;
-	border-collapse: collapse;
-	border-spacing: 0;
-	width: 100%;
-	margin: 0 0 1rem;
-	table-layout: fixed
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table thead th
-	{
-	border: 0
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table thead tr:first-child th:first-child
-	{
-	border-top-left-radius: 8px
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table thead tr:first-child th:last-child
-	{
-	border-top-right-radius: 8px
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table td,
-	body:not (.woocommerce-page ):not (.page-template-page-search-results ) table th
-	{
-	padding: 1rem
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table th
-	{
-	text-align: left;
-	background: #333334;
-	color: #fff
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr:nth-child(odd)
-	{
-	background: #fff
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr:nth-child(even)
-	{
-	background: #f5f5f5
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr:first-child th
-	{
-	border-top: 0
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr:last-child td
-	{
-	border-bottom: 0
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr td:first-child,
-	body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr th:first-child
-	{
-	border-left: 0
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr td:last-child,
-	body:not (.woocommerce-page ):not (.page-template-page-search-results ) table tr th:last-child
-	{
-	border-right: 0
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ).overflow-table body:not
-	(.woocommerce-page ):not (.page-template-page-search-results ).overflow-table td
-	{
-	white-space: nowrap !important
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) .overflow-table-wrap
-	{
-	overflow-x: scroll
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) .overflow-table-wrap>table.overflow-table:not
-	(.gsc-table-result ):not (.gcsc-branding ):not (.gsc-resultsHeader ) {
-	width: auto !important;
-	min-width: 100%;
-	table-layout: auto !important;
-	margin: 0
-}
-
-body:not (.woocommerce-page ):not (.page-template-page-search-results ) .overflow-table-wrap>table.overflow-table:not
-	(.gsc-table-result ):not (.gcsc-branding ):not (.gsc-resultsHeader ) table
-	{
-	table-layout: auto !important;
-	width: 100% !important;
-	margin: 0
-}
 
 table.leave-alone {
 	table-layout: auto !important
@@ -317,17 +123,6 @@ table.leave-alone tr {
 	text-decoration-color: #ccc
 }
 
-.header-breadcrumbs .on-light .breadcrumb_last, .on-light .header-breadcrumbs .breadcrumb_last,
-	.on-light h1, .on-light h2, .on-light h3, .on-light h4, .on-light h5,
-	.on-light h6 {
-	color: #14151f
-}
-
-.header-breadcrumbs .on-light .breadcrumb_last a, .on-light .header-breadcrumbs .breadcrumb_last a,
-	.on-light h1 a, .on-light h2 a, .on-light h3 a, .on-light h4 a,
-	.on-light h5 a, .on-light h6 a {
-	color: #14151f
-}
 
 .on-light pre {
 	background: #001628
@@ -362,28 +157,6 @@ html {
 ::selection {
 	background: #9c27b0;
 	color: #fff
-}
-
-a {
-    float: right;
-	color: #fff
-}
-
-a:not (.button ):not (.commentPreviewButton ):not (.comment-reply-link ):focus,
-	a:not (.button ):not (.commentPreviewButton ):not (.comment-reply-link
-	):hover {
-	background: -webkit-gradient(linear, left top, right top, from(#ff8a00),
-		to(#da1b60));
-	background: linear-gradient(to right, #ff8a00, #da1b60);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	-webkit-box-decoration-break: clone;
-	box-decoration-break: clone;
-	text-shadow: none
-}
-
-.is-dark a:focus, .is-dark a:hover {
-	color: #92dcfe
 }
 
 .header-breadcrumbs .breadcrumb_last, h1, h2, h3, h4, h5, h6 {
@@ -485,7 +258,7 @@ a:not (.button ):not (.commentPreviewButton ):not (.comment-reply-link ):focus,
 	):not (.parent-pageid-3222 ):not (.postid-181375 ):not (.postid-199370
 	) .article-content h5 a, body:not (.page-id-21059 ):not (.parent-pageid-3222
 	):not (.postid-181375 ):not (.postid-199370 ) .article-content h6 a {
-	color: #03a9f4
+	color: #ffffff
 }
 
 .h1, .header-breadcrumbs .breadcrumb_last, h1 {
@@ -887,7 +660,7 @@ dfn {
 
 mark {
 	background: #ff0;
-	color: #000
+	color: #fff
 }
 
 input[type=email], input[type=password], input[type=search], input[type=text],
@@ -930,7 +703,7 @@ textarea {
 
 .pollbar {
 	height: 10px;
-	background: #ff8a00
+	background: #ffffff
 }
 
 .custom-select {
@@ -1191,7 +964,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 	width: -webkit-max-content;
 	width: -moz-max-content;
 	width: max-content;
-	background: #100e17;
+	background: #ffffff;
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
@@ -1203,7 +976,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 }
 
 .link-shared-by span {
-	color: #b1b1b1
+	color: #ffffff
 }
 
 .link-shared-by svg {
@@ -1278,9 +1051,9 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 }
 
 .header-card {
-	background-image: -webkit-gradient(linear, left bottom, left top, from(#ff8a00),
-		to(#da1b60));
-	background-image: linear-gradient(to top, #eaa95e, #c8290e);
+	background-image: -webkit-gradient(linear, left bottom, left top, from(#007eff),
+		to(#ffffff));
+	background-image: linear-gradient(to top, #007eff, #ffffff);
 	position: relative;
 	border-radius: 16px;
 	padding: 1rem;
@@ -1342,7 +1115,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 
 @media ( max-width :1200px) {
 	.popular-articles {
-		scrollbar-color: #201c29;
+		scrollbar-color: #007eff;
 		scrollbar-width: 10px;
 		width: 100%;
 		padding-bottom: 2rem;
@@ -1431,7 +1204,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 	min-height: 350px;
 	padding: 1.5rem;
 	border-radius: 16px;
-	background: #17141d;
+	background: #ffffff;
 	-webkit-box-shadow: -1rem 0 3rem #000;
 	box-shadow: -1rem 0 3rem #000;
 	display: -webkit-box;
