@@ -13,10 +13,10 @@
 		$("#authNum").hide(); 
 		$("#loginbtn").click(function(){
 			if($("#user").val() == ""){
-				$("#error_msg").text("아이디를 입력해주세요");
+				$("#error_msg").text("아이디를 입력해주세요").css('color','red');
 				return false;
 			} else if($("#pass").val() == ""){
-				$("#error_msg").text("비밀번호를 입력해주세요");
+				$("#error_msg").text("비밀번호를 입력해주세요").css('color','red');
 				return false;
 			}
 		});
@@ -45,7 +45,7 @@
 					$('#idChk').html('중복된 아이디가 존재합니다.').css('color','red');
 					$('#signUpbtn').attr('disabled','disabled');
 				} else {
-					$('#idChk').html('사용 가능한 아이디입니다.').css('color','black');
+					$('#idChk').html('사용 가능한 아이디입니다.').css('color','white');
 					$('#signUpbtn').removeAttr("disabled")
 				}
 			});
@@ -70,13 +70,14 @@
 						$('#emailAuth').css('pointer-events','none').css('cursor','auto');
 	
 					} else {
-						$('#emailCheck').html('사용 가능한 이메일입니다.').css('color','black');
+						$('#emailCheck').html('사용 가능한 이메일입니다.').css('color','white');
 						$('#emailAuth').css('pointer-events','auto').css('cursor','pointer');
 					}
 				});
 				ajax.call();
 			} else {
 				$('#emailCheck').html('올바른 이메일 형식이 아닙니다.').css('color','red');
+				$('#signUpbtn').attr('disabled','disabled');
 			}
 		});
 	
@@ -143,7 +144,7 @@
                     <input id="check" type="checkbox" name="remember-me" class="check" checked>
                     <label for="check"><span class="icon"></span> 로그인유지</label>
                     <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-                    <p id="error_msg">${errorMsg }</p>
+                    <span id="error_msg">${errorMsg }</span>
                 </div>
                 <div class="group">
                     <input id ="loginbtn" type="submit" class="button" value="로그인">

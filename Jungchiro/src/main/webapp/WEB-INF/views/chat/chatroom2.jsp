@@ -90,13 +90,10 @@
 
     // onMessage()에 내장된 함수로 받은 메세지를 채팅 내역에 추가시키는 기능을 한다.
     function appendMessage(msg) {
-        
         // 메세지 입력창에 msg를 하고 줄바꿈 처리
         $("#chatMessageArea").append(msg+"<br>");
-        
         // 채팅창의 heigth를 할당
         var chatAreaHeight = $("#chatArea").height();
-        
         // 쌓인 메세지의 height에서 채팅창의 height를 뺀다
         // 이를 이용해서 바로 밑에서 스크롤바의 상단여백을 설정한다
         var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
