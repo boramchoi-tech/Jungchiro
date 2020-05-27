@@ -12,35 +12,41 @@
 		<result property="board_img2" column="BOARD_IMG2" />
 		<result property="board_date" column="BOARD_DATE" />
 		<result property="board_count" column="BOARD_COUNT" />
-		<result property="member_name" column="MEMBER_NAME"/>
-		<result property="member_id" column="MEMBER_ID"/>
+		<result property="member_name" column="MEMBER_NAME" />
+		<result property="member_id" column="MEMBER_ID" />
 
 	</resultMap>
 
 	<!-- 게시판 전체 출력 -->
-	<select id="boardList" resultType="boardDto" parameterType="com.jungchiro.poli.board.model.dto.SearchDto">
+	<select id="boardList" resultType="boardDto"
+		parameterType="com.jungchiro.poli.board.model.dto.SearchDto">
 
 		SELECT *
 		FROM
 		(SELECT A.*FROM
-		(SELECT B.*, ROWNUM AS RNUM FROM (SELECT * FROM BOARD ORDER BY BOARD_SEQ
-		DESC)B		
+		(SELECT B.*, ROWNUM AS RNUM FROM (SELECT *
+		FROM BOARD ORDER BY BOARD_SEQ
+		DESC)B
 		WHERE 1=1
-		<include refid="search"></include>)A
+		<include refid="search"></include>
+		)A
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd})
-		JOIN MEMBER USING (MEMBER_SEQ)
+		JOIN MEMBER USING
+		(MEMBER_SEQ)
 		ORDER BY BOARD_SEQ DESC
 
 	</select>
 
 	<!-- 게시판 글 하나 출력 -->
-	<select id="boardDetail" parameterType="int" resultType="boardDto">
-		
+	<select id="boardDetail" parameterType="int"
+		resultType="boardDto">
+
 		SELECT *
 		FROM BOARD B, MEMBER M
-		WHERE B.BOARD_SEQ = #{board_seq} AND B.MEMBER_SEQ = M.MEMBER_SEQ
+		WHERE B.BOARD_SEQ = #{board_seq} AND
+		B.MEMBER_SEQ = M.MEMBER_SEQ
 	</select>
-	
+
 	<!-- 조회수 증가 -->
 	<select id="boardCountUpdate" parameterType="int">
 		UPDATE BOARD
@@ -67,8 +73,10 @@
 
 		UPDATE BOARD
 		SET
-		BOARD_CATEGORY = #{board_category}, BOARD_TITLE=#{board_title},BOARD_CONTENT=#{board_content}
-		WHERE BOARD_SEQ=#{board_seq}
+		BOARD_CATEGORY = #{board_category},
+		BOARD_TITLE=#{board_title},BOARD_CONTENT=#{board_content}
+		WHERE
+		BOARD_SEQ=#{board_seq}
 
 
 	</update>
@@ -76,7 +84,7 @@
 	<!-- 게시판 글 삭제 -->
 	<delete id="boardDelete" parameterType="int">
 
-		DELELTE FROM BOARD 
+		DELELTE FROM BOARD
 		WHERE
 		BOARD_SEQ=#{board_seq}
 
@@ -88,17 +96,18 @@
 		resultType="int">
 		SELECT COUNT(BOARD_SEQ)
 		FROM BOARD
+		JOIN MEMBER USING (MEMBER_SEQ)
 		WHERE 1=1
 		<include refid="search"></include>
 		AND BOARD_SEQ > 0
+
 	</select>
 
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">AND BOARD_TITLE LIKE '%' || #{keyword} || '%'</if>
-			<if test="searchType == 'c'.toString()">AND B0ARD_CONTENT LIKE '%' || #{keyword} || '%'</if>
-			<!--<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} 
-				|| '%'</if> -->
+			<if test="searchType == 'c'.toString()">AND BOARD_CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND MEMBER_ID LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'ct'.toString()">AND BOARD_CATEGORY LIKE '%' || #{keyword} || '%'</if>
 			<if test="searchType == 'tc'.toString()">AND (BOARD_TITLE LIKE '%' || #{keyword} || '%') or
 				(BOARD_CONTENT

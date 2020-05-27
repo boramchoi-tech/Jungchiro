@@ -6,9 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
-<link rel="stylesheet" type="text/css"
-	href="/poli/resources/css/board.css" />
 </head>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
 
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -34,20 +42,15 @@ li {
 	padding: 6px;
 }
 
+thead {
+	background-color: #007eff;
+	color: white;
+}
+
 ul {
 	justify-content: center;
 }
-
 </style>
-
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
 
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
@@ -65,8 +68,8 @@ ul {
 				<c:out value="${search.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
 			<option value="ct"
 				<c:out value="${search.searchType eq 'ct' ? 'selected' : ''}"/>>카테고리</option>
-			<!--<option value="w"
-				<c:out value="${search.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>  -->
+			<option value="w"
+            <c:out value="${search.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
 			<option value="tc"
 				<c:out value="${search.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
 		</select> <input type="text" name="keyword" id="keywordInput"
@@ -77,7 +80,6 @@ ul {
 
 	<div class="container">
 		<table class="table table-hover">
-
 			<thead>
 				<tr>
 					<th scope="col">번호</th>
@@ -86,7 +88,6 @@ ul {
 					<th scope="col">작성자</th>
 					<th scope="col">조회수</th>
 					<th scope="col">작성일</th>
-					<th scope="col">조회수</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -94,43 +95,6 @@ ul {
 					<c:when test="${empty list} ">
 						<tr>
 							<td colspan="6">-------------작성된 글이 없습니다.------------</td>
-	<table border="1">
-		<colgroup>
-			<col width="50">
-			<col width="100">
-			<col width="200">
-			<col width="100">
-			<col width="100">
-			<col width="100">			
-		</colgroup>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>카테고리</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-				<th>작성일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:choose>
-				<c:when test="${empty list} ">
-					<tr>
-						<td colspan="6">-------------작성된 글이 없습니다.------------</td>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<!-- 모든 조건이 거짓일때 -->
-					<c:forEach items="${list }" var="board">
-						<tr>					
-							<td>${board.board_seq}</td>
-							<td>${board.board_category}</td>
-							<td><a href="/poli/boarddetail.do?board_seq=${board.board_seq}&page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}"
-								style="color: black">${board.board_title}</a></td>
-							<td>${board.member_id}</td>
-							<td>${board.board_count}</td>
-							<td>${board.board_date}</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
@@ -152,12 +116,11 @@ ul {
 			</tbody>
 			<tfoot>
 				<tr>
-					<td scope="row" align="right"><input type="button" value="글쓰기"
+					<td colspan="6" align="right"><input type="button" value="글쓰기"
 						onclick="location.href='/poli/boardinsertform.do'"></td>
 				</tr>
 			</tfoot>
 		</table>
-
 	</div>
 
 	<div class="text-center">
@@ -168,7 +131,8 @@ ul {
 			</c:if>
 			<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
 				var="idx">
-				<li class="page-item"><a class="page-link" href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
+				<li class="page-item"><a class="page-link"
+					href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
 			</c:forEach>
 			<c:if test="${pageMake.next && pageMake.endPage > 0}">
 				<li class="page-item"><a class="page-link"
@@ -176,6 +140,7 @@ ul {
 			</c:if>
 		</ul>
 	</div>
+
 
 
 

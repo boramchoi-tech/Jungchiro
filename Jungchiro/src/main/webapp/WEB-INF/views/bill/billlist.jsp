@@ -190,7 +190,7 @@
 			<c:choose>
 				<c:when test="${empty list} ">
 					<tr>
-						<td colspan="9">-------------의안이 없습니다.------------</td>
+						<td colspan="10">-------------의안이 없습니다.------------</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -218,7 +218,6 @@
 		<tfoot>
 
 			<tr>
-				<td colspan="9">
 
 				<td colspan="10">
 				

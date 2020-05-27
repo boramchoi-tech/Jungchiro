@@ -31,7 +31,7 @@ function insert() {
 		<table border="1">
 			<tr>
 				<th>작성자</th>
-				<td>${loginDto.member_id }</td>
+				<td>${principal.member_id }</td>
 			</tr>
 			<tr>
 				<th>제목</th>
