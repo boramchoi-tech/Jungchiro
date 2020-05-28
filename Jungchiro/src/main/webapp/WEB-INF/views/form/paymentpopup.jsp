@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +7,37 @@
 <title>Insert title here</title>
 </head>
 
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<style>
+#paymentBtn {
+	background-color: white;
+	color:#04B431;
+}
+
+#close {
+	background-color: white;
+	color: red;
+	float: right;
+}
+</style>
+
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
-
 	$(function() {
 
-		$("#payment").click(function() {
+		$("#paymentBtn").click(function() {
 
 			var IMP = window.IMP; // 생략해도 ok
 
@@ -118,10 +139,25 @@
 </script>
 
 <body>
-<h1>정치로 개발자 후원 페이지</h1>
-	<!-- 결제버튼 -->
-	<button id="payment" type="button">후원</button>
-	<!-- 결제버튼 -->
-	<input type="button" value="닫기" onclick="self.close();" />
+	<div class="container" id="payment">
+		<div colspan="6">
+			<div class="card bg-primary text-white">
+				<div class="card-header">
+					<h1>후원 페이지</h1>
+				</div>
+				<div class="card-body">
+					<img class="card-img-top"
+						src="/poli/resources/images/coffee-cup.png" style="width: 100%;">
+					<h3 class="card_title">Buy us a coffee</h3>
+					<p class="card_text">후원해주시는 금액은 서비스 운영 및 개선에 사용됩니다.</p>
+					<!-- 결제버튼 -->
+					<input type="button" class="btn" value="₩100" id="paymentBtn" />
+					<!-- 결제버튼 -->
+					<input type="button" class="btn" value="닫기" id="close"
+						onclick="self.close();" />
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
