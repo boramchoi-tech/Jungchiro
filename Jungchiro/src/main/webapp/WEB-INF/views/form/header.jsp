@@ -351,23 +351,7 @@
 			
 			
 			
-			$('#member_email').keyup(function() {
-				var member_email = $("#member_email").val().trim();
-				
-				var ajax = new ComAjax();
-				var emailChk = {"member_email":member_email}
-				ajax.url("/poli/emailChk.do");
-				ajax.param(emailChk);
-				ajax.success(function(msg) {
-					if(msg.emailChk == 1) {
-						$('#emailChk').html('중복된 이메일이 존재합니다.').css('color','red');
-					} else {
-						$('#emailChk').html('사용 가능한 이메일입니다.').css('color','black');
-					}
-				});
-				ajax.call();
-				
-			});
+
 			
 			/*
 				input에 빈칸 없는지 체크해야 함

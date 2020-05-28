@@ -54,15 +54,27 @@ public class RegistController {
 	
 	@RequestMapping(value="/emailChk.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public Map<String, String> emailCheck(@RequestBody LoginDto dto) throws UnsupportedEncodingException, MessagingException {
-		System.out.println("이메일체크 컨트롤러 왔다" + dto.getMember_email());
-		String key = biz.emailChk(dto.getMember_email());
+	public Map<String, Integer> emailCheck(@RequestBody LoginDto dto) {
+		int res = biz.emailChk(dto.getMember_email());
+
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("emailChk", res);
+		
+		return map;
+	}
+	
+	
+	@RequestMapping(value="/emailAuth.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Map<String, String> emailAuthentication(@RequestBody LoginDto dto) throws UnsupportedEncodingException, MessagingException {
+		String key = biz.emailAuth(dto.getMember_email());
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("emailAuthNum", key);
 		
 		return map;
 	}
+	
 	
 	
 

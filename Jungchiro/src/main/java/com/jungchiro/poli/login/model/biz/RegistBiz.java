@@ -11,6 +11,7 @@ public interface RegistBiz {
 	public int regist(LoginDto dto);
 	
 	public int idChk(String member_id);
-	public String emailChk(String member_email) throws MessagingException, UnsupportedEncodingException;
+	public int emailChk(String member_email);
+	public String emailAuth(String member_email) throws MessagingException, UnsupportedEncodingException;
 
 }
