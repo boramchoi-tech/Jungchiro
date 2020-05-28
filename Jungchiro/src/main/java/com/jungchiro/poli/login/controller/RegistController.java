@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +19,17 @@ public class RegistController {
 	
 	@Autowired
 	private RegistBiz biz;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value="/regist.do", method=RequestMethod.POST)
 	public String regist(LoginDto dto) {
+		
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		
 		boolean registRes = false;
 		int res = biz.regist(dto);
-		
+
 		if (res == 1) {
 			System.out.println("회원가입 성공");
 			return "main";

@@ -19,20 +19,20 @@
 	$(function(){
 		
 		var member_seq = $("#member_seq").val().trim();
-		console.log(member_seq);
+		// console.log(member_seq);
 		
 		if(member_seq != "" || member_seq != null){
 		
 			var eventSource = new EventSource('/poli/notification.do?member_seq='+member_seq);
 			
 			eventSource.addEventListener('open',function(e){
-				console.log('open 됐다!');
+				// console.log('open 됐다!');
 			}, false);
 			
 			eventSource.addEventListener('message', function(e){
-				console.log('message 왔다!');
+				// console.log('message 왔다!');
 				var msg = parseInt(e.data);
-				console.log(msg);
+				// console.log(msg);
 			
 				if(msg > 0){
 					document.getElementById("bell_count").innerHTML = msg+"";

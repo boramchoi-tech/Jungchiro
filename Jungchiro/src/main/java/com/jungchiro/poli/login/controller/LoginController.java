@@ -61,24 +61,6 @@ public class LoginController {
 		
 		return map;
 	}
-	
-	// 회원탈퇴
-	@RequestMapping(value="/dropId", method= {RequestMethod.POST, RequestMethod.GET})
-	@ResponseBody
-	public Map<String, Boolean> dropId(LoginDto dto){
-		
-		int res = 0;
-		boolean isDrop = false;
-		
-		// 회원탈퇴 메소드
-		
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		
-		if(res == 0) {
-			isDrop = true;
-			map.put("isDrop", isDrop);
-		}
-		
-		return map;
-	}
+
+
 }
