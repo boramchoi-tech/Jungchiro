@@ -1,7 +1,10 @@
 package com.jungchiro.poli.login.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,12 +25,16 @@ public class RegistController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	@RequestMapping(value="/regist.do", method=RequestMethod.POST)
 	public String regist(LoginDto dto) {
 		
 		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		
 		boolean registRes = false;
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		int res = biz.regist(dto);
 
 		if (res == 1) {
@@ -39,7 +46,6 @@ public class RegistController {
 		}
 		
 	}
-	
 	@RequestMapping(value="/idChk.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Map<String, Integer> idCheck(@RequestBody LoginDto dto) {
@@ -61,6 +67,19 @@ public class RegistController {
 		
 		return map;
 	}
+	
+	
+	@RequestMapping(value="/emailAuth.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Map<String, String> emailAuthentication(@RequestBody LoginDto dto) throws UnsupportedEncodingException, MessagingException {
+		String key = biz.emailAuth(dto.getMember_email());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("emailAuthNum", key);
+		
+		return map;
+	}
+	
 	
 	
 

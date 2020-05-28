@@ -34,34 +34,13 @@ public class NewsController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		/*
-		List<NewsMongoDto> list = dao.findAll();
-		System.out.println(list.size());
-		
-		model.addAttribute("newslist", list);
-		for(NewsMongoDto dto : list) {
-			System.out.println(dto);
-		}
-		*/
+
 		List<NewsMongoDto> list_h = dao.find_h();
-		for(NewsMongoDto dto : list_h) {
-			//System.out.println(dto.getTitle());
-		}	
+		List<NewsMongoDto> list_d = dao.find_d();
+		List<NewsMongoDto> list_j = dao.find_j();
 		
 		model.addAttribute("newslist_h", list_h);
-		
-		List<NewsMongoDto> list_d = dao.find_d();
-		for(NewsMongoDto dto : list_d) {
-			//System.out.println(dto);
-		}	
-		
 		model.addAttribute("newslist_d", list_d);
-		
-		List<NewsMongoDto> list_j = dao.find_j();
-		for(NewsMongoDto dto : list_j) {
-			//System.out.println(dto);
-		}	
-		
 		model.addAttribute("newslist_j", list_j);
 				
 		return "news/news";
