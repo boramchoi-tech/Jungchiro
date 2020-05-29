@@ -40,7 +40,6 @@ public class SearchController {
 JSONParser parser = new JSONParser();
 Object obj = parser.parse( jsonStr );
 JSONObject jsonObj = (JSONObject) obj;
-
 String code = (String) jsonObj.get("code");
 String name = (String) jsonObj.get("name");
 		*/
