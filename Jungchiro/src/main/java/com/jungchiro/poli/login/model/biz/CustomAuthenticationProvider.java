@@ -20,7 +20,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = (String) authentication.getPrincipal();
