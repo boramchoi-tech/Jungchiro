@@ -11,6 +11,8 @@
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript">
 
@@ -89,7 +91,7 @@
 			${principal.member_name }님 안녕하세요
 			<a href="/poli/mypage.do?member_seq=${principal.member_seq }">마이 페이지</a>
 			<form id="logout" action="/poli/logout" method="POST">
-			   <input id="logoutBtn" type="submit" value="Logout" />
+			   <input id="logoutBtn" class="btn-success" type="submit" value="Logout" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
 			   <span id="bell_count"></span>
@@ -125,6 +127,8 @@
 		<a href="/poli/boardlist.do?page=1">자유게시판</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/poli/chat.do?member_seq=${principal.member_seq }">채팅</a>
 	</div>
+	
+	<hr>
 	
 	<div class="login-layer">
 		<div class="login-Bg"></div>
@@ -227,6 +231,7 @@
 		
 		
 	</div>
+
 	
 	<!-- 여백 -->
 	<div style="height: 50px;"></div>

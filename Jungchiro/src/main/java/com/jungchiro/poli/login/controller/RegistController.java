@@ -25,9 +25,6 @@ public class RegistController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
-	
 	@RequestMapping(value="/regist.do", method=RequestMethod.POST)
 	public String regist(LoginDto dto) {
 		

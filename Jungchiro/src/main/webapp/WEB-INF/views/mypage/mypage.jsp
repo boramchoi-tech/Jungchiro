@@ -620,7 +620,7 @@
 		        
 		        <!-- Modal footer -->
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-primary" onclick="confirmPw()">확인</button>
+		          <button type="button" class="btn btn-primary" onclick="confirmPw();">확인</button>
 		        </div>
 		        
 		      </div>
@@ -791,7 +791,6 @@
 			
 			ajaxpw.url("/poli/confirmPw.do");
 			ajaxpw.param(confirmPassword);
-			
 			ajaxpw.success(function(msg){
 				
 				if(msg.isPw == true){
@@ -804,9 +803,9 @@
 					}
 				};
 			
-			ajaxpw.call();
-			
 			});
+			
+			ajaxpw.call();
 		};
 
 	</script>

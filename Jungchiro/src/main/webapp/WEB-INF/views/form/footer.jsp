@@ -43,7 +43,7 @@
 				<p onclick="showPopup();" style="cursor: pointer">후원</p>
 			</div>
 
-			<div id="footer_copyright">copyright (c) 2020 qclass final 2조 |
+			<div id="footer_copyright">copyright (c) 2020 qclass 국민을 |
 				All Rights Reserved.</div>
 
 		</div>

@@ -84,7 +84,7 @@ html {
 }
 
 body {
-  background-color: var(--bodyBackgroundColor);
+  background-color: #BFC9CA/* var(--bodyBackgroundColor) */;
   font-family: var(--bodyFontFamily), var(--bodyFontFamilyFallback);
   font-size: var(--bodyFontSize);
   font-weight: var(--bodyFontWeight);
@@ -237,6 +237,15 @@ input{
 	font-size: 18px;
 }
 
+.form__field{
+	width: 300px;
+}
+
+#memberPw{
+	width: 100%;
+}
+
+
 
 </style>
 <title>Insert title here</title>
@@ -268,8 +277,8 @@ input{
 	        </div>
 	
 		    <footer class="login__footer">
-		        <input type="button" onclick="changePassword();" value="변경" id="change">
-		        <input type="button" value="취소" id="cancle" onclick="location.href='/poli/main.do'">
+		        <input type="button" class="btn btn-light" onclick="changePassword();" value="변경" id="change">
+		        <input type="button" class="btn btn-primary" value="취소" id="cancle" onclick="location.href='/poli/main.do'">
 		    </footer>
 
   		</div>
