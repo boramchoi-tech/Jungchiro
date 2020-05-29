@@ -36,7 +36,6 @@ public class SearchController {
 			+ "		code:'1000',"
 			+ "		name:'포도'"
 			+ "}"
-			;
 
 JSONParser parser = new JSONParser();
 Object obj = parser.parse( jsonStr );
