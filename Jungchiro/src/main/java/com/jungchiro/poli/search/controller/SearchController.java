@@ -29,17 +29,27 @@ public class SearchController {
 	
 		String title_res;
 		
-		//testobj = 
-		//JSONParser parser = new JSONParser();
-		//Object obj = parser.parse( jsonStr );
 
-//		JSONObject jsonObj = (JSONObject) obj;
-/*				JSONObject xmlJSONobj = new JSONObject();
-        xmlJSONobj = XML.toJSONObject(sb.toString());
+/*			
+ * 
+ * String jsonStr = "{"
+			+ "		code:'1000',"
+			+ "		name:'포도'"
+			+ "}"
+			;
+
+JSONParser parser = new JSONParser();
+Object obj = parser.parse( jsonStr );
+JSONObject jsonObj = (JSONObject) obj;
+
+String code = (String) jsonObj.get("code");
+String name = (String) jsonObj.get("name");
 		*/
 		
 		while ((title_res = title_br.readLine()) != null) {
 			System.out.println(title_res);
+			//JsonParser parser = new JsonParser();
+			//Object obj = parser.
 			
 		}
 		title_br.close();
