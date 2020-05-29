@@ -40,6 +40,7 @@
 			<div id="footer_help">
 				Help<br> 
 				챗봇 QR코드<br>
+				<img src="/poli/resources/images/chatbot.png" style="height: 80px; width:80px;"><br>
 				<p onclick="showPopup();" style="cursor: pointer">후원</p>
 			</div>
 
