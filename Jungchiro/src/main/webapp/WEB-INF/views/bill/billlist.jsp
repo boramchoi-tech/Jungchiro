@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>정치로</title>
-</head>
-
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -16,6 +14,9 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
+
+</head>
+
 
 <link rel="stylesheet" type="text/css"
 	href="/poli/resources/css/board.css" />
@@ -41,7 +42,8 @@ li {
 
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+S
 <script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
 <script type="text/javascript">
 	
@@ -169,87 +171,88 @@ li {
 
 	<input type="hidden" id="member_seq" value="${principal.member_seq }" />
 
+	<div class="nanum">
+		<div class="bill">
+			<h1 class="text-center">의안게시판</h1>
+			<br />
+			<table class="table table-hover">
+				<colgroup>
+					<col width="100">
+					<col width="150">
+					<col width="700">
+					<col width="150">
+					<col width="150">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>의안번호</th>
+						<th>의안구분</th>
+						<th>의안명</th>
+						<th>제안자 구분</th>
+						<th>제안일자</th>
+						<th>의결일자</th>
+						<th>의결결과</th>
+						<th>주요내용</th>
+						<th>심사진행상태</th>
+						<th>즐겨찾기</th>
 
-	<div class="bill">
-		<h1>의안게시판</h1>
-		<br/>
-		<table class="table table-hover">
-			<colgroup>
-				<col width="100">
-				<col width="150">
-				<col width="700">
-				<col width="150">
-				<col width="150">
-				<col width="150">
-				<col width="200">
-				<col width="150">
-				<col width="200">
-				<col width="150">
-			</colgroup>
-			<thead>
-				<tr>
-					<th>의안번호</th>
-					<th>의안구분</th>
-					<th>의안명</th>
-					<th>제안자 구분</th>
-					<th>제안일자</th>
-					<th>의결일자</th>
-					<th>의결결과</th>
-					<th>주요내용</th>
-					<th>심사진행상태</th>
-					<th>즐겨찾기</th>
-
-				</tr>
-			</thead>
-			<tbody>
-				<c:choose>
-					<c:when test="${empty list} ">
-						<tr>
-							<td colspan="10">-------------의안이 없습니다.------------</td>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<!-- 모든 조건이 거짓일때 -->
-						<c:forEach items="${list }" var="bill">
+					</tr>
+				</thead>
+				<tbody>
+					<c:choose>
+						<c:when test="${empty list} ">
 							<tr>
-								<td>${bill.bill_id}</td>
-								<td>${bill.bill_type}</td>
-								<td>${bill.bill_name}</td>
-								<td>${bill.bill_proposer}</td>
-								<td>${bill.propose_date}</td>
-								<td>${bill.decide_date}</td>
-								<td>${bill.decide_result}</td>
-								<td><a href="#"
-									onclick="window.open('${bill.content_address}','의안 상세', 'width=590, height=500, top=250, left=500, resizable=yes, scrollbars=yes, status=no');"
-									style="cursor: pointer">${bill.bill_content}</a></td>
-								<td>${bill.bill_status}</td>
-
-								<td><span onclick="isFav(${bill.bill_id});">등록</span>&nbsp;|&nbsp;<span
-									id="${bill.bill_id }" onclick="isDeleteFav(${bill.bill_id});">취소</span></td>
+								<td colspan="10">-------------의안이 없습니다.------------</td>
 							</tr>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-			</tbody>
-		</table>
-		<div class="text-center">
-			<ul class="pagination">
-				<c:if test="${pageMake.prev}">
-					<li class="page-item"><a class="page-link"
-						href="/poli/billlist.do${pageMake.makeQuery(pageMake.startPage - 1)}">이전</a></li>
-				</c:if>
+						</c:when>
+						<c:otherwise>
+							<!-- 모든 조건이 거짓일때 -->
+							<c:forEach items="${list }" var="bill">
+								<tr>
+									<td>${bill.bill_id}</td>
+									<td>${bill.bill_type}</td>
+									<td>${bill.bill_name}</td>
+									<td>${bill.bill_proposer}</td>
+									<td>${bill.propose_date}</td>
+									<td>${bill.decide_date}</td>
+									<td>${bill.decide_result}</td>
+									<td><a href="#"
+										onclick="window.open('${bill.content_address}','의안 상세', 'width=590, height=500, top=250, left=500, resizable=yes, scrollbars=yes, status=no');"
+										style="cursor: pointer">${bill.bill_content}</a></td>
+									<td>${bill.bill_status}</td>
 
-				<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
-					var="idx">
-					<li class="page-item"><a class="page-link"
-						href="/poli/billlist.do${pageMake.makeQuery(idx)}">${idx}</a></li>
-				</c:forEach>
+									<td><span onclick="isFav(${bill.bill_id});">등록</span>&nbsp;|&nbsp;<span
+										id="${bill.bill_id }" onclick="isDeleteFav(${bill.bill_id});">취소</span></td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+			</table>
+			<div class="text-center">
+				<ul class="pagination">
+					<c:if test="${pageMake.prev}">
+						<li class="page-item"><a class="page-link"
+							href="/poli/billlist.do${pageMake.makeQuery(pageMake.startPage - 1)}">이전</a></li>
+					</c:if>
 
-				<c:if test="${pageMake.next && pageMake.endPage > 0}">
-					<li class="page-item"><a class="page-link"
-						href="/poli/billlist.do${pageMake.makeQuery(pageMake.endPage + 1)}">다음</a></li>
-				</c:if>
-			</ul>
+					<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
+						var="idx">
+						<li class="page-item"><a class="page-link"
+							href="/poli/billlist.do${pageMake.makeQuery(idx)}">${idx}</a></li>
+					</c:forEach>
+
+					<c:if test="${pageMake.next && pageMake.endPage > 0}">
+						<li class="page-item"><a class="page-link"
+							href="/poli/billlist.do${pageMake.makeQuery(pageMake.endPage + 1)}">다음</a></li>
+					</c:if>
+				</ul>
+			</div>
 		</div>
 	</div>
 

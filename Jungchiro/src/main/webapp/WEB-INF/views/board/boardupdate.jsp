@@ -7,10 +7,9 @@
 <title>정치로</title>
 
 <script type="text/javascript"
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="/poli/resources/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-	
 	function updateCheck() {
 		var form = document.boardupdate;
 
@@ -32,10 +31,9 @@
 			$("#board_content").focus();
 			return;
 		}
-		
+
 		alert("글 수정에 성공했습니다.")
 		form.submit();
-		
 
 	}
 </script>
@@ -81,7 +79,8 @@
 			<tr>
 
 				<th>내용</th>
-				<td><textarea rows="10" cols="60" name="board_content" id="board_content">
+				<td><textarea rows="10" cols="60" name="board_content"
+						id="board_content">
 						${board.board_content }
 				    </textarea> <script>
 									CKEDITOR
@@ -93,8 +92,8 @@
 								</script></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><input type="button" value="수정" onclick="updateCheck()">
-					<input type="button" value="취소"
+				<td colspan="2" align="right"><input type="button" value="수정"
+					onclick="updateCheck()"> <input type="button" value="취소"
 					onclick="location.href='/poli/boarddetail.do?board_seq=${board.board_seq}'"></td>
 			</tr>
 		</table>
