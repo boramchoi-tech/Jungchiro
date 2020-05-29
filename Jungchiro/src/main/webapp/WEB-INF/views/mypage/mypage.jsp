@@ -7,6 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <!-- START :: CSS -->
 <style type="text/css">
@@ -14,14 +17,14 @@
 	#moreBoard{
 		cursor: pointer;
 		text-align: center;
-		width: 50px;
+		width: auto;
 		height: 50px;
 	}
 	
 	#moreBill{
 		cursor: pointer;
 		text-align: center;
-		width: 50px;
+		width: auto;
 		height: 50px;
 	}
 	
@@ -29,12 +32,114 @@
 		width: 20px;
 		height: 15px;
 	}
+	
+	h1, h2, h3, span{
+		font-family: 'Do Hyeon', sans-serif; 
+	}
+	
+	span{
+		font-size: 25px;
+	}
+	
+	.totalUpdate{
+		margin-top: 5%;
+	}
+	
+	
+	.replyList{
+		margin-top: 5%;
+		margin-bottom: 5%;
+		width: 100%;
+	}
+	
+	.LikeNews{
+		width: 100%;
+		display: inline-block;
+	}
+	
+	.Like_left{
+		display: inline-block;
+		float: left;
+		width: 48%;
+	}
+	
+	.Like_right{
+		display: inline-block;
+		float: right;
+		width: 48%;
+	}
+	
+	.profileUpdate{
+		margin-top: 5%;
+	}
+	
+	.favList{
+		display: inline-block;
+		margin-top: 5%;
+		width: 100%;
+	}
+	
+	.boardFav{
+		display: inline-block;
+		float: left;
+		width: 48%;
+	}
+	
+	.billFav{
+		display: inline-block;
+		float: right;
+		width: 48%;
+	}
+	
+	th, td{
+		text-align: center;
+	}
+	
+	.profile{
+		font-size: 40px;
+		line-height: 40px;
+	}
+	
+	.image{
+		width: 40px;
+		height: 40px;
+		margin-bottom: 15px;
+	}
+	
+	.title{
+		height: 40px;
+	}
+	
+	.btn{
+		float: right;
+		margin-left: 5px;
+	}
+	
+	.delete{
+		float: right;
+	}
+	
+	.moreLook{
+		margin-top: 10%;
+		text-align: center;
+	}
+	
+	.password{
+		width: 150px;
+	}
+	
+	.confirm{
+		text-align: center;
+		font-size: 20px;
+	}
 
 </style>
 <!-- END :: CSS -->
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script type="text/javascript">
 
 	$(function(){
@@ -90,13 +195,44 @@
 	*/
 	function dropOut(){
 		
-		var confirm = window.confirm("탈퇴 하시는 것이 맞습니까?");
+		var member_id = $("#memberIdId").val().trim();
+		console.log("member_id : " + member_id);
 		
+		var confirm = window.confirm("탈퇴 하시는 것이 맞습니까?");
+
 		if( confirm ){
-			location.href="/poli/signOut.do?member_seq"+member_seq;	
+			
+			var ajax03 = new ComAjax();
+			
+			var dropId = {
+					"member_id" : member_id
+			}
+			
+			ajax03.url("/poli/dropId.do");
+			ajax03.param(dropId);
+			
+			ajax03.param(dropId);
+			
+			ajax03.success(function(msg){
+				
+				if(msg.isDrop == true){
+					
+					alert("탈퇴 성공하셨습니다.");
+					
+					$("#logoutBtn").trigger("click");
+					
+				} else {
+					alert("예상치 못한 오류 발생으로 탈퇴 실패하셨습니다.");
+				}
+				
+			});
+			
+		ajax03.call();
+		
 		} else {
 			return false;
-		}		
+		}
+				
 	}
 	
 	/*
@@ -232,7 +368,7 @@
 									"<tr id='moreSequence'>"+
 									"<td><input type='checkbox' name='billChk' value='"+val.bill_id+"'></td>" +
 									"<td>"+val.bill_id+"</td>" +
-									"<td>>"+val.bill_name+"</a></td>" +
+									"<td>"+val.bill_name+"</a></td>" +
 									"</tr>"							
 							);
 							
@@ -270,64 +406,66 @@
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
 	
-	<input type="hidden" name="member_seq" id="member_seq" value="${loginDto.member_seq }">
-	
+	<input type="hidden" name="member_seq" id="member_seq" value="${principal.member_seq }">
+	<input type="hidden" id="memberIdId" value="${principal.username }">
 	<div class="container">
-	
+			
+		<img class="image" alt="reply" src="/poli/resources/images/email.png">
+		<span class="profile">댓글 알림</span>
+
 		<!-- START :: 변경사항 알림 모아보기 -->
 		<div class="totalUpdate">
-		
-			<h1>하루내 변경 소식</h1>
 				
 				<!-- 새로 달린 댓글 리스트 -->
-				<h2>댓글 소식</h2>
-				
-				<form action="/poli/replyNotificationDelete.do" method="post" id="replyDelete">
-					<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-					<input type="hidden" name="member_seq" value="${principal.member_seq }">
-				
-					<table border="1">
+				<div class="replyList">
+					<span>댓글 소식</span>
 					
-						<colgroup>
-							<col width="50">
-							<col width="80">
-							<col width="300">
-							<col width="500">	
-						</colgroup>
+					<form action="/poli/replyNotificationDelete.do" method="post" id="replyDelete">
+						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+						<input type="hidden" name="member_seq" value="${principal.member_seq }">
+					
+						<table class="table table-hover">
 						
-						<tr>
-							<th><input type="checkbox" name="replyAll" onclick="replyAllChks(this.checked);"></th>
-							<th>글 번호</th>
-							<th>제목</th>
-							<th>댓글</th>
-						</tr>
-						<c:choose>
-							<c:when test="${empty notificationReplyList }">
-								<tr>
-									<td colspan="4" align="center">
-										-------- 새로 달린 댓글이 없습니다 --------
-									</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-								<c:forEach items="${notificationReplyList }" var="NotificationReplyDto">
-									
+							<colgroup>
+								<col width="50">
+								<col width="80">
+								<col width="300">
+								<col width="520">	
+							</colgroup>
+							
+							<tr>
+								<th><input type="checkbox" name="replyAll" onclick="replyAllChks(this.checked);"></th>
+								<th>글 번호</th>
+								<th>제목</th>
+								<th>댓글</th>
+							</tr>
+							<c:choose>
+								<c:when test="${empty notificationReplyList }">
 									<tr>
-										<td><input type="checkbox" name="replyChk" value="${NotificationReplyDto.board_seq }"></td>
-										<td>${NotificationReplyDto.board_seq }</td>
-										<td><a class="deleteReply" id="${NotificationReplyDto.board_seq }" href="/poli/boarddetail.do?board_seq=${NotificationReplyDto.board_seq }">${NotificationReplyDto.board_title }</a></td>
-										<td>${NotificationReplyDto.reply_content }</td>
-									</tr>							
-									
-								</c:forEach>
-							</c:otherwise>					
-						</c:choose>			
+										<td colspan="4" align="center">
+											-------- 새로 달린 댓글이 없습니다 --------
+										</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${notificationReplyList }" var="NotificationReplyDto">
+										
+										<tr>
+											<td><input type="checkbox" name="replyChk" value="${NotificationReplyDto.board_seq }"></td>
+											<td>${NotificationReplyDto.board_seq }</td>
+											<td><a class="deleteReply" id="${NotificationReplyDto.board_seq }" href="/poli/boarddetail.do?board_seq=${NotificationReplyDto.board_seq }">${NotificationReplyDto.board_title }</a></td>
+											<td>${NotificationReplyDto.reply_content }</td>
+										</tr>							
+										
+									</c:forEach>
+								</c:otherwise>					
+							</c:choose>			
+							
+						</table>
 						
-					</table>
-					
-				<input type="submit" value="삭제하기">				
-					
-				</form>
+					<input type="submit" value="삭제하기" id="delete" class="btn btn-light">				
+						
+					</form>
 				
 				<c:if test="${!empty notificationReplyList }">
 				
@@ -335,91 +473,109 @@
 					<form action="/poli/replyNotificationDeleteAll.do" method="post">
 						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						<input type="hidden" name="member_seq" value="${principal.member_seq }"/>
-						<input type="submit" value="전체 삭제하기"/>
+						<input type="submit" value="전체 삭제하기" class="btn btn-dark"/>
 					</form>
 				
 				</c:if>
 				
-				<!-- 하루 안에 추가한 게시판 즐겨찾기 -->
-				<h2>게시판 즐겨찾기 소식</h2>
+			</div>
+				<img class="image" alt="reply" src="/poli/resources/images/new.png">
+				<span class="profile">최신 소식 업데이트!</span>			
+				<br><br><br>
+				<div class="LikeNews">
+					<!-- 하루 안에 추가한 게시판 즐겨찾기 -->
+					<div class="Like_left">	
+						<span>게시판 즐겨찾기 소식</span>
+						
+						<table class="table table-hover">
+						
+							<colgroup>
+								<col width="100">
+								<col width="300">
+								<col width="100">	
+							</colgroup>
+							
+							<tr>
+								<th>글 번호</th>
+								<th>제목</th>
+								<th>작성 시간</th>
+							</tr>
+							
+							<c:choose>
+								<c:when test="${empty boardFavUpdateList}">
+										<tr>
+											<td colspan="3" align="center">
+												-------- 새로 추가된 즐겨찾기 포스트가 없습니다 --------
+											</td>
+										</tr>			
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${boardFavUpdateList}" var="boardFavUpdateDto">
+										
+											<tr>
+												<td>${boardFavUpdateDto.board_seq}</td>
+												<td>${boardFavUpdateDto.board_title}</td>
+												<td>${boardFavUpdateDto.board_date }</td>
+											</tr>
+										
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</table>
+					</div>
 				
-				<table border="1">
+				<div class="Like_right">
+					
+					<!-- 하루 안에 추가한 의안 즐겨찾기 -->
+					<span>의안 즐겨찾기 소식</span>
 				
-					<colgroup>
-						<col width="50">
-						<col width="300">
-						<col width="100">	
-					</colgroup>
-					
-					<tr>
-						<th>글 번호</th>
-						<th>제목</th>
-						<th>작성 시간</th>
-					</tr>
-					
-					<c:choose>
-						<c:when test="${empty boardFavUpdateList}">
+					<table class="table table-hover">
+						
+						<colgroup>
+							<col width="100">
+							<col width="320">
+						</colgroup>
+						
+								<tr>
+								    <th>의안 ID</th>
+								    <th>의안명</th>
+							    </tr>
+						
+						<c:choose>
+							<c:when test="${empty billFavUpdateList}">
 								<tr>
 									<td colspan="3" align="center">
-										-------- 새로 추가된 즐겨찾기 포스트가 없습니다 --------
+										-------- 새로 추가된 즐겨찾기 의안이 없습니다 --------
 									</td>
-								</tr>			
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${boardFavUpdateList}" var="boardFavUpdateDto">
-								
-									<tr>
-										<td>${boardFavUpdateDto.board_seq}</td>
-										<td>${boardFavUpdateDto.board_title}</td>
-										<td>${boardFavUpdateDto.board_date }</td>
-									</tr>
-								
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</table>
-				
-				<!-- 하루 안에 추가한 의안 즐겨찾기 -->
-				<h2>의안 즐겨찾기 소식</h2>
-			
-				<table border="1">
-					
-					<colgroup>
-						<col width="50">
-						<col width="300">
-					</colgroup>
-					
-					<c:choose>
-						<c:when test="${empty billFavUpdateList}">
-							<tr>
-								<td colspan="3" align="center">
-									-------- 새로 추가된 즐겨찾기 의안이 없습니다 --------
-								</td>
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${billFavUpdateList }" var="billFavUpdateDto">
-								<tr>
-									<td>${billFavUpdateDto.bill_id}</td>
-									<td>${billFavUpdateDto.bill_name }</td>
 								</tr>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-					
-				</table>
-		
+							</c:when>
+							<c:otherwise>
+
+								<c:forEach items="${billFavUpdateList }" var="billFavUpdateDto">
+									<tr>
+										<td>${billFavUpdateDto.bill_id}</td>
+										<td>${billFavUpdateDto.bill_name }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+						
+					</table>
+				</div>
+			</div>
 		</div>
 		<!-- END :: 변경사항 알림 모아보기(sysdate 계산해서 하루 전에 등록된 글 다 뜨게 하기) -->
 		
 		<!-- START :: 개인정보 영역-->
 		<div class="profileUpdate">
 			<div class="introduction">
-				<h2>프로필 보기</h2>
+				<img class="image" alt="reply" src="/poli/resources/images/user.png">
+				<span class="profile">프로필 보기</span>				
 			</div>
+			<br><br><br>
 			
 			<!-- 비밀번호 변경할 떄 암호화 같이 해야함! -->
-			<table border="1">
+			<table class="table table-hover">
 			
 				<colgroup>
 					<col width="100">
@@ -427,37 +583,67 @@
 				</colgroup>
 
 					<tr>
-						<td>아이디</td>
+						<th>아이디</th>
 						<td id="member_id">${principal.username}</td>
 					</tr>
 					<tr>
-						<td>이름</td>
+						<th>이름</th>
 						<td>${principal.member_name}</td>
 					</tr>
 					
 			</table>
 			
 			<div class="clickButton">
-				<input type="submit" value="비밀번호 변경" onclick="location.href='/poli/changePwForm.do'">
-				<input type="button" value="탈퇴하기" onclick="dropOut();">
+				<input type="button" value="탈퇴하기" class="btn btn-danger" onclick="dropOut();">		
+				<button type="button" data-toggle="modal" data-target="#passwordUpdate" class="btn btn-light">
+					비밀번호 변경
+				</button>
 			</div>
 		
 		</div>
 		
+		  <!-- 비밀번호 변경 전 확인용 모달 -->
+		  <div class="modal fade" id="passwordUpdate">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		      	<input type="hidden" id="memberId" value="${principal.username }">
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <span class="confirm modal-title">비밀번호를 다시 입력해주세요.</span>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body" align="center">
+		          <input type="password" class="form-control" id="password" required="required">
+		        </div>
+		        
+		        <!-- Modal footer -->
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-primary" onclick="confirmPw();">확인</button>
+		        </div>
+		        
+		      </div>
+		    </div>
+		  </div>
+		
 		<!-- END :: 개인정보 영역-->		
 		
 		<!-- START :: 즐겨찾기 영역 -->
-
+		<br><br><br>
+		<img class="image" alt="reply" src="/poli/resources/images/bookmark.png">
+		<span class="profile">즐겨찾기</span>
+		
 		<div class="favList">
 			<div class="boardFav">
-			<h2>게시판 즐겨찾기</h2>
+			<span>게시판 즐겨찾기</span>
 				
 					<!-- 게시판 즐겨찾기 -->
 					<form action="/poli/boardFavDelete.do" method="post" id="boardDelete">
 						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						<input type="hidden" name="member_seq" value="${principal.member_seq }">
 						
-						<table border="1" id="insertMoreBoardFav">
+						<table class="table table-hover" id="insertMoreBoardFav">
 						
 									<colgroup>
 										<col width="80">
@@ -467,7 +653,7 @@
 						
 								<tr>
 									<th><input type="checkbox" name="boardAll" onclick="boardAllChks(this.checked);"></th>
-									<th>글번호</th>
+									<th>글 번호</th>
 									<th>제목</th>
 								</tr>
 								<c:choose>
@@ -498,16 +684,16 @@
 							</c:choose>
 						</table>		
 						
-						<input type="submit" value="삭제하기">		
+						<input type="submit" value="삭제하기" class="btn btn-light">		
 					</form>
 					
 					<c:if test="${!empty boardFavNum }">
 					
-						<div>
+						<div class="moreLook">
 							<input type="hidden" id="seq" value="${seq }">
 							<div id="moreBoard" onclick="moreBoardFav();">
 							<img src='/poli/resources/images/down-arrow.png' class="arrow"/>								
-								<span>더보기</span>
+								<span>더 보기</span>
 							</div>
 						</div>
 						
@@ -515,14 +701,14 @@
 			</div>
 			
 			<div class="billFav">
-			<h2>의안 즐겨찾기</h2>
+			<span>의안 즐겨찾기</span>
 				
 					<!-- 의안 즐겨찾기 -->
 					<form action="/poli/billFavDelete.do" method="post" id="billDelete">
 						<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 						<input type="hidden" name="member_seq" value="${principal.member_seq }">
 						
-						<table border="1" id="insertMoreBillFav">
+						<table class="table table-hover" id="insertMoreBillFav">
 						
 									<colgroup>
 										<col width="50">
@@ -561,25 +747,22 @@
 								</c:otherwise>
 							</c:choose>
 						</table>		
-						
-						<input type="submit" value="삭제하기">		
+						<input type="submit" value="삭제하기" class="btn btn-light">	
 					</form>
 					
 					<c:if test="${!empty billFavNum }">
 					
-						<div>
+						<div class="moreLook">
 							<input type="hidden" id="sequence" value="${sequence }">
 							<div id="moreBill" onclick="moreBillFav();">
 								<img src='/poli/resources/images/down-arrow.png' class="arrow"/>
-								<span>더보기</span>
+								<span>더 보기</span>
 							</div>
 						</div>
 						
 					</c:if>
-			</div>
-		
-		</div>
-	
+			</div>		
+		</div>	
 	</div>
 	
 	<script type="text/javascript">
@@ -590,6 +773,40 @@
 			console.log(board_seq);
 		
 		});
+		
+		function confirmPw(){			
+		
+			var member_id = $("#memberId").val().trim();
+			var pw = $("#password").val().trim();
+			
+			console.log("id : " + member_id);
+			console.log("비밀번호 : " + pw);
+			
+			var ajaxpw = new ComAjax();
+			
+			var confirmPassword = {
+					"member_id" : member_id,
+					"member_pw" : pw
+			}
+			
+			ajaxpw.url("/poli/confirmPw.do");
+			ajaxpw.param(confirmPassword);
+			ajaxpw.success(function(msg){
+				
+				if(msg.isPw == true){
+					var confirmPw = window.confirm("비밀번호가 확인되었습니다. \n 수정하시겠습니까?");
+					
+					if(confirmPw){
+						location.href="/poli/changePwForm.do?";
+					} else {
+						alert("비밀번호를 다시 입력해주세요.");
+					}
+				};
+			
+			});
+			
+			ajaxpw.call();
+		};
 
 	</script>
 	

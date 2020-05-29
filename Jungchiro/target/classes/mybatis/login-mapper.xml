@@ -21,5 +21,17 @@
 	<select id="selectUserById" resultType="com.jungchiro.poli.login.model.dto.CustomUserDetails">
 			SELECT * FROM MEMBER WHERE member_id=#{loginId}	
 	</select>
+	
+	<update id="updatePassword" parameterType="loginDto">
+		UPDATE MEMBER
+		SET MEMBER_PW = #{member_pw}
+		WHERE MEMBER_ID = #{member_id}
+	</update>
+	
+	<update id="dropId" parameterType="loginDto">
+		UPDATE MEMBER
+		SET MEMBER_ENABLE = 'disabled'
+		WHERE MEMBER_ID = #{member_id}
+	</update>
 
 </mapper>

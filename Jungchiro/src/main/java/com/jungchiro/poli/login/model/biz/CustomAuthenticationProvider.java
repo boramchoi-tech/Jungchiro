@@ -16,7 +16,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
@@ -46,7 +45,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		return true;
 	}
 	
-	private boolean matchPassword(String loginPwd, String password) {
+	public boolean matchPassword(String loginPwd, String password) {
 		return passwordEncoder.matches(loginPwd, password);
 	}
 

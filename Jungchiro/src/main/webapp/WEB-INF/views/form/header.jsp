@@ -11,6 +11,8 @@
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/header.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript">
 
@@ -19,20 +21,20 @@
 	$(function(){
 		
 		var member_seq = $("#member_seq").val().trim();
-		console.log(member_seq);
+		// console.log(member_seq);
 		
 		if(member_seq != "" || member_seq != null){
 		
 			var eventSource = new EventSource('/poli/notification.do?member_seq='+member_seq);
 			
 			eventSource.addEventListener('open',function(e){
-				console.log('open 됐다!');
+				// console.log('open 됐다!');
 			}, false);
 			
 			eventSource.addEventListener('message', function(e){
-				console.log('message 왔다!');
+				// console.log('message 왔다!');
 				var msg = parseInt(e.data);
-				console.log(msg);
+				// console.log(msg);
 			
 				if(msg > 0){
 					document.getElementById("bell_count").innerHTML = msg+"";
@@ -89,7 +91,7 @@
 			${principal.member_name }님 안녕하세요
 			<a href="/poli/mypage.do?member_seq=${principal.member_seq }">마이 페이지</a>
 			<form id="logout" action="/poli/logout" method="POST">
-			   <input id="logoutBtn" type="submit" value="Logout" />
+			   <input id="logoutBtn" class="btn-success" type="submit" value="Logout" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
 			   <span id="bell_count"></span>

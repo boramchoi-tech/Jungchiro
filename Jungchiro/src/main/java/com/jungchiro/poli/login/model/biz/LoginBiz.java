@@ -6,5 +6,7 @@ public interface LoginBiz {
 	
 	public LoginDto selectMember(LoginDto dto);
 	public LoginDto insertMember(LoginDto dto);
+	public int updatePassword(LoginDto dto);
+	public int dropId(LoginDto dto);
 	
 }
