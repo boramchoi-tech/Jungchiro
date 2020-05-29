@@ -52,13 +52,59 @@ a, a:link, a:hover, a:visited, a:active {
 	color: black;
 }
 
-#header_search {
-	width: 90%;
+/* #header_search {
+	width: 50%;
 	text-align: center;
-/* 	margin: 0 auto; */
-	border: 1px dotted black;
+	border: 5px solid #007eff;
 	height: 40px;
+	margin: 0 auto;
+}
+
+#header_searchtext {
+	position: absolute;
+	width: 300px;
+}
+
+#header_searchbtn {
+	position: relative;
 	float: right;
+	vertical-align: middle;
+    border: 1px solid red;
+    float: right;
+}
+ */
+ .search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #007eff;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #434343;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #007eff;
+  background: #007eff;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.header_search{
+  width: 50%;
+  margin: 0 auto;
 }
 
 .pop-layer .pop-container {
