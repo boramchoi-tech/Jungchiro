@@ -58,7 +58,7 @@
 						"dataField" : "value"
 					});
 
-					series.labels.template.url = "https://stackoverflow.com/questions/tagged/{word}";
+					series.labels.template.url = "/poli/search.do?keyword={word}";
 					series.labels.template.urlTarget = "_blank";
 					series.labels.template.tooltipText = "{word}: {value}";
 

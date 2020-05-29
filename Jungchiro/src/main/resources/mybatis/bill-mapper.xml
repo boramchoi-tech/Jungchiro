@@ -3,7 +3,7 @@
 <mapper namespace="billDto">
 
 	<resultMap type="billDto" id="billDto">
-		<result property="bill_number" column="BILL_NUMBER" />
+		<result property="bill_id" column="BILL_ID" />
 		<result property="bill_seq" column="BILL_SEQ" />
 		<result property="bill_type" column="BILL_TYPE" />
 		<result property="bill_name" column="BILL_NAME" />

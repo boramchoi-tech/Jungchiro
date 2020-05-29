@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+li {
+	list-style: none;
+	float: left;
+	padding: 6px;
+}
+
+thead {
+	background-color: #007eff;
+	color: white;
+}
+
+ul {
+	justify-content: center;
+}
+
+a {
+	color: #007eff
+}

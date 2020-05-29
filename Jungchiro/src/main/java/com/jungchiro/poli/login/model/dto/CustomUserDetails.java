@@ -1,6 +1,7 @@
 package com.jungchiro.poli.login.model.dto;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
