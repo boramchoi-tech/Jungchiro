@@ -63,6 +63,7 @@ public class RegistController {
 		return map;
 	}
 	
+	
 	@RequestMapping(value="/emailAuth.do", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Map<String, String> emailAuthentication(@RequestBody LoginDto dto) throws UnsupportedEncodingException, MessagingException {

@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -30,16 +31,20 @@ public class NewsMongoDao {
 	
 	public List<NewsMongoDto> find_h(){
 
-		Query query =new Query(new Criteria("type").all("h")); 
+		Query query =new Query(new Criteria("type").all("h"));
+		Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        query.with(sort);
 		List<NewsMongoDto> list = mongoTemplate.find(query, NewsMongoDto.class, "news");
-		
-		return list;		
-		
+
+		return list;
+
 	}
 
 	public List<NewsMongoDto> find_d(){
 
 		Query query =new Query(new Criteria("type").all("d")); 
+		Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        query.with(sort);
 		List<NewsMongoDto> list = mongoTemplate.find(query, NewsMongoDto.class, "news");
 		
 		return list;		
@@ -49,6 +54,8 @@ public class NewsMongoDao {
 	public List<NewsMongoDto> find_j(){
 
 		Query query =new Query(new Criteria("type").all("j")); 
+		Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        query.with(sort);
 		List<NewsMongoDto> list = mongoTemplate.find(query, NewsMongoDto.class, "news");
 		
 		return list;		

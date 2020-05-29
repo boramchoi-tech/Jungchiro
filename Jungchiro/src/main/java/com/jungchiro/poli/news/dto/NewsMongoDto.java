@@ -67,11 +67,5 @@ public class NewsMongoDto {
 	public void setType(String type) {
 		this.type = type;
 	}
-	@Override
-	public String toString() {
-		return "NewsMongoDto [id=" + id + ", title=" + title + ", content=" + content + ", url=" + url + ", date="
-				+ date + ", img=" + img + ", type=" + type + "]";
-	}
-
 
 }
