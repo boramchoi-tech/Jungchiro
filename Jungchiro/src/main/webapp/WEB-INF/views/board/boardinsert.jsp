@@ -6,74 +6,107 @@
 <head>
 <meta charset="UTF-8">
 <title>정치로</title>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src = "/poli/resources/ckeditor/ckeditor.js"></script>
-<script type="text/javascript">
-
-function insert() {
-	if($(select[name='board_category']).val == "none"){
-		alert("카테고리를 선택해주세요");
-		return false;
-	}
-}
-
-</script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
 
 </head>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="/poli/resources/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+	function writeCheck() {
+		var form = document.boardinsert;
+
+		if (form.board_title.value == "") // form 에 있는 name 값이 없을 때
+		{
+			alert("제목을 적어주세요"); // 경고창 띄움
+			form.board_title.focus();// form 에 있는 name 위치로 이동
+			return;
+		}
+
+		if (form.board_category.value == "") {
+			alert("카테고리를 선택해주세요");
+			form.board_category.focus();
+			return;
+		}
+
+		if (CKEDITOR.instances.board_content.getData() == "") {
+			alert("내용을 적어주세요");
+			$("#board_content").focus();
+			return;
+		}
+
+		form.submit();
+		alert("글 작성에 성공했습니다.")
+
+	}
+</script>
+
+
 <body>
 
+
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
+	<div class="nanum">
 
-	<form action="/poli/boardinsertres.do" method="post">
-	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+		<div class="container">
 
-		<table border="1">
-			<tr>
-				<th>작성자</th>
-				<td>${loginDto.member_id }</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td><input type="text" name="board_title"></td>
-			</tr>
+			<form action="/poli/boardinsertres.do" method="post"
+				name="boardinsert" class="form-inline" role="form">
+				<input name="${_csrf.parameterName}" type="hidden"
+					value="${_csrf.token}" />
 
-			<tr>
-				<th>카테고리</th>
-				<td><select name="board_category">
-						<option value="none">카테고리 선택</option>
-						<option value="의안">의안</option>
-						<option value="시사">시사</option>
-						<option value="이슈">이슈</option>
-						<option value="기타">기타</option>
-				</select></td>
-			</tr>
+				<div>
 
-			<tr>
-				<th>내용</th>
-				<td><textarea rows="10" cols="60" name="board_content"></textarea>
+					<p id="category">
+						<select class="form-control" name="board_category">
+							<option value="">카테고리 선택</option>
+							<option value="의안">의안</option>
+							<option value="시사">시사</option>
+							<option value="이슈">이슈</option>
+							<option value="기타">기타</option>
+						</select>
+					</p>
+
+					<p id="title">
+						<input type="text" class="form-control col-10" name="board_title"
+							placeholder="제목">
+					</p>
+
+
+
+					<p>
+						<textarea rows="10" cols="60" name="board_content"
+							id="board_content"></textarea>
 						<script>
-							CKEDITOR.replace("board_content",{			 
-						    filebrowserUploadUrl : "/poli/imageUpload.do"			
+							CKEDITOR.replace("board_content", {
+								filebrowserUploadUrl : "/poli/imageUpload.do"
 							});
 						</script>
-				</td>
-			</tr>			
+					</p>
 
-			<tr>
-				<td colspan="2" align="right"><input type="submit" value="글쓰기">
 
-					<input type="button" value="취소" onclick="location.href='/poli/boardlist.do?page=1'"/>
-				</td>
-				<td colspan="2" align="right"><input type="submit" value="글쓰기" onclick="insert()">
-					<input type="hidden" name="member_seq" value="${principal.member_seq}">
-					<input type="button" value="취소" 
-					onclick="location.href ='/poli/boardlist.do?page=1'"></td>
-			</tr>
-		</table>
-	</form>
+					<p>
+						<input type="button" value="글쓰기" onclick="writeCheck()"> <input
+							type="hidden" name="member_seq" value="${principal.member_seq}">
+						<input type="button" value="취소"
+							onclick="location.href ='/poli/boardlist.do?page=1'">
+					</p>
+
+				</div>
+			</form>
+
+		</div>
+	</div>
+
 
 	<%@ include file="/WEB-INF/views/form/footer.jsp"%>
-
 </body>
 </html>
