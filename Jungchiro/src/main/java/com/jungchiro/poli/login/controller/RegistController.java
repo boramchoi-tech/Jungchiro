@@ -22,16 +22,18 @@ public class RegistController {
 	
 	@Autowired
 	private RegistBiz biz;
-	
 	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value="/regist.do", method=RequestMethod.POST)
 	public String regist(LoginDto dto) {
+		
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		
 		boolean registRes = false;
 		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		int res = biz.regist(dto);
-		
+
 		if (res == 1) {
 			System.out.println("회원가입 성공");
 			return "main";

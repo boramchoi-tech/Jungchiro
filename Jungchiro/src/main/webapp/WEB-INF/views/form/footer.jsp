@@ -40,11 +40,11 @@
 			<div id="footer_help">
 				Help<br> 
 				챗봇 QR코드<br>
+				<img src="/poli/resources/images/chatbot.png" style="height: 80px; width:80px;"><br>
 				<p onclick="showPopup();" style="cursor: pointer">후원</p>
 			</div>
 
-			<div id="footer_copyright">copyright (c) 2020 qclass final 2조 |
-				All Rights Reserved.</div>
+			<div id="footer_copyright">copyright (c) 2020 qclass 국민을 | All Rights Reserved.</div>
 
 		</div>
 	</div>

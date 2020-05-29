@@ -22,4 +22,16 @@ public class LoginBizImpl implements LoginBiz {
 		return dao.insertMember(dto);
 	}
 
+	@Override
+	public int updatePassword(LoginDto dto) {
+		return dao.updatePassword(dto);
+	}
+
+	@Override
+	public int dropId(LoginDto dto) {
+		return dao.dropId(dto);
+	}
+	
+	
+
 }

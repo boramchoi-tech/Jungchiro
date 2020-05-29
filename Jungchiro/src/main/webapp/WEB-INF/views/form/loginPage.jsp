@@ -12,23 +12,23 @@
 	$(document).ready(function(){ 
 		$("#authNum").hide(); 
 		$("#loginbtn").click(function(){
-			if($("#user").val() == ""){
+			if($("#user").val().trim() == ""){
 				$("#error_msg").text("아이디를 입력해주세요").css('color','red');
 				return false;
-			} else if($("#pass").val() == ""){
+			} else if($("#pass").val().trim() == ""){
 				$("#error_msg").text("비밀번호를 입력해주세요").css('color','red');
 				return false;
 			}
 		});
 		
 		$("#signUpbtn").click(function(){
-			if($("#regist_id").val() == ""){
+			if($("#regist_id").val().trim() == ""){
 				$('#idChk').html('아이디를 입력해주세요').css('color','red');
 				return false;
-			} else if($("#regist_pw").val() == ""){
+			} else if($("#regist_pw").val().trim() == ""){
 				$("#pwChk").text("비밀번호를 입력해주세요").css('color','red');
 				return false;
-			} else if($("#regist_name").val() == ""){
+			} else if($("#regist_name").val().trim() == ""){
 				$("#nameChk").text("이름을 입력해주세요").css('color','red');
 				return false;
 			} 
@@ -54,7 +54,7 @@
 		});
 		/*이메일 유효성 및 중복 검사*/
 		$('#regist_email').keyup(function() {
-			var member_email = $("#regist_email").val();
+			var member_email = $("#regist_email").val().trim();
 
 			var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 			if(regExp.test(member_email)){ 	
@@ -84,14 +84,14 @@
 		var emailAuthNum;
 		 //이메일 인증하기 클릭 시 발생하는 이벤트
 		$("#emailAuth").click(function(){
-			if($("#regist_email").val() == "") {
+			if($("#regist_email").val().trim() == "") {
 				$('#emailCheck').html('이메일을 입력해 주세요').css('color','red');
 				return false;
 			}
 			var ajax = new ComAjax();
 			
 		 			ajax.url("/poli/emailAuth.do");
-		 			var userEmail = $("#regist_email").val();
+		 			var userEmail = $("#regist_email").val().trim();
 		 			var data = {
 		 					"member_email" : userEmail
 		 			}
@@ -110,7 +110,7 @@
 		})
 		/*인증번호 확인버튼 클릭 시 발생하는 이벤트*/
 		$("#emailConfirm").click(function(){
-			var inputNum = $("#inputNum").val();
+			var inputNum = $("#inputNum").val().trim();
 			if(emailAuthNum == inputNum){
 				alert("인증이 완료되었습니다");
 				$("#signUpbtn").removeAttr("disabled");

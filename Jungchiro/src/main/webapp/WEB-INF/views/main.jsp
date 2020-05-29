@@ -23,8 +23,7 @@
 
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
-	
-	<h1>메인 화면</h1>
+
 	<div id="chartdiv"></div> <!-- 워드클라우드 -->
 		<script>
 		am4core

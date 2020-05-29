@@ -24,3 +24,7 @@ CREATE TABLE MEMBER (
 );
 
 INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, 'admin', 'admin1234', '관리자', 'admin@admin.com', 'general', 'enabled', 'Y');
+
+SELECT * FROM MEMBER WHERE MEMBER_SEQ = 62;
+
+UPDATE MEMBER SET MEMBER_ENABLE = 'enabled';

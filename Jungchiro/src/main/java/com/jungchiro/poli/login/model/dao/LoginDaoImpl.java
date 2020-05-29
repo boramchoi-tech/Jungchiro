@@ -31,4 +31,36 @@ public class LoginDaoImpl implements LoginDao {
 		return null;
 	}
 
+	@Override
+	public int updatePassword(LoginDto dto) {
+		
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE + "updatePassword", dto);
+		} catch (Exception e) {
+			System.out.println("[error] : 비밀번호 수정 에러(dao)");
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public int dropId(LoginDto dto) {
+		
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"dropId", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+		
+	}
+	
+	
+
 }
