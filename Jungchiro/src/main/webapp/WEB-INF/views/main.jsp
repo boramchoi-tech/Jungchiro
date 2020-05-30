@@ -59,7 +59,7 @@
 					});
 
 					series.labels.template.url = "/poli/search.do?keyword={word}";
-					series.labels.template.urlTarget = "_blank";
+					/* series.labels.template.urlTarget = ""; */
 					series.labels.template.tooltipText = "{word}: {value}";
 
 					var hoverState = series.labels.template.states

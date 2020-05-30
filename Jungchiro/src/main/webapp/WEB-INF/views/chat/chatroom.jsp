@@ -8,7 +8,7 @@
 <title>정치로</title>
 <style type="text/css">
 	*{
-		paddin: 0;
+		padding: 0;
 		margin: 0;
 	}
 	

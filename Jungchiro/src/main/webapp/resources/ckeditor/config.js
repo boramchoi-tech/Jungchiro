@@ -11,4 +11,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserUploadMethod = 'form';
 	config.extraPlugins = 'uploadimage';
 	config.imageUploadUrl = 'poli/imageUpload.do';
+	config.enterMode = CKEDITOR.ENTER_BR;
 };

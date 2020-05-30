@@ -43,7 +43,7 @@ li {
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-S
+
 <script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
 <script type="text/javascript">
 	

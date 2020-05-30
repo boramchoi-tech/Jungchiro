@@ -5,97 +5,72 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-
-import org.json.JSONArray;
+import java.util.HashMap;
+import java.util.List;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.core.JsonParser;
+import com.jungchiro.poli.search.model.biz.SearchBiz;
 
 @Controller
 public class SearchController {
 	
+	@Autowired
+	private SearchBiz biz;
+	
 	@RequestMapping("/search.do")
-	public String search(String keyword) throws Exception {
+	public String search(String keyword, Model model) throws Exception {
 		//http://52.231.155.109:9200/test/_doc/_search?q=title:%EC%A3%BC%ED%98%B8%EC%98%81&pretty
 		String search = URLEncoder.encode(keyword, "UTF-8");
 		
+		//////////////////////////////////title_start///////////////////////////////////////////////////
 		String title_addr = "http://52.231.155.109:9200/test/_doc/_search?q=title:"+search+"&pretty";
 		URL title_url = new URL(title_addr);
-		URLConnection conn = title_url.openConnection();
+		URLConnection title_conn = title_url.openConnection();
 		
-		BufferedReader title_br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	
-		String title_res;
-		
-
-/*			
- * 
- * String jsonStr = "{"
-			+ "		code:'1000',"
-			+ "		name:'포도'"
-			+ "}"
-
-JSONParser parser = new JSONParser();
-Object obj = parser.parse( jsonStr );
-JSONObject jsonObj = (JSONObject) obj;
-String code = (String) jsonObj.get("code");
-String name = (String) jsonObj.get("name");
-		*/
-		
+		BufferedReader title_br = new BufferedReader(new InputStreamReader(title_conn.getInputStream()));
+		StringBuilder title_sb = new StringBuilder();
+		String title_res = "";
+        
 		while ((title_res = title_br.readLine()) != null) {
-			System.out.println(title_res);
-			//JsonParser parser = new JsonParser();
-			//Object obj = parser.
-			
-		}
+            title_sb.append(title_res);
+        }
+		
+		JSONObject title_obj = new JSONObject(title_sb.toString());
+		//System.out.println(title_obj.toString());
 		title_br.close();
 		
+		List<HashMap<String, String>> titleList = biz.searchTitle(title_obj);
+		model.addAttribute("titleList", titleList);
 		
-		/*
-		InputStream is = null;
-		try {
-		    is = new URL(addr).openStream();
-		    BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-		    String str;
-		    StringBuffer buffer = new StringBuffer();
-		    while ((str = rd.readLine()) != null) {
-		        buffer.append(str);
-		    }
-		    String receiveMsg = buffer.toString();
-		    System.out.println(receiveMsg);
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}*/
-
-
+		//////////////////////////////////title_end///////////////////////////////////////////////////
 		
-		/*
-		URL url = new URL(addr);
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-		con.setRequestProperty("Content-type", "application/json");
+		//////////////////////////////////content_start///////////////////////////////////////////////////
+		String content_addr = "http://52.231.155.109:9200/test/_doc/_search?q=content:"+search+"&pretty";
+		URL content_url = new URL(content_addr);
+		URLConnection content_conn = content_url.openConnection();
 		
-		BufferedReader rd = null;
-		if (con.getResponseCode() >= 200 && con.getResponseCode() <= 300) {
-			rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		} else {
-			rd = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		BufferedReader content_br = new BufferedReader(new InputStreamReader(content_conn.getInputStream()));
+		StringBuilder content_sb = new StringBuilder();
+		String content_res = "";
+		
+		while ((content_res = content_br.readLine()) != null) {
+			content_sb.append(content_res);
 		}
 		
-		StringBuilder sb = new StringBuilder();
-        String line = "";
-        
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        con.disconnect();
-        
-        System.out.println(sb.toString());*/
+		JSONObject content_obj = new JSONObject(content_sb.toString());
+		//System.out.println(content_obj.toString());
+		content_br.close();
+		System.out.println(content_obj.toString(4));
+		//////////////////////////////////content_end///////////////////////////////////////////////////
 		
-		return "";
+		
+		
+		return "search/search";
 	}
 
 }

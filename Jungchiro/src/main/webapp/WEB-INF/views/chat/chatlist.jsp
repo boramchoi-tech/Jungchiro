@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,7 +149,7 @@
 								<option value="4">기타</option>
 							</select>
 						</div>
-							<input id="roomMake" type="button" class="btn btn-success" value="만들기" id="createBtn">
+							<input id="roomMake" type="button" class="btn btn-success" value="만들기">
 					</form>
 				</div>
 			
@@ -222,7 +223,7 @@
 <script type="text/javascript">
  		
  	$(function() {
- 		$('#createBtn').click(function() {	
+ 		$('#roomMake').click(function() {	
  			
  			var chatName = $("#chatName").val();
  			
