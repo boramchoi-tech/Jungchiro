@@ -42,7 +42,7 @@
     margin: 0 0 5px;
     color: #777;
 }
-img{
+.map_pic{
 	width: 60px;
 	height: 60px;
 }
@@ -202,7 +202,7 @@ img{
 				    		
 				    		clist.push('<tr>\
 					    	  			    <td style="color:#000">'+ title +'</td>\
-					    	  				<td><img id="image" src=' +image+ ' >\</td>\
+					    	  				<td><img class="map_pic" id="image" src=' +image+ ' >\</td>\
 					    	  				<td style="color:#004EA2">'+party +'</td>\
 					    	  				<td><a href="https://search.naver.com/search.naver?query='+kor_name +'"'+'target="_blank" title="네이버로 검색하기">'+name+'</a>\</td>\
 					    	  				<td style="color:#000">'+gender+'</td>\
