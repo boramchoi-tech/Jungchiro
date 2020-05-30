@@ -83,7 +83,7 @@
 </head>
 <body>	
 
-	<div id="role" class="nanum">
+	<div id="role" class="nanum_m">
 
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication var="principal" property="principal" />
@@ -91,7 +91,7 @@
 			${principal.member_name }님 안녕하세요
 			<a href="/poli/mypage.do?member_seq=${principal.member_seq }">마이 페이지</a>
 			<form id="logout" action="/poli/logout" method="POST">
-			   <input id="logoutBtn" class="btn-success" type="submit" value="Logout" />
+			   <input id="logoutBtn" type="submit" value="로그아웃" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
 			   <span id="bell_count"></span>

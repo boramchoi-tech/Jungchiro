@@ -180,9 +180,9 @@ li {
 
 	<input type="hidden" id="member_seq" value="${principal.member_seq }" />
 
-	<div class="nanum">
+	<div class="nanum_m">
 		<div class="bill">
-			<h1 class="text-center">의안게시판</h1>
+			<h1 class="nanum" align="center">의안 현황</h1>
 			<br />
 			<table class="table table-hover">
 				<colgroup>

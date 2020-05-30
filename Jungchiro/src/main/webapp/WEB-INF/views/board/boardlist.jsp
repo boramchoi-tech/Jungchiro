@@ -62,9 +62,9 @@
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
 
 
-	<div class="nanum">
+	<div class="nanum_m">
 		<div class="container">
-			<h1 class="text-center strong">자유게시판</h1>
+			<h1 class="nanum" align="center">자유게시판</h1>
 
 			<div>
 				<div class="input-group">
