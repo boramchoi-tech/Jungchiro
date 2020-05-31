@@ -93,7 +93,7 @@
 			<form id="logout" action="/poli/logout" method="POST">
 			   <input id="logoutBtn" type="submit" value="&nbsp;로그아웃&nbsp;" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
+			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px; vertical-align: text-bottom;" onclick="notification();">
 			   <span id="bell_count"></span>
 			</form>
 		</sec:authorize>
@@ -117,7 +117,7 @@
 		   <div class="search">
 		      <input type="text" class="searchTerm" placeholder="뉴스 제목 또는 뉴스 내용 검색하기">
 		      <button class="searchButton">
-		        <img src="/poli/resources/images/search2.png" style="height: 30px;">
+		      	<img src="/poli/resources/images/search.png" style="height: 20px;">
 		     </button>
 		   </div>
 		</div>
@@ -142,7 +142,14 @@
 		
 		$('.searchButton').click(function() {
 			var keyword = $('.searchTerm').val();
-			location.href = "/poli/search.do?keyword=" + keyword;
+			
+			if(keyword == "" || keyword == null) {
+				alert('검색어를 입력해 주세요')
+				return false;
+			} else {	
+				location.href = "/poli/search.do?keyword=" + keyword;
+			}
+			
 			
 		});
 	

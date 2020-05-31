@@ -27,8 +27,14 @@ public class SearchController {
 		//http://52.231.155.109:9200/test/_doc/_search?q=title:%EC%A3%BC%ED%98%B8%EC%98%81&pretty
 		String search = URLEncoder.encode(keyword, "UTF-8");
 		
+		if (search == null || search == "") {
+			return "main";
+		}
+		
 		//////////////////////////////////title_start///////////////////////////////////////////////////
 		String title_addr = "http://52.231.155.109:9200/test/_doc/_search?q=title:"+search+"&pretty";
+		//System.out.println(title_addr);
+		
 		URL title_url = new URL(title_addr);
 		URLConnection title_conn = title_url.openConnection();
 		
@@ -44,13 +50,15 @@ public class SearchController {
 		//System.out.println(title_obj.toString());
 		title_br.close();
 		
-		List<HashMap<String, String>> titleList = biz.searchTitle(title_obj);
+		List<HashMap<String, String>> titleList = biz.search(title_obj);
 		model.addAttribute("titleList", titleList);
 		
 		//////////////////////////////////title_end///////////////////////////////////////////////////
 		
 		//////////////////////////////////content_start///////////////////////////////////////////////////
 		String content_addr = "http://52.231.155.109:9200/test/_doc/_search?q=content:"+search+"&pretty";
+		//System.out.println(content_addr);
+		
 		URL content_url = new URL(content_addr);
 		URLConnection content_conn = content_url.openConnection();
 		
@@ -65,9 +73,10 @@ public class SearchController {
 		JSONObject content_obj = new JSONObject(content_sb.toString());
 		//System.out.println(content_obj.toString());
 		content_br.close();
-		System.out.println(content_obj.toString(4));
-		//////////////////////////////////content_end///////////////////////////////////////////////////
 		
+		List<HashMap<String, String>> contentList = biz.search(content_obj);
+		model.addAttribute("contentList", contentList);
+		//////////////////////////////////content_end///////////////////////////////////////////////////
 		
 		
 		return "search/search";

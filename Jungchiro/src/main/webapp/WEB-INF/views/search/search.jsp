@@ -10,58 +10,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+<style type="text/css">
+
+	.search_res th {
+		height: 50px;
+		font-size: 1.3em;
+		font-weight: bold;
+		border-bottom: 1px solid #9a9a9a;
+	}
+	
+	.search_res td {
+		border-bottom: 1px solid #c5c5c5;
+		padding: 10px;
+	}
+	
+	.search_res td img{
+		width: 100px;
+		height: 65px;
+	}
+	
+	.search_res .search_res_img {
+		text-align: center;
+		width: 150px;
+	}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/form/header.jsp" %>
 		<sec:authentication var="principal" property="principal" />
 		
-		<div class="container">
-			<c:forEach items="${titleList }" var="titleList">
-				<c:if test="${!empty titleList.res }">
-					${titleList.res }
-				</c:if>
+		<div class="nanum_m">
+			<div class="container">
+				<table class="search_res" style="width: 100%;">
+					<tr>
+						<th colspan="2">
+							제목 검색 결과
+						</th>
+					</tr>
+					
+					
+					<c:forEach items="${titleList }" var="titleList">
+						<c:if test="${!empty titleList.res }">
+							<td colspan="2">${titleList.res }</td>
+						</c:if>
+						
+						<c:if test="${!empty titleList.img }">
+							<tr>
+								<td rowspan="2" class="search_res_img">
+									<img src='${titleList.img }'>
+								</td>
+								<td><a href="${titleList.url }"><b>${titleList.title }</b></a></td>
+							</tr>
+							<tr>
+								<td>${titleList.content }</td>
+							</tr>
+							
+						</c:if>
+					</c:forEach>
+					
+				</table>
 				
+				<p></p>
 				
-				<c:if test="${!empty titleList.img }">
-					<img src='${titleList.img }'><br>
-				</c:if>
-				<c:if test="${!empty titleList.title }">
-					<a href="${titleList.url }"><b>${titleList.title }</b></a><br>
-				</c:if>
-				<c:if test="${!empty titleList.content }">
-					${titleList.content }<br>
-				</c:if>
-				<br><br><br>
-				<%-- ${titleList } --%>
-			
-				<%-- <tr>
-					<td class="selectedCategory">
-						<!-- 1: 의안 / 2: 시사 / 3: 이슈 / 4: 기타 -->
-						<c:if test="${chatlist.chat_category eq '1'}">
-							<c:out value="의안"/>
+				<table class="search_res" style="width: 100%;">
+					<tr>
+						<th colspan="2">
+							내용 검색 결과
+						</th>
+					</tr>
+					
+					
+					<c:forEach items="${contentList }" var="contentList">
+						<c:if test="${!empty contentList.res }">
+							<td colspan="2">${contentList.res }</td>
 						</c:if>
-						<c:if test="${chatlist.chat_category eq '2'}">
-							<c:out value="시사"/>
+						
+						<c:if test="${!empty contentList.img }">
+							<tr>
+								<td rowspan="2" class="search_res_img">
+									<img src='${contentList.img }'>
+								</td>
+								<td><a href="${contentList.url }"><b>${contentList.title }</b></a></td>
+							</tr>
+							<tr>
+								<td>${contentList.content }</td>
+							</tr>
+							
 						</c:if>
-						<c:if test="${chatlist.chat_category eq '3'}">
-							<c:out value="이슈"/>
-						</c:if>
-						<c:if test="${chatlist.chat_category eq '4'}">
-							<c:out value="기타"/>
-						</c:if>
-					</td>
-					<td>
-					<!-- action="/poli/enterroom.do" method="post"  -->
-						<form id="enter_${chatlist.chat_seq } ">
-							<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
-							<input type="hidden" name="member_seq" value="${principal.member_seq }">
-							<input type="hidden" name="chat_seq" value="${chatlist.chat_seq }">
-							<input type="button" class="enterBtn" value="${chatlist.chat_name }">
-						</form>
-
-					</td>
-				</tr> --%>
-			</c:forEach>
+						
+					</c:forEach>
+					
+				</table>
+			</div>
 		</div>
 
 	<%@ include file="/WEB-INF/views/form/footer.jsp" %>

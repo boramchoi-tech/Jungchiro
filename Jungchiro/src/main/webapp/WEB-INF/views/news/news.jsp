@@ -97,7 +97,7 @@ legend {
 button, input, select, textarea {
 /* 	font-size: 100%; */
 	margin: 0;
-	vertical-align: baseline
+	vertical-align: baseline;
 }
 
 button, input {
@@ -1013,7 +1013,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	width: calc(100vw - 71px);
+	width: 100%;
 	margin: 0;
 }
 

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SearchBiz {
 	
-	public List<HashMap<String, String>> searchTitle(JSONObject obj) {
+	public List<HashMap<String, String>> search(JSONObject obj) {
 		
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		int value = obj.getJSONObject("hits").getJSONObject("total").getInt("value");
