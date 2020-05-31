@@ -9,7 +9,7 @@
 
 a, a:link, a:hover, a:visited, a:active {
 	text-decoration: none;
-	color: black ;
+	color: black;
 }
 
 .nanum{ 
@@ -33,7 +33,7 @@ a, a:link, a:hover, a:visited, a:active {
 #header_logo {
 	position: absolute;
     top: 50px;
-    left: 12%;
+    left: 15%;
     height: 80px;
 }
 
@@ -60,30 +60,13 @@ a, a:link, a:hover, a:visited, a:active {
 }
 
 #logoutBtn {
-	
+	color: #fff;
+    background-color: #007bff;
+    border-radius: 5px 5px 5px 5px;
+    height: 40px;
+    border: 0;
 }
 
-/* #header_search {
-	width: 50%;
-	text-align: center;
-	border: 5px solid #007eff;
-	height: 40px;
-	margin: 0 auto;
-}
-
-#header_searchtext {
-	position: absolute;
-	width: 300px;
-}
-
-#header_searchbtn {
-	position: relative;
-	float: right;
-	vertical-align: middle;
-    border: 1px solid red;
-    float: right;
-}
- */
  .search {
   width: 100%;
   position: relative;
@@ -94,8 +77,7 @@ a, a:link, a:hover, a:visited, a:active {
   width: 100%;
   border: 3px solid #007eff;
   border-right: none;
-  padding: 5px;
-  height: 20px;
+  padding-left: 5px;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #434343;

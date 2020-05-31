@@ -13,7 +13,7 @@
   gtag('config', 'UA-164964981-1');
 </script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>정치로</title>
 </head>
 
 <link rel="stylesheet"

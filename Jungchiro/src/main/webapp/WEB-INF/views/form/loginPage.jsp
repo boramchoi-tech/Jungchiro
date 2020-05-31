@@ -13,7 +13,7 @@
   gtag('config', 'UA-164964981-1');
 </script>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>정치로</title>
 <link rel="stylesheet" type="text/css" href="/poli/resources/css/loginPage.css"/>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>

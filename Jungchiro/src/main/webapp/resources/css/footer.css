@@ -1,5 +1,5 @@
 *{
-	paddin: 0;
+	padding: 0;
 	margin: 0;
 }
 	
@@ -12,17 +12,17 @@
 	margin: 0 auto;
 	color: #566573;
 	font-weight: bold;
+	height: 250px;
 }
 	
 #footer_about, #footer_contact, #footer_help {
-	margin-top: 30px;
-	width: 30%;
+	padding: 10px;
+	width: 40%;
 	display: inline-block;
-	height: 200px;
 }
 
 #footer_copyright {
-	height: 80%;
+/* 	height: 80%; */
 	margin: 0 auto;
 	text-align: center;
 }

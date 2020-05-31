@@ -28,23 +28,17 @@
 	<div id="footer">
 
 		<div id="footer_inner">
-
-			<div id="footer_about">
-				About Us<br> <br>
-			</div>
-
 			<div id="footer_contact">
-				Contact Us<br> <br>
+				Contact Us<br>
+				<p><a onclick="showPopup();" style="cursor: pointer">후원하기</a><br><br></p>
 			</div>
 
 			<div id="footer_help">
-				Help<br> 
-				챗봇 QR코드<br>
-				<img src="/poli/resources/images/chatbot.png" style="height: 80px; width:80px;"><br>
-				<p onclick="showPopup();" style="cursor: pointer">후원</p>
+ 				Help<br>
+				<img src="/poli/resources/images/chatbot.png" style="height: 80px; width:80px;">
 			</div>
 
-			<div id="footer_copyright">copyright (c) 2020 qclass 국민을 | All Rights Reserved.</div>
+			<div id="footer_copyright"><br><br>copyright (c) 2020 qclass 국민을 | All Rights Reserved.<br><br></div>
 
 		</div>
 	</div>

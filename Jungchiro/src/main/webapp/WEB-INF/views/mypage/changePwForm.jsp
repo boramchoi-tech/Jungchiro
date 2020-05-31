@@ -257,7 +257,7 @@ input{
 
 
 </style>
-<title>Insert title here</title>
+<title>정치로</title>
 </head>
 <body>
 

@@ -88,10 +88,10 @@
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication var="principal" property="principal" />
 			<input type="hidden" id="member_seq" value="${principal.member_seq }">
-			${principal.member_name }님 안녕하세요
+				<b>${principal.member_name }님 안녕하세요</b>
 			<a href="/poli/mypage.do?member_seq=${principal.member_seq }">마이 페이지</a>
 			<form id="logout" action="/poli/logout" method="POST">
-			   <input id="logoutBtn" type="submit" value="로그아웃" />
+			   <input id="logoutBtn" type="submit" value="&nbsp;로그아웃&nbsp;" />
 			   <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			   <img src="/poli/resources/images/bell.png" id="bell" style="height: 20px; width:20px;" onclick="notification();">
 			   <span id="bell_count"></span>
@@ -115,14 +115,14 @@
 		</div>
 		<div class="header_search">
 		   <div class="search">
-		      <input type="text" class="searchTerm" placeholder="검색하고 싶은 뉴스의 제목을 입력해 주세요">
+		      <input type="text" class="searchTerm" placeholder="뉴스 제목 또는 뉴스 내용 검색하기">
 		      <button class="searchButton">
 		        <img src="/poli/resources/images/search2.png" style="height: 30px;">
 		     </button>
 		   </div>
 		</div>
-		
 	</div>
+	
 	
 	<div id="header_menu" class="nanum">
 

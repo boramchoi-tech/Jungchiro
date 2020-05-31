@@ -13,7 +13,7 @@
   gtag('config', 'UA-164964981-1');
 </script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>정치로</title>
 <link rel="stylesheet"
 	href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -28,7 +28,8 @@
 <style>
 #map {
 	height: 600px;
-	width: 100%;
+	width: 80%;
+	margin: 0 auto;
 }
 .info {
     padding: 6px 8px;

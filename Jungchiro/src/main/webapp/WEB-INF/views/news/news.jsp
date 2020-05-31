@@ -14,7 +14,7 @@
   gtag('config', 'UA-164964981-1');
 </script>
 <meta charset="UTF-8">
-<title>News</title>
+<title>정치로</title>
 <style type="text/css">
 
 
@@ -95,7 +95,7 @@ legend {
 }
 
 button, input, select, textarea {
-	font-size: 100%;
+/* 	font-size: 100%; */
 	margin: 0;
 	vertical-align: baseline
 }
@@ -141,12 +141,12 @@ html {
 	font-family: -system-ui, -apple-system, BlinkMacSystemFont, segoe ui,
 		Roboto, Helvetica, Arial, sans-serif, apple color emoji,
 		segoe ui emoji, segoe ui symbol;
-	font-size: 20px;
+/* 	font-size: 20px; */
 	font-weight: 400;
 	line-height: 1.35
 }
 
-@media ( max-width :1200px) {
+/* @media ( max-width :1200px) {
 	html {
 		font-size: 18px
 	}
@@ -156,7 +156,7 @@ html {
 	html {
 		font-size: 16px
 	}
-}
+} */
 
 ::-moz-selection {
 	background: #9c27b0;
@@ -273,11 +273,11 @@ html {
 .h1, .header-breadcrumbs .breadcrumb_last, h1 {
 	font-family: Rubik, Lato, lucida grande, lucida sans unicode, Tahoma,
 		Sans-Serif;
-	font-size: 56px;
+/* 	font-size: 56px; */
 	font-weight: 700
 }
 
-@media ( max-width :1200px) {
+/* @media ( max-width :1200px) {
 	.h1, .header-breadcrumbs .breadcrumb_last, h1 {
 		font-size: 42px
 	}
@@ -287,7 +287,7 @@ html {
 	.h1, .header-breadcrumbs .breadcrumb_last, h1 {
 		font-size: 32px
 	}
-}
+} */
 
 .h2, h2 {
 	font-family: Rubik, Lato, lucida grande, lucida sans unicode, Tahoma,
@@ -296,7 +296,7 @@ html {
 	font-weight: 700
 }
 
-@media ( max-width :1200px) {
+/* @media ( max-width :1200px) {
 	.h2, h2 {
 		font-size: 30px
 	}
@@ -306,16 +306,16 @@ html {
 	.h2, h2 {
 		font-size: 26px
 	}
-}
+} */
 
 .h3, h3 {
 	font-family: Rubik, Lato, lucida grande, lucida sans unicode, Tahoma,
 		Sans-Serif;
-	font-size: 32px;
+/* 	font-size: 32px; */
 	font-weight: 700
 }
 
-@media ( max-width :1200px) {
+/* @media ( max-width :1200px) {
 	.h3, h3 {
 		font-size: 30px
 	}
@@ -325,17 +325,17 @@ html {
 	.h3, h3 {
 		font-size: 26px
 	}
-}
+} */
 
 .h4, h4 {
 	font-family: Rubik, Lato, lucida grande, lucida sans unicode, Tahoma,
 		Sans-Serif;
 	font-weight: 700;
-	font-size: 22px;
+/* 	font-size: 22px; */
 	margin: 0 0 .8rem
 }
 
-@media ( max-width :1200px) {
+/* @media ( max-width :1200px) {
 	.h4, h4 {
 		font-size: 20px
 	}
@@ -345,16 +345,16 @@ html {
 	.h4, h4 {
 		font-size: 18px
 	}
-}
+} */
 
 .h5, h5 {
-	font-size: 1rem;
+/* 	font-size: 1rem; */
 	font-weight: 800;
 	margin: 0 0 .5rem
 }
 
 h6 {
-	font-size: 1rem;
+/* 	font-size: 1rem; */
 	font-weight: 400
 }
 
@@ -363,14 +363,14 @@ h6 {
 }
 
 .subhead {
-	font-size: 75%;
+/* 	font-size: 75%; */
 	margin: 0 0 .25rem;
 	color: #939393
 }
 
 .header-tag {
 	text-transform: uppercase;
-	font-size: 26px;
+/* 	font-size: 26px; */
 	color: #fff;
 	text-transform: uppercase;
 	font-weight: 700;
@@ -505,7 +505,7 @@ b, strong {
 }
 
 blockquote {
-	font-size: 1.1rem;
+/* 	font-size: 1.1rem; */
 	margin: 0 0 1rem;
 	padding: .25rem 0 .25rem 1.5rem;
 	position: relative
@@ -556,7 +556,7 @@ body.single article p:first-of-type.explanation::after, body.single article p:fi
 	display: block;
 	text-transform: uppercase;
 	color: #ccc;
-	font-size: .6rem;
+/* 	font-size: .6rem; */
 	letter-spacing: .05rem
 }
 
@@ -600,9 +600,9 @@ input[type=email], input[type=password], input[type=search], input[type=text],
 	input[type=url], textarea {
 	font-family: inherit;
 	outline: 0;
-	border: 0;
-	padding: 5px 1rem;
-	border-radius: 16px
+/* 	border: 0; */
+/* 	padding: 5px 1rem; */
+/* 	border-radius: 16px */
 }
 
 textarea {
@@ -685,7 +685,7 @@ html::-webkit-scrollbar-track {
 	.article-content-meta {
 		grid-template-columns: 60px auto 1fr;
 		grid-gap: .75rem;
-		font-size: .7rem
+/* 		font-size: .7rem */
 	}
 }
 
@@ -732,7 +732,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 }
 
 .jp-relatedposts-post {
-	font-size: .75rem;
+/* 	font-size: .75rem; */
 	background: #201c29;
 	border: 1px solid #312d3c;
 	-webkit-box-shadow: 0 4px 80px #000;
@@ -774,7 +774,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 .jp-relatedposts-post-title {
 	font-family: Rubik, Lato, lucida grande, lucida sans unicode, Tahoma,
 		Sans-Serif;
-	font-size: 1.4rem;
+/* 	font-size: 1.4rem; */
 	margin: 0 0 .5rem;
 	position: relative
 }
@@ -846,12 +846,12 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 
 .article-content-meta, .article-publication-meta {
 	white-space: nowrap;
-	font-size: 16px
+	/* font-size: 16px; */
 }
 
 @media ( max-width :800px) {
 	.article-content-meta, .article-publication-meta {
-		font-size: 14px
+		/* font-size: 14px */
 	}
 }
 
@@ -866,7 +866,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	font-size: .8rem;
+	/* font-size: .8rem; */
 	line-height: 1.2;
 	color: #7a7a8c;
 	padding-right: 1rem;
@@ -973,7 +973,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 
 .header-card p {
 	margin: 0;
-	font-size: 1.2rem;
+	/* font-size: 1.2rem; */
 	
 }
 
@@ -1002,7 +1002,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 
 .header-card-title {
     color: #ffffff;
-	font-size: 2.5rem;
+	/* font-size: 2.5rem; */
 	margin: 0 0 .5rem
 	
 }
@@ -1126,7 +1126,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 }
 
 .mini-card h2 {
-	font-size: 20px;
+	/* font-size: 20px; */
 	margin: .25rem 0 auto
 }
 
@@ -1135,7 +1135,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 }
 
 .mini-card .tags a {
-	font-size: .5rem
+	/* font-size: .5rem */
 }
 
 .mini-card:focus-within, .mini-card:hover {
@@ -1183,7 +1183,7 @@ body.category-sponsored .bsap-doubles, body.category-sponsored .jp-relatedposts,
 }
 
 .mini-article-subhead {
-	font-size: 14px;
+	/* font-size: 14px; */
 	margin: 0 0 1rem
 }
 
