@@ -36,7 +36,7 @@
 	#chat_exit{
 		position: absolute;
 	    left: 85%;
-	    z-index: 99999;
+	    z-index: 1;
 	    line-height: 50px;
 	    color: white;
 	}
@@ -44,9 +44,10 @@
 	#sendChat {
 		position: fixed;
 		bottom: 0;
-		width: 100%;
+ 		width: 100%;
 		line-height: 50px;
-		background-color: black;
+		border-top: 1px solid #2c2c2c;
+		background-color: white;
 	}
 	
 	#chatMessageArea{
@@ -100,13 +101,67 @@
 		font-weight: bold;
 	}
 	
+	#sendChat #message {
+		width: 80%;
+		height: 48px;
+		border: none;
+ 		padding-left: 5px;
+	}
+	
+	#sendChat #sendBtn {
+		background-color: #007eff;
+		border: none;
+		color: white;
+		width: 66px;
+		height: 50px;
+	}
+	
+	#exitBtn{
+		background-color: #2c2c2c;
+		color: white;
+		border: none;
+	}
+	
+	.modal {
+        display: none;
+        position: fixed;
+        z-index: 5;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; 
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;                     
+    }
+    
+    .isExit {
+    	background-color: #007eff;
+		border: none;
+		color: white;
+		width: 60px;
+		height: 30px;
+ 		border-radius: 5px 5px 5px 5px; 
+    }
+
+	
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
 <script type="text/javascript">
 
 	var wsocket;
-	var uri = "ws://52.231.155.109:8080/poli/chatws.do?chat_seq="+${chat.chat_seq};
+	//52.231.155.109:8080
+	var uri = "ws://localhost:8090/poli/chatws.do?chat_seq="+${chat.chat_seq};
 	
 	//웹소켓 생성
 	wsocket = new WebSocket(uri);
@@ -165,6 +220,7 @@
     
 
     $(document).ready(function() {
+    	$('#exitModal').hide();
     	
     	var scrollHeight = $("#chatMessageArea").prop('scrollHeight'); 
     	 $("#chatMessageArea").scrollTop(scrollHeight); 
@@ -192,8 +248,25 @@
     	})
     	
     	$('#exitBtn').click(function() {
-    		disconnect();
+    		$('#exitModal').show();
+
     	})
+    	
+    	$('.isExit').click(function() {
+    		var chk = $(this).val();
+    		
+    		if(chk == '아니요') {
+    			$('#exitModal').hide();
+    			
+    		} else {
+    			location.href='/poli/exitroom.do?chat_seq=${chat.chat_seq}&member_seq=${member_seq}';
+    			
+   				disconnect();
+   				self.close();
+    		}
+
+    	});
+    	
     });
 
 	
@@ -201,7 +274,7 @@
 </head>
 <body onresize="parent.resizeTo(400,600)" onload="parent.resizeTo(400,600)">
 	<div id="chat_exit">
-		<input type="button" id="exitBtn" value="나가기">
+		<input type="button" id="exitBtn" value="&nbsp;나가기&nbsp;">
 	</div>
 	
 	<div id="chat_header">
@@ -247,9 +320,21 @@
     	</div>
     </div>
     
-    <div id="sendChat">
-	    <input type="text" id="message" maxlength="18">
+    <div id="sendChat">	
+	    <input type="text" id="message" maxlength="18" placeholder="메시지를 입력해 주세요">
 		<input type="button" id="sendBtn" value="전송">
     </div>
+    
+     <div id="exitModal" class="modal">
+	     <!-- Modal content -->
+	     <div class="modal-content" style="text-align: center">
+		   	 <b>${chat.chat_name }</b><br>
+		   	 이 채팅방에서<br>
+		     정말 나가시겠습니까?<br><br>
+		     <input type="button" class="isExit" value="예">
+		     <input type="button" class="isExit" value="아니요">
+	     </div>
+     </div>
+
 </body>
 </html>

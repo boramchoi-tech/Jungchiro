@@ -101,6 +101,7 @@
 	}
 	
 	.selectedCategory{
+/* 		font-family: 'Nanum Gothic', serif; */
 		font-weight: bold;
 		width: 80px;
 	}
@@ -109,15 +110,21 @@
 		height: 40px;
 	}
 	
+	td {
+		font-family: 'Nanum Gothic', serif;
+	}
+	
 	.enterBtn{
+/* 		font-family: 'Nanum Gothic', serif; */
 		width: 500px;
 		height: 100%;
-		background-color: #FDFEFE;
+		background-color: #ffffff;
 		border: none;
 	}
 	
 	.enterBtn:hover{
-		background-color: #A2D9CE;
+		background-color: #007eff;
+		color: white;
 	}
 	
 	#chatName{
@@ -283,7 +290,7 @@
  		 									
  		 									$('#chatList').append(
  		 										"<tr>"+
- 		 						 	 			"<td>"+str.chat_category+"</td>"+
+ 		 						 	 			"<td class='selectedCategory'>"+str.chat_category+"</td>"+
  		 						 	 			"<td>"+
  		 						 	 			"<form action='/poli/enterroom.do' method='post' id='enter_"+str.chat_seq+"'>"+
  		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+
@@ -331,7 +338,7 @@
  		 									
  		 									$('#chatList').append(
  		 										"<tr>"+
- 		 						 	 			"<td>"+str.chat_category+"</td>"+
+ 		 						 	 			"<td class='selectedCategory'>"+str.chat_category+"</td>"+
  		 						 	 			"<td>"+
  		 						 	 			"<form action='/poli/enterroom.do' method='post' id='enter_"+str.chat_seq+"'>"+
  		 						 	 			"<input name='${_csrf.parameterName}' type='hidden' value='${_csrf.token}'>"+

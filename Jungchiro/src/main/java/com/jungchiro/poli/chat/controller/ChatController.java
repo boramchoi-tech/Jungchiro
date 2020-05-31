@@ -110,6 +110,8 @@ public class ChatController {
 			
 			if (enterRes != 0) {	// 성공
 				ChatDto enterInfo = enterBiz.enterInfo(dto.getMember_seq(), dto.getChat_seq());
+				System.out.println(enterInfo.getMember_seq());
+				
 				// return member_seq, member_id, member_chat_outtime, chat_seq, chat_name
 				model.addAttribute("enterRoomChk", enterRoomChk);
 				model.addAttribute("chat", enterInfo);
@@ -132,6 +134,24 @@ public class ChatController {
 			
 		}
 
+	}
+	
+	@RequestMapping(value="/exitroom.do", method={RequestMethod.POST, RequestMethod.GET})
+	public String exitRoom(String member_seq, String chat_seq) {
+		//System.out.println("Exit chat_seq" + chat_seq);
+		//System.out.println("Exit member_seq" + member_seq);
+		int memberseq = Integer.parseInt(member_seq);
+		int chatseq = Integer.parseInt(chat_seq);
+		
+		int res = enterBiz.exitRoom(memberseq, chatseq);
+		
+		if(res > 0) {
+			System.out.println("퇴장 성공");
+		} else {
+			System.out.println("퇴장 실패");
+		}
+		
+		return "chat/chatlist";
 	}
 
 }

@@ -26,5 +26,10 @@ public class EnterChatBizImpl implements EnterChatBiz {
 	public ChatDto enterInfo(int member_seq, int chat_seq) {
 		return dao.enterInfo(member_seq, chat_seq);
 	}
+	
+	@Override
+	public int exitRoom(int member_seq, int chat_seq) {
+		return dao.exitRoom(member_seq, chat_seq);
+	}
 
 }

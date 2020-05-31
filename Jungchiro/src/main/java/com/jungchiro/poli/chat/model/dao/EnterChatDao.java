@@ -9,5 +9,6 @@ public interface EnterChatDao {
 	public int enterRoomChk(int member_seq, int chat_seq);
 	public int insertChatMember(int member_seq, int chat_seq);
 	public ChatDto enterInfo(int member_seq, int chat_seq);
+	public int exitRoom(int member_seq, int chat_seq);
 
 }

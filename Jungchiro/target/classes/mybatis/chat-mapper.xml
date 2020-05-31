@@ -68,5 +68,20 @@
 		AND A.MEMBER_SEQ = #{member_seq}
 		AND C.CHAT_SEQ = #{chat_seq}
 	</select>
+	
+	<delete id="exitRoom" parameterType="chatDto">
+		DELETE FROM MEMBER_CHAT
+		WHERE MEMBER_SEQ = #{member_seq} AND CHAT_SEQ = #{chat_seq}
+	</delete>
+	
+	<select id="isCount" parameterType="int" resultType="int">
+		SELECT count(*) FROM MEMBER_CHAT
+		WHERE CHAT_SEQ = #{chat_seq}
+	</select>
+	
+	<delete id="chatRoomDelete" parameterType="int">
+		DELETE FROM CHAT
+		WHERE CHAT_SEQ = #{chat_seq}
+	</delete>
 
 </mapper>
