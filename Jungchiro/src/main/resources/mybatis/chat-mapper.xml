@@ -78,10 +78,5 @@
 		SELECT count(*) FROM MEMBER_CHAT
 		WHERE CHAT_SEQ = #{chat_seq}
 	</select>
-	
-	<delete id="chatRoomDelete" parameterType="int">
-		DELETE FROM CHAT
-		WHERE CHAT_SEQ = #{chat_seq}
-	</delete>
 
 </mapper>

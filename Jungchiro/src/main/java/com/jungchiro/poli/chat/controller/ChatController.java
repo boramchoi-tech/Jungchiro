@@ -105,7 +105,7 @@ public class ChatController {
 		System.out.println("chk : " + enterRoomChk);
 		
 		//채팅 참여 목록에 없는 member_seq일 경우
-		if (enterRoomChk != 1) {
+		if (enterRoomChk == 0) {
 			int enterRes = enterBiz.insertChatMember(dto.getMember_seq(), dto.getChat_seq());
 			
 			if (enterRes != 0) {	// 성공

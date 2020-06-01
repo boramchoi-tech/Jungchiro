@@ -186,11 +186,11 @@
         
         if (messageToJSON.message_id == '${chat.member_id}') {
         	appendMessage("<li class='message_id_mine'>" + messageToJSON.message_id + "</li><br>");
-            appendMessage("<div class='message_content_mine'>" + messageToJSON.message_time + "&nbsp;&nbsp;<span class='contents_mine'>" + messageToJSON.message_content + "</span></div><br>");
+            appendMessage("<div class='message_content_mine'>" + "<span class='contents_mine'>" + messageToJSON.message_content + "</span></div><br>");
         	
         } else {
         	appendMessage("<li class='message_id'>" + messageToJSON.message_id + "</li><br>");
-        	appendMessage("<div class='message_content'><span class='contents'>" + messageToJSON.message_content + "</span>" + messageToJSON.message_time + "</div><br>");
+        	appendMessage("<div class='message_content'><span class='contents'>" + messageToJSON.message_content + "</span></div><br>");
         	
         }
 
