@@ -164,12 +164,11 @@ public class MyPageController {
 
 		int result = boardFavBiz.checkBoardFav(dto.getBoard_seq(), dto.getMember_seq());
 
-		if (result > 0) {
-			PrintWriter out = response.getWriter();
-			out.println("<script type='text/javascript'>");
-			out.println("alert('이미 즐겨찾기 등록된 게시물입니다.')");
-			out.println("</script>");
-		}
+		/*
+		 * if (result > 0) { PrintWriter out = response.getWriter();
+		 * out.println("<script type='text/javascript'>");
+		 * out.println("alert('이미 즐겨찾기 등록된 게시물입니다.')"); out.println("</script>"); }
+		 */
 
 		int res = boardFavBiz.boardFavInsert(dto);
 		boolean isInsert = false;

@@ -30,8 +30,8 @@ public class BillFavBizImpl implements BillFavBiz {
 	}
 
 	@Override
-	public int checkBillFav(String bill_seq, int member_seq) {
-		return dao.checkBillFav(bill_seq, member_seq);
+	public int checkBillFav(String bill_id, int member_seq) {
+		return dao.checkBillFav(bill_id, member_seq);
 	}
 
 	@Override

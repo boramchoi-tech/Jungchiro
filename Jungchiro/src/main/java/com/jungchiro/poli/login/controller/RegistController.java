@@ -28,8 +28,6 @@ public class RegistController {
 	@RequestMapping(value="/regist.do", method=RequestMethod.POST)
 	public String regist(LoginDto dto) {
 		
-		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
-		
 		boolean registRes = false;
 		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		int res = biz.regist(dto);
