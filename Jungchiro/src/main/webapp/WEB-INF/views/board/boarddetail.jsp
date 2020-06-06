@@ -144,11 +144,11 @@ th {
 														+ reply.reply_content
 														+ "</div></div>";
 
-												output += "<input type='button' value='수정' id='updateBtn' onclick='updateFormToggle("
+												output += "<input type='button' class='btn btn-outline-success col-1' value='수정' id='updateBtn' onclick='updateFormToggle("
 														+ reply.reply_seq
 														+ ")'/>&nbsp;&nbsp;&nbsp;";
 
-												output += "<input type='button'value='삭제' onclick='deleteReply("
+												output += "<input type='button' class='btn btn-outline-danger col-1' value='삭제' onclick='deleteReply("
 														+ reply.board_seq
 														+ ","
 														+ reply.reply_seq
@@ -160,11 +160,11 @@ th {
 														+ "<textarea cols='50' rows='3' name='reply_content' placeholder=''>"
 														+ reply.reply_content
 														+ "</textarea>"
-														+ "<br/><input type='button' value='수정' onclick='updateReply("
+														+ "<br/><input type='button' class='btn btn-outline-success col-1' value='수정' onclick='updateReply("
 														+ reply.reply_seq
 														+ ")'/>"
 														+ "&nbsp;&nbsp;&nbsp;"
-														+ "<input type='button' value='취소' onclick='updateCancel("
+														+ "<input type='button' class='btn btn-outline-danger col-1' value='취소' onclick='updateCancel("
 														+ reply.reply_seq
 														+ ")'/>" + "</form>";
 
@@ -325,11 +325,11 @@ th {
 			<!-- 글 수정 / 삭제 -->
 			<c:if test="${principal.member_seq eq board.member_seq }">
 				<tr>
-					<td colspan="8" align="right"><input type="button" value="수정"
+					<td colspan="8" align="right"><input type="button" class="btn btn-success" value="수정"
 						onclick="location.href='/poli/boardupdateform.do?board_seq=${board.board_seq}&member_seq=${board.member_seq }'">
-						<input type="button" value="삭제"
+						<input type="button" class="btn btn-danger" value="삭제"
 						onclick="location.href='/poli/boarddelete.do?board_seq=${board.board_seq}'" />
-						<input type="button" value="글 목록"
+						<input type="button" class="btn btn-primary" value="글 목록"
 						onclick="location.href ='/poli/boardlist.do?page=${search.page}&perPageNum=${search.perPageNum}&searchType=${search.searchType}&keyword=${search.keyword}'">
 					</td>
 				</tr>
@@ -347,7 +347,7 @@ th {
 				<div>
 					<textarea cols="50" rows="5" name="reply_content"
 						class="form-control col-6" placeholder="여러분의 소중한 댓글을 입력해주세요."></textarea>
-					<br /> <input type="button" value="댓글달기" onclick="insertReply();" />
+					<br /> <input type="button" class="btn btn-outline-primary" value="댓글달기" onclick="insertReply();" />
 
 				</div>
 

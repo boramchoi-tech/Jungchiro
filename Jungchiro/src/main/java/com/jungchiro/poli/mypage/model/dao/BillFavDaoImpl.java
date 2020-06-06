@@ -69,19 +69,19 @@ public class BillFavDaoImpl implements BillFavDao {
 	}
 
 	@Override
-	public int checkBillFav(String bill_seq, int member_seq) {
+	public int checkBillFav(String bill_id, int member_seq) {
 		
 		int res = 0;
 		
-		System.out.println("bill_seq : " + bill_seq + "member_seq : " + member_seq);
+		System.out.println("bill_id : " + bill_id + "member_seq : " + member_seq);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("bill_seq", bill_seq);
+		map.put("bill_id", bill_id);
 		map.put("member_seq", member_seq);
 		System.out.println(map);
 
 		try {
-			res = sqlSession.selectOne(NAMESPACE + "checkBilldFav", map);
+			res = sqlSession.selectOne(NAMESPACE + "checkBillFav", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("[error] : 의안 즐겨찾기 하나 출력 에러");

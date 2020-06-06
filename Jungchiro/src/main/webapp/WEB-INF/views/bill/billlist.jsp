@@ -51,124 +51,157 @@ li {
 
 <!-- START :: JAVASCRIPT -->
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+   src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/poli/resources/js/ajaxCommon.js"></script>
 <script type="text/javascript">
-	
-	/* 
-	* bill 즐겨찾기 등록 
-	*/
-	
-	function isFav(board_id){
-		
-		var member_seq = $("#member_seq").val().trim();
-		var bill_id = board_id;
-		
-		console.log("member_seq : " + member_seq + " bill_id : " + bill_id);
-		
-		
-		var Fav = {
-				"member_seq" : member_seq,
-				"bill_id" : bill_id
-		}
-		
-		console.log(Fav);
-		
-		
-		var ajax = new ComAjax();
-		ajax.url("/poli/isBillFav.do");
-		ajax.param(Fav);
-		
-		ajax.success(function(msg){
-			console.log(msg);
-			
-			if(msg.isBillFav == true){
-				alert("이미 즐겨찾기 된 의안입니다.");
-				return false;
-			} else {
-				insertBillFav(member_seq, bill_id);
-			}
-		});
-		
-		ajax.call();		
-		
-	}
-	
-	/* 
-	* bill 즐겨찾기 등록 
-	*/
-	
-	function insertBillFav(member_seq, bill_id){
-		
-		var BillFav = {
-				"member_seq" : member_seq,
-				"bill_id" : bill_id
-		}
-		
-		var ajax01 = new ComAjax();
-		ajax01.url("/poli/insertBillFav.do");
-		ajax01.param(BillFav);
-		
-		ajax01.success(function(msg){
-			
-			if(msg.isInsert == true){
-				var confirm = window.confirm("즐겨찾기에 등록되었습니다. \n 마이페이지로 이동하시겠습니까?");
-				
-				if(confirm){
-					location.href="/poli/mypage.do?member_seq=" + member_seq;
-				} else {
-					return false;
-				}
-			}
-		})
-		
-		ajax01.call();
-	}
-	
-	/* 
-	* bill 즐겨찾기 취소 
-	*/
-	
-	function isDeleteFav(board_id){
-		
-		var member_seq = $("#member_seq").val().trim();
-		var bill_id = board_id;
-		
-		console.log("member_seq : " + member_seq + " bill_id : " + bill_id);
-		
-		
-		var Fav = {
-				"member_seq" : member_seq,
-				"bill_id" : bill_id
-		}
-		
-		console.log(Fav);		
-		
-		var ajax02 = new ComAjax();
-		ajax02.url("/poli/isBillFav.do");
-		ajax02.param(Fav);
-		
-		ajax02.success(function(msg){
-			console.log(msg);
-			
-			if(msg.isBillFav == false){				
-				var cofirmIsFav = window.confirm("즐겨찾기 등록되어 있지 않은 의안입니다. \n 즐겨찾기 등록 하시겠습니까?");
-				
-				if(confirmFav){
-					insertBillFav(member_seq, board_id);
-				} else {
-					return false;
-				}
-				
-			} else {
-				insertBillFav(member_seq, bill_id);
-			}
-		});
-		
-		ajax02.call();		
-		
-	}
+   
+   /* 
+   * bill 즐겨찾기 등록 
+   */
+   
+   function isFav(bill_id){
+      
+      var member_seq = $("#member_seq").val().trim();
+      var bill_id = bill_id;
+      
+      console.log("member_seq : " + member_seq + " bill_id : " + bill_id);
+      
+      
+      //////////////////추가/////////////////
+      if(member_seq == null || member_seq == ""){
+         var loginFirst = window.confirm("로그인을 하셔야 등록 가능합니다. \n 로그인을 하러 가시겠습니까?");
+         if(loginFirst){
+            location.href="/poli/loginPage.do"
+         } else {
+            return false;
+         }
+      }
+      
+      var Fav = {
+            "member_seq" : member_seq,
+            "bill_id" : bill_id
+      }
+      
+      console.log(Fav);
+      
+      
+      var ajax = new ComAjax();
+      ajax.url("/poli/isBillFav.do");
+      ajax.param(Fav);
+      
+      ajax.success(function(msg){
+         console.log(msg);
+         
+         if(msg.isBillFav == true){
+            alert("이미 즐겨찾기 된 의안입니다.");
+            return false;
+         } else {
+            insertBillFav(member_seq, bill_id);
+         }
+      });
+      
+      ajax.call();      
+      
+   }
+   
+   /* 
+   * bill 즐겨찾기 등록 
+   */
+   
+   function insertBillFav(member_seq, bill_id){
+      
+      var BillFav = {
+            "member_seq" : member_seq,
+            "bill_id" : bill_id
+      }
+      
+      var ajax01 = new ComAjax();
+      ajax01.url("/poli/insertBillFav.do");
+      ajax01.param(BillFav);
+      
+      ajax01.success(function(msg){
+         
+         if(msg.isInsert == true){
+            var confirm = window.confirm("즐겨찾기에 등록되었습니다. \n 마이페이지로 이동하시겠습니까?");
+            
+            if(confirm){
+               location.href="/poli/mypage.do?member_seq=" + member_seq;
+            } else {
+               return false;
+            }
+         }
+      })
+      
+      ajax01.call();
+   }
+   
+   /* 
+   * bill 즐겨찾기 취소 
+   */
+   
+   function isDeleteFav(bill_id){
+      
+      var member_seq = $("#member_seq").val().trim();
+      var bill_id = bill_id;
+      
+      console.log("member_seq : " + member_seq + " bill_id : " + bill_id);
+      
+      
+      var Fav = {
+            "member_seq" : member_seq,
+            "bill_id" : bill_id
+      }
+      
+      console.log(Fav);      
+      
+      var ajax02 = new ComAjax();
+      ajax02.url("/poli/isBillFav.do");
+      ajax02.param(Fav);
+      
+      ajax02.success(function(msg){
+         console.log(msg);
+         
+         if(msg.isBillFav == false){            
+            var cofirmIsFav = window.confirm("즐겨찾기 등록되어 있지 않은 의안입니다. \n 즐겨찾기 등록 하시겠습니까?");
+            
+            if(cofirmIsFav){
+               insertBillFav(member_seq, bill_id);
+            } else {
+               return false;
+            }
+            
+         } else {
+            cancleBillFav(bill_id, member_seq);
+         }
+      });
+      
+      ajax02.call();      
+      
+   }
+   
+   function cancleBillFav(bill_id, member_seq){
+      console.log(bill_id, member_seq);
+      
+      var Cancle = {
+            "bill_id" : bill_id,
+            "member_seq" : member_seq            
+      }
+      
+      var ajax03 = new ComAjax();
+      ajax03.url("/poli/cancleBillFav.do");
+      ajax03.param(Cancle);
+      
+      ajax03.success(function(res){
+         console.log(res);
+         
+         if(res.isCancle == true){
+            alert("성공적으로 즐겨찾기 취소가 완료되었습니다.");
+         }
+      })
+      
+      ajax03.call();
+
+   }
 	
 
 

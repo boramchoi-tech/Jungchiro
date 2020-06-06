@@ -798,24 +798,26 @@
 					"member_pw" : pw
 			}
 			
-			ajaxpw.url("/poli/confirmPw.do");
-			ajaxpw.param(confirmPassword);
-			ajaxpw.success(function(msg){
-				
-				if(msg.isPw == true){
-					var confirmPw = window.confirm("비밀번호가 확인되었습니다. \n 수정하시겠습니까?");
-					
-					if(confirmPw){
-						location.href="/poli/changePwForm.do?";
-					} else {
-						alert("비밀번호를 다시 입력해주세요.");
-					}
-				};
-			
-			});
-			
-			ajaxpw.call();
-		};
+	         ajaxpw.url("/poli/confirmPw.do");
+	         ajaxpw.param(confirmPassword);
+	         ajaxpw.success(function(msg){
+	            
+	            if(msg.isPw == true){
+	               var confirmPw = window.confirm("비밀번호가 확인되었습니다. \n 수정하시겠습니까?");
+	               
+	               if(confirmPw){
+	                  location.href="/poli/changePwForm.do?";
+	               } else {
+	                  alert("비밀번호를 다시 입력해주세요.");
+	               }
+	            }else{
+	               alert("비밀번호를 다시 입력해주세요.");
+	            }
+	         
+	         });
+	         
+	         ajaxpw.call();
+	      };
 
 	</script>
 	
