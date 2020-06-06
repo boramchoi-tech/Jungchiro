@@ -26,7 +26,7 @@ Apache Tomcat, Oracle, MongoDB, Docker, ElasticSearch, Logstash, Eclipse, GitHub
     * Docker 설치, docker-compose 사용하여 MongoDB - ElasticSearch container 생성
     * Python 파일 백그라운드 작업
     * Logstash 사용하여 파이프라인 실행, MongoDB -> ElasticSearch 데이터 CRUD
-    * ElasticSearch로 뉴스 검색 기능 구현
+    * ElasticSearch로 뉴스 검색 기능 구현 (메인의 워드클라우드 클릭 시 검색 기능과 똑같이 적용)
     * Spring Websocket 사용하여 다대다 채팅 구현
   * 김로운: 자유게시판, 의안 페이지, 후원 페이지
   * 이민경: 워드클라우드, 지도 페이지, 로그인/회원가입, Spring Security
