@@ -93,8 +93,7 @@ th {
 		ajax.url("/poli/isFav.do");
 		ajax.param(Fav);
 
-		ajax
-				.success(function(msg) {
+		ajax.success(function(msg) {
 
 					if (msg.isFav == true) {
 
@@ -102,8 +101,7 @@ th {
 								.append(
 										"<td><img src='/poli/resources/images/yellow star.png' class='yellowstar' onclick='deleteFav();'/></td>")
 					} else {
-						$('#isFav')
-								.append(
+						$('#isFav').append(
 										"<td><img src='/poli/resources/images/black star.png' class='blackstar' onclick='insertFav();'/></td>");
 					}
 				});
@@ -131,47 +129,47 @@ th {
 							$
 									.each(
 											data,
-											function(index, reply) {
+											function(index, reply, _csrf) {
 
-												output += "<h5 class='card-title'>"
-														+ reply.member_id
-														+ "</h5>"
-														+ "<span class='card-text' id='date'>"
-														+ reply.reply_date
-														+ "</span>" + "<br/>";
+												output += "<div id='reply' class='card'><h5>"
+			                                          + reply.member_id
+			                                          + "</h5>"
+			                                          + "<p id='date'>"
+			                                          + reply.reply_date
+			                                          + "</p>";
 
-												output += "<div><div class='card-text' id='content'>"
-														+ reply.reply_content
-														+ "</div></div>";
+			                                    output += "<div><div class='card-text' id='content'>"
+			                                          + reply.reply_content
+			                                          + "</div></div><br/>";
 
-												output += "<input type='button' class='btn btn-outline-success col-1' value='수정' id='updateBtn' onclick='updateFormToggle("
-														+ reply.reply_seq
-														+ ")'/>&nbsp;&nbsp;&nbsp;";
+			                                    output += "<input type='button' class='btn btn-outline-success col-1' value='수정' id='updateBtn' onclick='updateFormToggle("
+			                                          + reply.reply_seq
+			                                          + ")'/>"
+			                                          + "<input type='button' class='btn btn-outline-danger col-1' value='삭제' onclick='deleteReply("
+			                                          + reply.board_seq
+			                                          + ","
+			                                          + reply.reply_seq
+			                                          + ")'/><br/>";
 
-												output += "<input type='button' class='btn btn-outline-danger col-1' value='삭제' onclick='deleteReply("
-														+ reply.board_seq
-														+ ","
-														+ reply.reply_seq
-														+ ")'/><br/><br/>";
-
-												output += "<form action='/replyupdate.do' method='post' id='updateForm" + reply.reply_seq + "' style='display:none;'>"
-														+ "<input type='hidden' name='board_seq' value='" + reply.board_seq + "'/>"
-														+ "<input type='hidden' name='reply_seq' value='" + reply.reply_seq + "'/>"
-														+ "<textarea cols='50' rows='3' name='reply_content' placeholder=''>"
-														+ reply.reply_content
-														+ "</textarea>"
-														+ "<br/><input type='button' class='btn btn-outline-success col-1' value='수정' onclick='updateReply("
-														+ reply.reply_seq
-														+ ")'/>"
-														+ "&nbsp;&nbsp;&nbsp;"
-														+ "<input type='button' class='btn btn-outline-danger col-1' value='취소' onclick='updateCancel("
-														+ reply.reply_seq
-														+ ")'/>" + "</form>";
+			                                    output += "<form action='/replyupdate.do' method='post' id='updateForm" + reply.reply_seq + "' style='display:none;'>"
+			                                          + "<input type='hidden' name='board_seq' value='" + reply.board_seq + "'/>"
+			                                          + "<input type='hidden' name='reply_seq' value='" + reply.reply_seq + "'/>"
+			                                          + "<textarea cols='50' rows='3' class='form-control col-7' name='reply_content' placeholder=''>"
+			                                          + reply.reply_content
+			                                          + "</textarea>"
+			                                          + "<br/><input type='button' value='수정' class='btn btn-outline-success col-1' onclick='updateReply("
+			                                          + reply.reply_seq
+			                                          + ")'/>"
+			                                          + "&nbsp;&nbsp;&nbsp;"
+			                                          + "<input type='button' value='취소' class='btn btn-outline-danger col-1' onclick='updateCancel("
+			                                          + reply.reply_seq
+			                                          + ")'/>"
+			                                          + "</form></div><br/>";
 
 											});
 
 							if (output == "") {
-								output += "<div>---등록된 댓글이 없습니다---</div>";
+								output += "<div>---등록된 댓글이 없습니다---</div><br>";
 							}
 							$("#ajaxReplyForm").html(output);
 						})
@@ -198,19 +196,18 @@ th {
 			},
 			datatype : "text",
 			beforeSend : function(xhr) { //데이터를 전송하기 전에 헤더에 csrf값을 설정한다
-				xhr.setRequestHeader(header, token);
-			},
+	            xhr.setRequestHeader(header, token);
+	        },
 			success : function(args) {
 				alert("댓글 쓰기 성공")
 				selectReply();
-				$("#replySubmit").find("textarea[name='reply_content']")
-						.val("");
+				$("#replySubmit").find("textarea[name='reply_content']").val("");
 
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
 						+ request.responseText + "\n" + "error:" + error);
-			}
+			} 
 
 		});
 	}
@@ -225,7 +222,9 @@ th {
 				reply_seq : reply_seq
 			},
 			datatype : "text",
-
+			beforeSend : function(xhr) { //데이터를 전송하기 전에 헤더에 csrf값을 설정한다
+                xhr.setRequestHeader(header, token);
+            },
 			success : function(args) {
 				alert("댓글 삭제 성공")
 				selectReply();
@@ -254,6 +253,8 @@ th {
 				"input[name='reply_seq']").val();
 		var reply_content = $("#updateForm" + reply_seq).find(
 				"textarea[name='reply_content']").val();
+		var token = $("meta[name='_csrf']").attr("content");
+	    var header = $("meta[name='_csrf_header']").attr("content");
 
 		$.ajax({
 			type : "POST",
@@ -264,7 +265,10 @@ th {
 				reply_content : reply_content
 			},
 			datatype : "text",
+			beforeSend : function(xhr) { //데이터를 전송하기 전에 헤더에 csrf값을 설정한다
+	            xhr.setRequestHeader(header, token);
 
+	         },
 			success : function(args) {
 				alert("댓글 수정 성공")
 				selectReply();
@@ -277,6 +281,7 @@ th {
 			}
 		})
 	}
+
 </script>
 <body>
 

@@ -149,8 +149,16 @@
 					</c:if>
 					<c:forEach begin="${pageMake.startPage}" end="${pageMake.endPage}"
 						var="idx">
-						<li class="page-item"><a class="page-link"
-							href="/poli/boardlist.do${pageMake.makeSearch(idx)}">${idx}</a></li>
+						<li class="page-item">
+							<a class="page-link" href="/poli/boardlist.do${pageMake.makeSearch(idx)}">
+								<c:if test="${search.page == idx }">
+									<b>${idx }</b>
+								</c:if>
+								<c:if test="${search.page != idx }">
+									${idx}
+								</c:if>
+							</a>
+						</li>
 					</c:forEach>
 					<c:if test="${pageMake.next && pageMake.endPage > 0}">
 						<li class="page-item"><a class="page-link"

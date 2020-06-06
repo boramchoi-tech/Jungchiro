@@ -103,10 +103,9 @@
 
 
 					<p>
-						<input type="button" value="글쓰기" onclick="writeCheck()"> <input
+						<input type="button" value="글쓰기" class="btn btn-outline-primary" onclick="writeCheck()"> <input
 							type="hidden" name="member_seq" value="${principal.member_seq}">
-						<input type="button" value="취소"
-							onclick="location.href ='/poli/boardlist.do?page=1'">
+						<input type="button" value="취소" class="btn btn-outline-danger" onclick="location.href ='/poli/boardlist.do?page=1'">
 					</p>
 
 				</div>

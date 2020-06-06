@@ -13,6 +13,15 @@
   gtag('config', 'UA-164964981-1');
 </script>
 <meta charset="UTF-8">
+<style type="text/css">
+	#update_container{
+		width: 60%;
+		margin: 0 auto;
+	}
+	#update_container table{
+		width: 100%;
+	}
+</style>
 <title>정치로</title>
 
 <script type="text/javascript"
@@ -52,63 +61,62 @@
 <body>
 
 	<%@ include file="/WEB-INF/views/form/header.jsp"%>
-
-
-	<h1>글 수정</h1>
-	<form action="/poli/boardupdateres.do" method="post" name="boardupdate">
-		<input name="${_csrf.parameterName}" type="hidden"
-			value="${_csrf.token}" /> <input type="hidden" name="board_seq"
-			value="${board.board_seq}">
-
-
-		<table border="1">
-			<tr>
-				<th>제목</th>
-				<td><input type="text" value="${board.board_title }"
-					name="board_title"></td>
-			</tr>
-
-			<tr>
-				<th>작성자</th>
-				<td>${principal.username }</td>
-			</tr>
-
-			<tr>
-				<th>카테고리</th>
-				<td><select name="board_category">
-						<option value="${board.board_category }">${board.board_category }</option>
-						<option value="">카테고리 선택</option>
-						<option value="의안">의안</option>
-						<option value="시사">시사</option>
-						<option value="이슈">이슈</option>
-						<option value="기타">기타</option>
-				</select></td>
-			</tr>
-
-			<tr>
-
-				<th>내용</th>
-				<td><textarea rows="10" cols="60" name="board_content"
-						id="board_content">
-						${board.board_content }
-				    </textarea> <script>
-									CKEDITOR
-											.replace(
-													"board_content",
-													{
-														filebrowserUploadUrl : "/poli/imageUpload.do"
-													});
-								</script></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="right"><input type="button" value="수정"
-					onclick="updateCheck()"> <input type="button" value="취소"
-					onclick="location.href='/poli/boarddetail.do?board_seq=${board.board_seq}'"></td>
-			</tr>
-		</table>
-	</form>
-
-	<%@ include file="/WEB-INF/views/form/header.jsp"%>
+	
+	<div id="update_container">
+		<form action="/poli/boardupdateres.do" method="post" name="boardupdate">
+			<input name="${_csrf.parameterName}" type="hidden"
+				value="${_csrf.token}" /> <input type="hidden" name="board_seq"
+				value="${board.board_seq}">
+	
+	
+			<table>
+				<tr>
+					<th>제목</th>
+					<td><input type="text" value="${board.board_title }"
+						name="board_title"></td>
+				</tr>
+	
+				<tr>
+					<th>작성자</th>
+					<td>${principal.username }</td>
+				</tr>
+	
+				<tr>
+					<th>카테고리</th>
+					<td><select name="board_category">
+							<option value="${board.board_category }">${board.board_category }</option>
+							<option value="">카테고리 선택</option>
+							<option value="의안">의안</option>
+							<option value="시사">시사</option>
+							<option value="이슈">이슈</option>
+							<option value="기타">기타</option>
+					</select></td>
+				</tr>
+	
+				<tr>
+	
+					<th>내용</th>
+					<td><textarea rows="10" cols="60" name="board_content"
+							id="board_content">
+							${board.board_content }
+					    </textarea> <script>
+										CKEDITOR
+												.replace(
+														"board_content",
+														{
+															filebrowserUploadUrl : "/poli/imageUpload.do"
+														});
+									</script></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right"><input type="button" class="btn btn-outline-success" value="수정"
+						onclick="updateCheck()"> <input type="button" class="btn btn-outline-danger" value="취소"
+						onclick="location.href='/poli/boarddetail.do?board_seq=${board.board_seq}'"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<%@ include file="/WEB-INF/views/form/footer.jsp"%>
 
 
 </body>
