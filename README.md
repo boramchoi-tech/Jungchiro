@@ -19,7 +19,7 @@ Apache Tomcat, Oracle, MongoDB, Docker, ElasticSearch, Logstash, Eclipse, GitHub
    
    
 * **프로젝트 구성원 및 구현 기능 상세 설명**
-  * **팀 이름**: 국민을
+  > * **팀 이름**: 국민을
   * **총 4주간 진행**
   * **최보람(조장)**: 서버 구축 및 배포, 다대다 채팅, 뉴스 검색 기능   
     * Microsoft Azure 사용하여 Linux 환경에서 서버 구축 및 프로젝트 배포 - jdk, Apache Tomcat
