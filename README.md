@@ -11,9 +11,14 @@
 정치 정보 데이터 시각화를 통해 직관적으로 데이터를 제공함   
 홈페이지 내 통합 검색 기능으로 정보 접근성을 높임   
 즐겨찾기 기능, 알람 기능, 채팅 기능 등으로 사용자에게 편의성을 제공함   
+
+
+* 프로젝트 구성   
+JAVA, HTML/CSS, Javascript/JQuery, Spring, Spring Boot, JPA   
+Apache Tomcat, Oracle, MongoDB, Docker, ElasticSearch, Logstash, Eclipse, GitHub, Slack, Microsoft Azure   
    
    
-* 프로젝트 구성원 및 구현 기능
+* 프로젝트 구성원 및 구현 기능 상세 설명
   * 팀 이름: 국민을
   * 총 4주간 진행
   * 최보람(조장): 서버 구축 및 배포, 다대다 채팅, 뉴스 검색 기능
