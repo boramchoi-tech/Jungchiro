@@ -1,6 +1,6 @@
 ## 정치로 Jungchiro  
 * **KH final project**  
-* **url: http://52.231.155.109:8080/poli/**  
+* **URL**: http://52.231.155.109:8080/poli/  
    
    
 * **개요**   
