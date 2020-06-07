@@ -30,7 +30,9 @@ Apache Tomcat, Oracle, MyBatis, MongoDB, Docker, ElasticSearch, Logstash, Eclips
      * 전체 채팅방 목록, 내가 참여한 채팅방 목록 ajax 사용
    * **김로운**: 자유게시판, 의안 페이지, 후원 페이지  
      * 의안 정보 페이지 구현 (페이징)
-     * 자유게시판 - 글 검색, 페이징, 댓글 ajax 사용
+     * 자유게시판 CRUD, 글 검색, 페이징
+     * 댓글 ajax 사용하여 출력
+     * 카카오페이 api 사용하여 후원 페이지 구현
    * **이민경**: 워드클라우드, 지도 페이지, 로그인/회원가입, Spring Security
      * 회원가입 - 아이디/이메일 유효성 검사, 이메일 인증 (SMTP), Spring Security 비밀번호 암호화
      * Spring Security 사용하여 권한 분리, 인증 Token 사용
