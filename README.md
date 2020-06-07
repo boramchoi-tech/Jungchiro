@@ -12,7 +12,7 @@
 즐겨찾기 기능, 알람 기능, 채팅 기능 등으로 사용자에게 편의성을 제공함   
 ---
 * **프로젝트 구성**   
-JAVA, HTML/CSS, Javascript/JQuery, Spring Framework, Spring Boot, JPA
+JAVA, HTML/CSS, Javascript/JQuery, Spring Framework, Spring Boot, JPA   
 Apache Tomcat, Oracle, MyBatis, MongoDB, Docker, ElasticSearch, Logstash, Eclipse, GitHub, Slack, Microsoft Azure
 ---
 * **프로젝트 구성원 및 구현 기능 상세 설명**
