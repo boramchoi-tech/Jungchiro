@@ -48,7 +48,7 @@ Apache Tomcat, Oracle, MyBatis, MongoDB, Docker, ElasticSearch, Logstash, Eclips
      * Google Analytics api로 방문자 로그 (세션 유지 시간, 페이지에 머무른 시간, 세션별 페이지 등) 시각화
      * footer의 QR code 인식 시 카카오톡 채널로 넘어감
    * **전영태**: 자유게시판, 댓글 알림, 마이 페이지  
-     * 댓글 알림: SSE (Server sent event) 사용
+     * 댓글 알림: SSE (Server Sent Event) 사용
      * Quartz 사용하여 스케줄러 사용 (10초에 한번씩 알림 업데이트)
      * 자유게시판 - CKEditor 사용 / 즐겨찾기 기능 ajax 사용 / 쿠키 사용하여 조회수 중복 제한 (하루에 한 번)
      * 전체 즐겨찾기 데이터는 더보기(페이징) 사용하여 데이터 출력
