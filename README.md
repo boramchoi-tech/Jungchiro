@@ -39,7 +39,7 @@ Apache Tomcat, Oracle, MyBatis, MongoDB, Docker, ElasticSearch, Logstash, Eclips
      * 자연어 처리한 데이터 json 파일 저장 -> amchart.js에 적용시켜 워드클라우드 생성
      * geoJSON, geolocation으로 지도 기능 구현, 투표 정보에 따른 시각화 -> 지도 클릭 시 주변 5km 투표소 시각화 (서울)
    * **이성우**: Python 뉴스 크롤링, 뉴스 페이지, 관리자 페이지  
-     * Python으로 3개 신문사의 데이터 크롤링 (threading, timer 사용하여 자동화) -> 중복 데이터 필터링 후 MongoDB 저장
+     * Python으로 3개 신문사 데이터 크롤링 (threading, timer 사용하여 자동화) -> 중복 데이터 필터링 후 MongoDB 저장
      * 뉴스 페이지 - MongoDB에 저장된 날짜순으로 정렬, 카카오 api를 통해 공유 기능 구현
      * Spring boot, JPA - Hibernate로 관리자 페이지 구현 (차단 회원 검색, 차단 해제)
      * 차단 회원 목록 Drag & Drop으로 신고 내역 확인
